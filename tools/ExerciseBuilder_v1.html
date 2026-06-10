@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d0d;
+  --card: #161616;
+  --card2: #1a1a1a;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --text: #f0f0f0;
+  --muted: #888;
+  --dim: #555;
+  --accent: #c8ff00;
+  --accent-dark: #0d0d0d;
+}
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+
+/* HEADER */
+.header {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; }
+.logo span { color: var(--accent); }
+.count-badge {
+  background: var(--accent); color: var(--accent-dark);
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 3px 9px; border-radius: 20px;
+}
+.header-right { display: flex; gap: 8px; }
+
+/* BUTTONS */
+.btn {
+  padding: 9px 18px; border-radius: 8px; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.15s;
+}
+.btn-accent { background: var(--accent); color: var(--accent-dark); }
+.btn-accent:hover { background: #d9ff33; }
+.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border2); }
+.btn-ghost:hover { color: var(--text); border-color: #555; }
+.btn-danger { background: transparent; color: #ff3b30; border: 1px solid rgba(255,59,48,0.3); }
+.btn-danger:hover { background: rgba(255,59,48,0.1); }
+.btn-sm { padding: 6px 13px; font-size: 0.72rem; }
+
+/* MAIN LAYOUT */
+.main { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+
+/* ADD FORM */
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 28px;
+}
+.form-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem; letter-spacing: 0.1em;
+  color: var(--accent); margin-bottom: 18px;
+}
+.field { margin-bottom: 16px; }
+.field label {
+  display: block; font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+  margin-bottom: 7px;
+}
+.field input[type="text"] {
+  width: 100%; padding: 11px 14px;
+  background: var(--card2); border: 1px solid var(--border2);
+  border-radius: 8px; color: var(--text);
+  font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+  outline: none; transition: border-color 0.15s;
+}
+.field input[type="text"]:focus { border-color: var(--accent); }
+.field input[type="text"]::placeholder { color: var(--dim); }
+
+/* EQUIPMENT TOGGLE */
+.equip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.equip-btn {
+  padding: 9px 18px; border-radius: 8px;
+  border: 1.5px solid var(--border2); background: var(--card2);
+  color: var(--muted); font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  flex: 1; min-width: 110px; text-align: center;
+}
+.equip-btn:hover { border-color: #555; color: var(--text); }
+.equip-btn.active { background: var(--accent); color: var(--accent-dark); border-color: var(--accent); }
+
+/* PHOTO UPLOAD */
+.photos-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.photo-slot {
+  background: var(--card2); border: 1.5px dashed var(--border2);
+  border-radius: 10px; aspect-ratio: 4/3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; cursor: pointer; position: relative; overflow: hidden;
+  transition: border-color 0.15s;
+}
+.photo-slot:hover { border-color: #555; }
+.photo-slot.has-image { border-style: solid; border-color: var(--accent); }
+.photo-slot input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.photo-slot img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.photo-label-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.7); padding: 4px 8px;
+  font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #999;
+  text-align: center;
+}
+.photo-slot.has-image .photo-label-overlay { color: var(--accent); }
+.photo-placeholder-icon { font-size: 1.8rem; opacity: 0.3; }
+.photo-placeholder-text { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); }
+.remove-photo {
+  position: absolute; top: 6px; right: 6px; z-index: 10;
+  background: rgba(0,0,0,0.7); border: none; color: #ff3b30;
+  width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
+  font-size: 0.75rem; display: none; align-items: center; justify-content: center;
+}
+.photo-slot.has-image .remove-photo { display: flex; }
+
+/* FORM ACTIONS */
+.form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+
+/* SECTION HEADER */
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem; letter-spacing: 0.1em; color: var(--muted);
+}
+
+/* FILTER ROW */
+.filter-row { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-pill {
+  padding: 5px 13px; border-radius: 20px;
+  border: 1px solid var(--border2); background: var(--card2);
+  color: var(--muted); font-size: 0.72rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.filter-pill:hover { border-color: #555; color: var(--text); }
+.filter-pill.active { background: var(--accent); color: var(--accent-dark); border-color: var(--accent); }
+
+/* EXERCISE CARD */
+.ex-card {
+  background: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: 12px; overflow: hidden;
+  margin-bottom: 12px; position: relative;
+}
+.ex-card-header {
+  padding: 12px 14px 0;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+}
+.ex-card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.06em;
+}
+.ex-card-name .word1 { color: var(--accent); }
+.ex-card-name .word2 { color: var(--text); }
+.equip-tag {
+  font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 9px; border-radius: 20px;
+  background: #1e1e1e; color: #999; border: 1px solid var(--border2);
+  white-space: nowrap; flex-shrink: 0; margin-top: 3px;
+}
+.ex-card-imgs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  margin: 10px 0 0;
+}
+.ex-img-wrap { position: relative; }
+.ex-img-lbl {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.65); padding: 3px 8px;
+  font-size: 0.58rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: #666; text-align: center;
+}
+.ex-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #111; }
+.ex-img-placeholder {
+  width: 100%; aspect-ratio: 4/3;
+  background: #111; display: flex; align-items: center; justify-content: center;
+  color: var(--dim); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.ex-card-actions {
+  padding: 10px 14px; display: flex; gap: 6px; justify-content: flex-end;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center; padding: 60px 20px;
+  color: var(--dim);
+}
+.empty-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.4; }
+.empty-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--dim); margin-bottom: 6px; }
+.empty-sub { font-size: 0.8rem; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--accent); color: var(--accent-dark);
+  padding: 10px 20px; border-radius: 8px;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em;
+  opacity: 0; transition: all 0.3s; z-index: 999; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* EXPORT BAR */
+.export-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--card); border-top: 1px solid var(--border);
+  padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+  z-index: 100;
+}
+.export-info { font-size: 0.75rem; color: var(--muted); }
+.export-info strong { color: var(--text); }
+
+/* CONFIRM DIALOG */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+  z-index: 500; display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.overlay.show { opacity: 1; pointer-events: all; }
+.dialog {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 14px; padding: 24px; max-width: 340px; width: 100%;
+}
+.dialog-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.08em; margin-bottom: 8px; }
+.dialog-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+.dialog-actions { display: flex; gap: 8px; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo"><span>EXERCISE</span> BUILDER</div>
+    <div class="count-badge" id="countBadge">0 exercises</div>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-ghost btn-sm" onclick="clearAll()">Clear All</button>
+    <button class="btn btn-accent btn-sm" onclick="exportJSON()">⬇ Export JSON</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ADD FORM -->
+  <div class="form-card">
+    <div class="form-card-title">+ Add Exercise</div>
+
+    <div class="field">
+      <label>Exercise Name</label>
+      <input type="text" id="exName" placeholder="e.g. Barbell Bench Press" />
+    </div>
+
+    <div class="field">
+      <label>Equipment Type</label>
+      <div class="equip-row">
+        <button class="equip-btn" onclick="selectEquip(this, 'Calisthenic')">Calisthenic</button>
+        <button class="equip-btn" onclick="selectEquip(this, 'Free Weights')">Free Weights</button>
+        <button class="equip-btn" onclick="selectEquip(this, 'Machines')">Machines</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Photos — Before &amp; After</label>
+      <div class="photos-row">
+        <!-- BEFORE -->
+        <div class="photo-slot" id="slotBefore">
+          <input type="file" accept="image/*" onchange="handlePhoto(event,'before')" id="fileBefore" />
+          <div class="photo-placeholder-icon">📷</div>
+          <div class="photo-placeholder-text">Before (Start)</div>
+          <button class="remove-photo" onclick="removePhoto(event,'before')">✕</button>
+          <div class="photo-label-overlay">Before</div>
+        </div>
+        <!-- AFTER -->
+        <div class="photo-slot" id="slotAfter">
+          <input type="file" accept="image/*" onchange="handlePhoto(event,'after')" id="fileAfter" />
+          <div class="photo-placeholder-icon">📷</div>
+          <div class="photo-placeholder-text">After (End)</div>
+          <button class="remove-photo" onclick="removePhoto(event,'after')">✕</button>
+          <div class="photo-label-overlay">After</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="resetForm()">Reset</button>
+      <button class="btn btn-accent" onclick="addExercise()">Save Exercise</button>
+    </div>
+  </div>
+
+  <!-- LIBRARY -->
+  <div class="section-header">
+    <div class="section-title">Saved Exercises</div>
+  </div>
+
+  <div class="filter-row">
+    <div class="filter-pill active" onclick="setFilter(this,'all')">All</div>
+    <div class="filter-pill" onclick="setFilter(this,'Calisthenic')">Calisthenic</div>
+    <div class="filter-pill" onclick="setFilter(this,'Free Weights')">Free Weights</div>
+    <div class="filter-pill" onclick="setFilter(this,'Machines')">Machines</div>
+  </div>
+
+  <div id="exerciseList"></div>
+</div>
+
+<!-- EXPORT BAR -->
+<div class="export-bar">
+  <div class="export-info">💾 Data saved locally — <strong id="footerCount">0 exercises</strong></div>
+  <button class="btn btn-accent btn-sm" onclick="exportJSON()">⬇ Export JSON</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CONFIRM DIALOG -->
+<div class="overlay" id="overlay">
+  <div class="dialog">
+    <div class="dialog-title" id="dialogTitle">Delete Exercise?</div>
+    <div class="dialog-sub" id="dialogSub">This will permanently remove this exercise from your library.</div>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeDialog()">Cancel</button>
+      <button class="btn btn-danger btn-sm" id="dialogConfirm">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'exercise_builder_v1';
+let exercises = [];
+let currentEquip = null;
+let photoBefore = null;
+let photoAfter = null;
+let currentFilter = 'all';
+let pendingDelete = null;
+let pendingClear = false;
+
+// ─── LOAD ───────────────────────────────────────
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) exercises = JSON.parse(raw);
+  } catch(e) { exercises = []; }
+  render();
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(exercises));
+  updateCount();
+}
+
+function updateCount() {
+  const n = exercises.length;
+  const label = n === 1 ? '1 exercise' : `${n} exercises`;
+  document.getElementById('countBadge').textContent = label;
+  document.getElementById('footerCount').textContent = label;
+}
+
+// ─── FORM ────────────────────────────────────────
+function selectEquip(btn, val) {
+  document.querySelectorAll('.equip-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentEquip = val;
+}
+
+function handlePhoto(e, slot) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const data = ev.target.result;
+    if (slot === 'before') photoBefore = data;
+    else photoAfter = data;
+    showPhotoPreview(slot, data);
+  };
+  reader.readAsDataURL(file);
+}
+
+function showPhotoPreview(slot, data) {
+  const slotEl = document.getElementById(slot === 'before' ? 'slotBefore' : 'slotAfter');
+  slotEl.classList.add('has-image');
+  // Remove existing img if any
+  const old = slotEl.querySelector('img.preview');
+  if (old) old.remove();
+  // Hide placeholders
+  slotEl.querySelectorAll('.photo-placeholder-icon, .photo-placeholder-text').forEach(el => el.style.display = 'none');
+  // Insert img
+  const img = document.createElement('img');
+  img.src = data;
+  img.className = 'preview';
+  img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+  slotEl.insertBefore(img, slotEl.querySelector('.remove-photo'));
+}
+
+function removePhoto(e, slot) {
+  e.stopPropagation();
+  e.preventDefault();
+  if (slot === 'before') {
+    photoBefore = null;
+    document.getElementById('fileBefore').value = '';
+  } else {
+    photoAfter = null;
+    document.getElementById('fileAfter').value = '';
+  }
+  const slotEl = document.getElementById(slot === 'before' ? 'slotBefore' : 'slotAfter');
+  slotEl.classList.remove('has-image');
+  const img = slotEl.querySelector('img.preview');
+  if (img) img.remove();
+  slotEl.querySelectorAll('.photo-placeholder-icon, .photo-placeholder-text').forEach(el => el.style.display = '');
+}
+
+function resetForm() {
+  document.getElementById('exName').value = '';
+  document.querySelectorAll('.equip-btn').forEach(b => b.classList.remove('active'));
+  currentEquip = null;
+  photoBefore = null;
+  photoAfter = null;
+  ['slotBefore','slotAfter'].forEach((id, i) => {
+    const slot = document.getElementById(id);
+    slot.classList.remove('has-image');
+    const img = slot.querySelector('img.preview');
+    if (img) img.remove();
+    slot.querySelectorAll('.photo-placeholder-icon, .photo-placeholder-text').forEach(el => el.style.display = '');
+  });
+  document.getElementById('fileBefore').value = '';
+  document.getElementById('fileAfter').value = '';
+}
+
+function addExercise() {
+  const name = document.getElementById('exName').value.trim();
+  if (!name) { showToast('Enter an exercise name'); return; }
+  if (!currentEquip) { showToast('Select an equipment type'); return; }
+
+  const ex = {
+    id: Date.now(),
+    name,
+    equipment: currentEquip,
+    photoBefore: photoBefore || null,
+    photoAfter: photoAfter || null,
+    addedAt: new Date().toISOString()
+  };
+  exercises.unshift(ex);
+  save();
+  resetForm();
+  render();
+  showToast(`"${name}" saved`);
+}
+
+// ─── FILTER ──────────────────────────────────────
+function setFilter(pill, val) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  currentFilter = val;
+  render();
+}
+
+// ─── RENDER ──────────────────────────────────────
+function render() {
+  const list = document.getElementById('exerciseList');
+  const filtered = currentFilter === 'all' ? exercises : exercises.filter(e => e.equipment === currentFilter);
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">🏋️</div>
+      <div class="empty-title">${currentFilter === 'all' ? 'No exercises yet' : 'None in this category'}</div>
+      <div class="empty-sub">${currentFilter === 'all' ? 'Add your first exercise above' : 'Add one or switch filter'}</div>
+    </div>`;
+    updateCount();
+    return;
+  }
+
+  list.innerHTML = filtered.map(ex => {
+    const words = ex.name.split(' ');
+    const w1 = words[0];
+    const w2 = words.slice(1).join(' ');
+    const nameHtml = w2
+      ? `<span class="word1">${w1}</span> <span class="word2">${w2}</span>`
+      : `<span class="word1">${w1}</span>`;
+
+    const beforeImg = ex.photoBefore
+      ? `<img class="ex-img" src="${ex.photoBefore}" alt="before">`
+      : `<div class="ex-img-placeholder">No photo</div>`;
+    const afterImg = ex.photoAfter
+      ? `<img class="ex-img" src="${ex.photoAfter}" alt="after">`
+      : `<div class="ex-img-placeholder">No photo</div>`;
+
+    return `<div class="ex-card" data-id="${ex.id}">
+      <div class="ex-card-header">
+        <div class="ex-card-name">${nameHtml}</div>
+        <div class="equip-tag">${ex.equipment}</div>
+      </div>
+      <div class="ex-card-imgs">
+        <div class="ex-img-wrap">${beforeImg}<div class="ex-img-lbl">Before</div></div>
+        <div class="ex-img-wrap">${afterImg}<div class="ex-img-lbl">After</div></div>
+      </div>
+      <div class="ex-card-actions">
+        <button class="btn btn-danger btn-sm" onclick="confirmDelete(${ex.id})">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  updateCount();
+}
+
+// ─── DELETE ──────────────────────────────────────
+function confirmDelete(id) {
+  const ex = exercises.find(e => e.id === id);
+  if (!ex) return;
+  pendingDelete = id;
+  pendingClear = false;
+  document.getElementById('dialogTitle').textContent = 'Delete Exercise?';
+  document.getElementById('dialogSub').textContent = `"${ex.name}" will be permanently removed.`;
+  document.getElementById('dialogConfirm').textContent = 'Delete';
+  document.getElementById('dialogConfirm').onclick = doDelete;
+  document.getElementById('overlay').classList.add('show');
+}
+
+function doDelete() {
+  exercises = exercises.filter(e => e.id !== pendingDelete);
+  save();
+  render();
+  closeDialog();
+  showToast('Exercise deleted');
+}
+
+function clearAll() {
+  if (exercises.length === 0) { showToast('Nothing to clear'); return; }
+  pendingClear = true;
+  pendingDelete = null;
+  document.getElementById('dialogTitle').textContent = 'Clear All Exercises?';
+  document.getElementById('dialogSub').textContent = `This will permanently delete all ${exercises.length} saved exercises. This cannot be undone.`;
+  document.getElementById('dialogConfirm').textContent = 'Clear All';
+  document.getElementById('dialogConfirm').onclick = doClearAll;
+  document.getElementById('overlay').classList.add('show');
+}
+
+function doClearAll() {
+  exercises = [];
+  save();
+  render();
+  closeDialog();
+  showToast('All exercises cleared');
+}
+
+function closeDialog() {
+  document.getElementById('overlay').classList.remove('show');
+  pendingDelete = null;
+  pendingClear = false;
+}
+
+document.getElementById('overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeDialog();
+});
+
+// ─── EXPORT ──────────────────────────────────────
+function exportJSON() {
+  if (exercises.length === 0) { showToast('No exercises to export'); return; }
+
+  // Export without base64 image data embedded — just flag presence
+  const exported = exercises.map(ex => ({
+    id: ex.id,
+    name: ex.name,
+    equipment: ex.equipment,
+    hasPhotoBefore: !!ex.photoBefore,
+    hasPhotoAfter: !!ex.photoAfter,
+    photoBefore: ex.photoBefore || null,
+    photoAfter: ex.photoAfter || null,
+    addedAt: ex.addedAt
+  }));
+
+  const blob = new Blob([JSON.stringify(exported, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `exercises_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`Exported ${exercises.length} exercise${exercises.length > 1 ? 's' : ''}`);
+}
+
+// ─── TOAST ───────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ─── INIT ────────────────────────────────────────
+load();
+</script>
+</body>
+</html>
