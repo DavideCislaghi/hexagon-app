@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Music</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0d0d; --card:#161616; --card2:#1a1a1a;
+  --accent:#c8ff00; --text:#f0f0f0;
+  --muted:#555; --muted2:#888; --border:#252525;
+  --red:#ff4444; --orange:#ff9500;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; padding:24px 16px 60px;
+  max-width:500px; margin:0 auto;
+}
+
+/* header */
+.hdr{width:100%;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;}
+.hdr-l{display:flex;align-items:baseline;gap:10px;}
+.hdr-title{font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:.08em;line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-sub{font-size:.68rem;color:var(--muted2);letter-spacing:.12em;text-transform:uppercase;font-weight:600;}
+.ver{font-size:.6rem;color:var(--muted);font-style:italic;}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;width:100%;margin-bottom:10px;overflow:hidden;}
+.clabel{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:12px 16px 6px;font-weight:700;}
+
+/* track selector */
+.track-list{display:flex;flex-direction:column;gap:6px;padding:0 12px 14px;}
+.track-btn{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 14px;border-radius:9px;
+  border:1px solid var(--border);background:transparent;
+  cursor:pointer;transition:all .15s;text-align:left;
+  width:100%;
+}
+.track-btn:hover{border-color:#444;}
+.track-btn.active{border-color:var(--accent);background:rgba(200,255,0,.06);}
+.track-icon{font-size:1.3rem;flex-shrink:0;}
+.track-info{flex:1;min-width:0;}
+.track-name{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.07em;color:var(--text);line-height:1;}
+.track-btn.active .track-name{color:var(--accent);}
+.track-desc{font-size:.63rem;color:var(--muted2);margin-top:2px;line-height:1.4;}
+.track-bpm{font-size:.6rem;color:var(--muted);font-weight:600;letter-spacing:.05em;white-space:nowrap;}
+
+/* controls */
+.sl-wrap{padding:4px 16px 13px;}
+.sl-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.sl-label{font-size:.62rem;color:var(--muted2);font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.sl-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--accent);letter-spacing:.05em;line-height:1;}
+.sl-val span{font-family:'DM Sans',sans-serif;font-size:.58rem;color:var(--muted2);margin-left:2px;}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:var(--border);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 6px rgba(200,255,0,.3);cursor:pointer;}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);cursor:pointer;}
+.sl-hints{display:flex;justify-content:space-between;margin-top:4px;}
+.sl-hints span{font-size:.57rem;color:var(--muted);}
+.divider{height:1px;background:var(--border);margin:0 16px;}
+.vol-row{display:flex;align-items:center;gap:10px;padding:9px 16px 13px;}
+.vico{color:var(--muted);flex-shrink:0;}
+
+/* transport */
+.tport{background:var(--card);border:1px solid var(--border);border-radius:12px;width:100%;padding:16px;margin-bottom:10px;}
+.tport-top{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.play-btn{
+  width:60px;height:60px;border-radius:50%;
+  background:var(--accent);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all .15s;box-shadow:0 0 16px rgba(200,255,0,.2);
+}
+.play-btn:hover{box-shadow:0 0 28px rgba(200,255,0,.45);transform:scale(1.04);}
+.play-btn:active{transform:scale(.96);}
+.play-btn svg{color:#0d0d0d;}
+.tinfo{flex:1;min-width:0;}
+.t-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;line-height:1;margin-bottom:3px;}
+.t-name .hl{color:var(--accent);}
+.t-meta{font-size:.68rem;color:var(--muted2);}
+.t-meta strong{color:var(--text);font-weight:600;}
+
+/* layer indicators */
+.layers{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap;}
+.layer-dot{
+  padding:3px 8px;border-radius:4px;
+  font-size:.58rem;letter-spacing:.07em;font-weight:700;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--muted);
+  transition:all .3s;
+}
+.layer-dot.lit{border-color:var(--accent);color:var(--accent);background:rgba(200,255,0,.08);}
+
+/* variation counter */
+.var-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.var-segs{display:flex;gap:3px;flex:1;}
+.var-seg{height:3px;border-radius:2px;background:var(--border);flex:1;transition:background .4s;}
+.var-seg.done{background:rgba(200,255,0,.3);}
+.var-seg.active{background:var(--accent);}
+.var-label{font-size:.6rem;color:var(--muted2);letter-spacing:.06em;white-space:nowrap;}
+.var-label span{color:var(--accent);}
+
+/* visualiser */
+.vis{display:flex;align-items:flex-end;justify-content:center;gap:2px;height:44px;margin-bottom:2px;}
+.vbar{flex:1;max-width:9px;min-height:2px;border-radius:2px 2px 0 0;background:var(--accent);opacity:.55;transition:height .07s ease;}
+
+/* session timer */
+.stimer{display:none;}
+.stimer.on{display:block;margin-top:12px;}
+.stim-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:6px;}
+.stim-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 1s linear;width:0%;}
+.stim-row{display:flex;justify-content:space-between;}
+.stim-el{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.06em;color:var(--accent);}
+.stim-rem{font-size:.66rem;color:var(--muted2);}
+.stim-fade{font-size:.62rem;color:var(--red);display:none;margin-top:3px;}
+.stim-fade.on{display:block;}
+
+/* sdot */
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block;margin-right:7px;vertical-align:middle;transition:background .3s;}
+.sdot.on{background:var(--accent);box-shadow:0 0 7px var(--accent);animation:blink 1.3s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="hdr-title"><span>HEX</span>AGON</div>
+    <div class="hdr-sub">Music</div>
+  </div>
+  <div class="ver">v3</div>
+</div>
+
+<!-- Track selector -->
+<div class="card">
+  <div class="clabel">Tracks</div>
+  <div class="track-list" id="track-list">
+    <button class="track-btn active" data-track="0" onclick="selectTrack(0,this)">
+      <span class="track-icon">💀</span>
+      <div class="track-info">
+        <div class="track-name">Dark Phonk</div>
+        <div class="track-desc">808 bass · cowbell hits · dark minor keys · relentless groove</div>
+      </div>
+      <div class="track-bpm">148 BPM</div>
+    </button>
+    <button class="track-btn" data-track="1" onclick="selectTrack(1,this)">
+      <span class="track-icon">⚡</span>
+      <div class="track-info">
+        <div class="track-name">Heavy Dubstep</div>
+        <div class="track-desc">half-time kick · LFO wobble · growling bass · driving 4/4 hat</div>
+      </div>
+      <div class="track-bpm">140 BPM</div>
+    </button>
+    <button class="track-btn" data-track="2" onclick="selectTrack(2,this)">
+      <span class="track-icon">🌆</span>
+      <div class="track-info">
+        <div class="track-name">Darksynth</div>
+        <div class="track-desc">synthwave arpeggios · distorted bass · cinematic pads · no mercy</div>
+      </div>
+      <div class="track-bpm">128 BPM</div>
+    </button>
+    <button class="track-btn" data-track="3" onclick="selectTrack(3,this)">
+      <span class="track-icon">🔱</span>
+      <div class="track-info">
+        <div class="track-name">Trap Breaks</div>
+        <div class="track-desc">swing hi-hats · rolling snares · 808 sub · trap triplets</div>
+      </div>
+      <div class="track-bpm">95 BPM</div>
+    </button>
+    <button class="track-btn" data-track="4" onclick="selectTrack(4,this)">
+      <span class="track-icon">🔥</span>
+      <div class="track-info">
+        <div class="track-name">Industrial</div>
+        <div class="track-desc">distorted kicks · metallic percussion · aggressive textures · no space</div>
+      </div>
+      <div class="track-bpm">160 BPM</div>
+    </button>
+  </div>
+</div>
+
+<!-- BPM / Session -->
+<div class="card">
+  <div class="sl-wrap">
+    <div class="sl-head">
+      <span class="sl-label">BPM Override</span>
+      <div class="sl-val" id="bpm-disp">— <span>auto</span></div>
+    </div>
+    <input type="range" id="bpm-sl" min="60" max="200" value="148" step="1" oninput="onBpmSlider(+this.value)">
+    <div class="sl-hints"><span>60</span><span>auto per track</span><span>200</span></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sl-wrap" style="margin-top:9px">
+    <div class="sl-head">
+      <span class="sl-label">Session Length</span>
+      <div class="sl-val" id="sess-disp">45 <span>min</span></div>
+    </div>
+    <input type="range" id="sess-sl" min="0" max="90" value="45" step="5" oninput="onSess(+this.value)">
+    <div class="sl-hints"><span>Loop ∞</span><span>90 min</span></div>
+  </div>
+  <div class="divider"></div>
+  <div class="vol-row">
+    <svg class="vico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
+    <input type="range" id="vol-sl" min="0" max="100" value="70" step="1" oninput="onVol(+this.value)">
+    <svg class="vico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+  </div>
+</div>
+
+<!-- Transport -->
+<div class="tport">
+  <div class="tport-top">
+    <button class="play-btn" onclick="togglePlay()">
+      <svg id="ico-play" width="23" height="23" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <svg id="ico-pause" width="23" height="23" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </button>
+    <div class="tinfo">
+      <div class="t-name"><span class="sdot" id="sdot"></span><span id="t-label" class="hl">DARK PHONK</span></div>
+      <div class="t-meta"><strong id="t-bpm">148 BPM</strong> · <span id="t-sess">45 min</span></div>
+    </div>
+  </div>
+
+  <!-- Active layers -->
+  <div class="layers" id="layers">
+    <div class="layer-dot" id="ld-kick">KICK</div>
+    <div class="layer-dot" id="ld-bass">BASS</div>
+    <div class="layer-dot" id="ld-hat">HAT</div>
+    <div class="layer-dot" id="ld-cow">COWBELL</div>
+    <div class="layer-dot" id="ld-lead">LEAD</div>
+    <div class="layer-dot" id="ld-pad">PAD</div>
+    <div class="layer-dot" id="ld-fx">FX</div>
+  </div>
+
+  <!-- Variation bar -->
+  <div class="var-row">
+    <div class="var-segs" id="var-segs"></div>
+    <div class="var-label">VAR <span id="var-num">1</span></div>
+  </div>
+
+  <!-- Visualiser -->
+  <div class="vis" id="vis">
+    <div class="vbar" id="vb0"></div><div class="vbar" id="vb1"></div>
+    <div class="vbar" id="vb2"></div><div class="vbar" id="vb3"></div>
+    <div class="vbar" id="vb4"></div><div class="vbar" id="vb5"></div>
+    <div class="vbar" id="vb6"></div><div class="vbar" id="vb7"></div>
+    <div class="vbar" id="vb8"></div><div class="vbar" id="vb9"></div>
+    <div class="vbar" id="vb10"></div><div class="vbar" id="vb11"></div>
+    <div class="vbar" id="vb12"></div><div class="vbar" id="vb13"></div>
+    <div class="vbar" id="vb14"></div><div class="vbar" id="vb15"></div>
+    <div class="vbar" id="vb16"></div><div class="vbar" id="vb17"></div>
+  </div>
+
+  <!-- Session timer -->
+  <div class="stimer" id="stimer">
+    <div class="stim-track"><div class="stim-fill" id="stim-fill"></div></div>
+    <div class="stim-row">
+      <span class="stim-el" id="stim-el">0:00</span>
+      <span class="stim-rem" id="stim-rem">45:00 remaining</span>
+    </div>
+    <div class="stim-fade" id="stim-fade">⚡ Fading out…</div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  GLOBAL STATE
+// ═══════════════════════════════════════════════════
+let ctx = null, masterGain = null, compressor = null;
+let playing = false;
+let trackIdx = 0;
+let bpmOverride = null;
+let sessMins = 45;
+let vol = 0.70;
+
+// Scheduler
+let sched = null;
+let nextBeat = 0;
+let globalStep = 0; // 16th note counter
+const LOOKAHEAD = 0.13;
+const SCHED_MS  = 40;
+
+// Variation system — 8 bars per variation, 8 variations before reset
+const BARS_PER_VAR  = 8;
+const TOTAL_VARS    = 8;
+let   currentVar    = 0;
+let   globalBar     = 0;
+
+// Session timer
+let sessStart = null, sessInterval = null, sessFading = false;
+
+// Visualiser
+let visInt = null, visPhase = 0;
+
+// Nodes pool
+let pool = [];
+
+// ═══════════════════════════════════════════════════
+//  TRACK DEFINITIONS
+// ═══════════════════════════════════════════════════
+const TRACKS = [
+  { name:'DARK PHONK',    bpm:148, key:55,  scale:'phrygian', type:'phonk'    },
+  { name:'HEAVY DUBSTEP', bpm:140, key:55,  scale:'minor',    type:'dubstep'  },
+  { name:'DARKSYNTH',     bpm:128, key:57,  scale:'minor',    type:'synth'    },
+  { name:'TRAP BREAKS',   bpm:95,  key:52,  scale:'minor',    type:'trap'     },
+  { name:'INDUSTRIAL',    bpm:160, key:55,  scale:'phrygian', type:'industrial'},
+];
+
+function currentTrack() { return TRACKS[trackIdx]; }
+function currentBpm()   { return bpmOverride || currentTrack().bpm; }
+function spb16()        { return 60 / currentBpm() / 4; } // seconds per 16th
+
+// Scale builder
+function buildScale(rootHz, type) {
+  const intervals = {
+    minor:    [0,2,3,5,7,8,10,12,14,15,17,19],
+    phrygian: [0,1,3,5,7,8,10,12,13,15,17,19],
+  };
+  const ivals = intervals[type] || intervals.minor;
+  return ivals.map(i => rootHz * Math.pow(2, i/12));
+}
+
+function rootHz() {
+  return 27.5 * Math.pow(2, currentTrack().key / 12); // MIDI note to Hz
+}
+
+// Chord progression roots (semitone offsets from track key)
+const CHORD_PROGS = {
+  phonk:      [[0],[8],[5],[3],[0],[10],[5],[7]],  // i VI iv III i VII iv V
+  dubstep:    [[0],[5],[7],[3],[0],[5],[8],[7]],
+  synth:      [[0],[5],[8],[7],[0],[3],[5],[10]],
+  trap:       [[0],[8],[5],[10],[0],[5],[3],[7]],
+  industrial: [[0],[1],[3],[0],[7],[1],[5],[0]],   // phrygian heavy
+};
+
+function chordRootHz(varIdx) {
+  const prog = CHORD_PROGS[currentTrack().type];
+  const semis = prog[varIdx % prog.length][0];
+  return rootHz() * Math.pow(2, semis/12);
+}
+
+// ═══════════════════════════════════════════════════
+//  AUDIO INIT
+// ═══════════════════════════════════════════════════
+function initCtx() {
+  if (ctx) return;
+  ctx = new (window.AudioContext||window.webkitAudioContext)();
+
+  compressor = ctx.createDynamicsCompressor();
+  compressor.threshold.value = -14;
+  compressor.knee.value = 6;
+  compressor.ratio.value = 4;
+  compressor.attack.value = 0.003;
+  compressor.release.value = 0.15;
+  compressor.connect(ctx.destination);
+
+  masterGain = ctx.createGain();
+  masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+  masterGain.connect(compressor);
+}
+
+// Reverb impulse
+let revBuf = null;
+function revBuffer() {
+  if (revBuf) return revBuf;
+  const dur = 2.2, sr = ctx.sampleRate;
+  const b = ctx.createBuffer(2, sr*dur, sr);
+  for (let c=0;c<2;c++){
+    const d=b.getChannelData(c);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/(sr*dur),2.8);
+  }
+  return revBuf=b;
+}
+
+// ═══════════════════════════════════════════════════
+//  SYNTHESIS PRIMITIVES
+// ═══════════════════════════════════════════════════
+
+function note(freq, type, t, dur, peak, {detune=0,attack=0.004,filterHz=0,filterQ=1,reverbAmt=0,distAmt=0}={}) {
+  const osc = ctx.createOscillator();
+  const env = ctx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t);
+  if (detune) osc.detune.setValueAtTime(detune, t);
+  env.gain.setValueAtTime(0, t);
+  env.gain.linearRampToValueAtTime(peak, t+attack);
+  env.gain.setValueAtTime(peak, t+dur*0.6);
+  env.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+
+  let src = osc;
+
+  if (filterHz > 0) {
+    const f = ctx.createBiquadFilter();
+    f.type='lowpass'; f.frequency.setValueAtTime(filterHz,t); f.Q.setValueAtTime(filterQ,t);
+    src.connect(f); src=f;
+  }
+  if (distAmt > 0) {
+    const ws = ctx.createWaveShaper();
+    ws.curve = distCurve(distAmt);
+    src.connect(ws); src=ws;
+  }
+  if (reverbAmt > 0) {
+    const conv = ctx.createConvolver(); conv.buffer = revBuffer();
+    const wg = ctx.createGain(); wg.gain.setValueAtTime(reverbAmt, t);
+    const dg = ctx.createGain(); dg.gain.setValueAtTime(1-reverbAmt*0.4, t);
+    src.connect(env);
+    env.connect(conv); conv.connect(wg); wg.connect(masterGain);
+    env.connect(dg); dg.connect(masterGain);
+  } else {
+    src.connect(env); env.connect(masterGain);
+  }
+
+  osc.start(t); osc.stop(t+dur+0.05);
+  pool.push(osc);
+}
+
+function noise(t, dur, peak, {lpHz=8000,hpHz=0,attack=0.003}={}) {
+  const len = Math.min(Math.ceil(ctx.sampleRate*(dur+0.05)), ctx.sampleRate*0.4);
+  const b = ctx.createBuffer(1,len,ctx.sampleRate);
+  const d = b.getChannelData(0);
+  for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+  const src=ctx.createBufferSource(); src.buffer=b;
+  const env=ctx.createGain();
+  env.gain.setValueAtTime(0,t);
+  env.gain.linearRampToValueAtTime(peak,t+attack);
+  env.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.setValueAtTime(lpHz,t);
+  if (hpHz>0) {
+    const hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.setValueAtTime(hpHz,t);
+    src.connect(hp); hp.connect(lp);
+  } else { src.connect(lp); }
+  lp.connect(env); env.connect(masterGain);
+  src.start(t); src.stop(t+dur+0.05);
+  pool.push(src);
+}
+
+function distCurve(amt) {
+  const n=512, c=new Float32Array(n);
+  for(let i=0;i<n;i++){const x=(i*2/n)-1; c[i]=(Math.PI+amt)*x/(Math.PI+amt*Math.abs(x));}
+  return c;
+}
+
+// Kick: sub sine with pitch envelope
+function kick(t, {gain=0.9, subFreq=60, decay=0.35, click=true}={}) {
+  const osc=ctx.createOscillator(); const env=ctx.createGain();
+  osc.type='sine';
+  osc.frequency.setValueAtTime(subFreq,t);
+  osc.frequency.exponentialRampToValueAtTime(28,t+decay*0.7);
+  env.gain.setValueAtTime(gain,t);
+  env.gain.exponentialRampToValueAtTime(0.001,t+decay);
+  osc.connect(env); env.connect(masterGain);
+  osc.start(t); osc.stop(t+decay+0.05);
+  pool.push(osc);
+  if (click) noise(t,0.018,0.35,{lpHz:2800,attack:0.001});
+}
+
+// Snare: noise + tone
+function snare(t, {gain=0.45, tone=180, decay=0.16, crack=false}={}) {
+  noise(t,decay,gain,{lpHz:6000,hpHz:500,attack:0.002});
+  note(tone,'triangle',t,decay*0.7,gain*0.5,{attack:0.002});
+  if (crack) noise(t+0.008,0.04,0.28,{lpHz:10000,hpHz:2500,attack:0.001});
+}
+
+// Hi-hat
+function hat(t, {gain=0.18, open=false, swing=false}={}) {
+  const dur = open ? 0.18 : 0.038;
+  noise(t, dur, gain, {lpHz:12000, hpHz:5000, attack:0.001});
+}
+
+// Cowbell
+function cowbell(t, {gain=0.3, dur=0.14}={}) {
+  [562,845].forEach(f => note(f,'square',t,dur,gain*0.5,{filterHz:4000,filterQ:2,attack:0.001}));
+}
+
+// 808-style sub bass
+function bass808(t, freq, dur, {gain=0.7, grit=0.05}={}) {
+  const subF = freq * 0.5; // octave down
+  const osc=ctx.createOscillator(); const env=ctx.createGain();
+  osc.type='sine';
+  osc.frequency.setValueAtTime(subF*1.4,t);
+  osc.frequency.exponentialRampToValueAtTime(subF,t+0.04);
+  env.gain.setValueAtTime(gain,t+0.003);
+  env.gain.setValueAtTime(gain,t+dur*0.5);
+  env.gain.exponentialRampToValueAtTime(0.001,t+dur);
+  osc.connect(env); env.connect(masterGain);
+  osc.start(t); osc.stop(t+dur+0.05);
+  pool.push(osc);
+  if (grit>0) note(subF,'sawtooth',t,dur*0.4,grit,{filterHz:300,attack:0.005});
+}
+
+// Wobble bass (dubstep LFO filter)
+function wobbleBass(t, freq, dur, {gain=0.6, lfoRate=3, wobDepth=600}={}) {
+  const osc=ctx.createOscillator(); const env=ctx.createGain();
+  const lp=ctx.createBiquadFilter(); const lfo=ctx.createOscillator(); const lfoG=ctx.createGain();
+  osc.type='sawtooth'; osc.frequency.setValueAtTime(freq,t);
+  lp.type='lowpass'; lp.Q.setValueAtTime(7,t); lp.frequency.setValueAtTime(120,t);
+  lfo.type='sine'; lfo.frequency.setValueAtTime(lfoRate,t);
+  lfoG.gain.setValueAtTime(wobDepth,t);
+  lfo.connect(lfoG); lfoG.connect(lp.frequency);
+  env.gain.setValueAtTime(0,t); env.gain.linearRampToValueAtTime(gain,t+0.01);
+  env.gain.setValueAtTime(gain,t+dur*0.6); env.gain.exponentialRampToValueAtTime(0.001,t+dur);
+  osc.connect(lp); lp.connect(env); env.connect(masterGain);
+  osc.start(t); lfo.start(t); osc.stop(t+dur+0.05); lfo.stop(t+dur+0.05);
+  pool.push(osc,lfo);
+}
+
+// Synth pad (slow attack, long sustain, minor chord)
+function pad(t, freqs, dur, {gain=0.06, attack=0.6, reverbAmt=0.35}={}) {
+  freqs.forEach((f,i)=>{
+    note(f,'sine',t,dur,gain-i*0.008,{attack,reverbAmt,detune:i%2===0?-4:5});
+    note(f,'triangle',t,dur,(gain-i*0.008)*0.4,{attack:attack*1.2,reverbAmt:reverbAmt*0.6,detune:-6});
+  });
+}
+
+// Arpeggiated synth
+function arp(t, freq, {gain=0.1, type='sawtooth', filterHz=3500, dur=null, reverbAmt=0.2}={}) {
+  const d = dur || spb16()*1.5;
+  note(freq,type,t,d,gain,{attack:0.005,filterHz,reverbAmt});
+}
+
+// ═══════════════════════════════════════════════════
+//  PATTERN GENERATORS
+// ═══════════════════════════════════════════════════
+
+// Variation-aware pattern selectors
+// Each variation shifts patterns slightly for forward motion
+
+// PHONK patterns
+const PHONK_KICK_VARS = [
+  [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,1],  // v0: 4/4 with kick fill
+  [1,0,0,0, 1,0,0,0, 1,0,0,1, 1,0,0,0],  // v1
+  [1,0,0,1, 0,0,0,0, 1,0,0,0, 1,0,1,0],  // v2: syncopated
+  [1,0,0,0, 1,0,1,0, 0,0,1,0, 1,0,0,1],  // v3: heavy roll
+];
+const PHONK_BASS_STEPS = [
+  [0,-1,-1,-1, -1,-1,5,-1,  -1,-1,-1,-1, -1,-1,-1,-1],
+  [0,-1,-1,-1, -1,-1,-1,-1, 7,-1,-1,-1,  5,-1,-1,-1],
+  [0,-1,-1,5,  -1,-1,-1,-1, 0,-1,-1,-1,  -1,-1,3,-1],
+  [0,-1,-1,-1, 3,-1,-1,-1,  -1,-1,5,-1,  -1,-1,-1,7],
+];
+
+// DUBSTEP patterns
+const DUB_KICK_VARS = [
+  [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],  // classic half-time
+  [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,1,0],  // fill on 15
+  [1,0,0,0, 0,0,1,0, 1,0,0,0, 0,0,0,0],  // extra on 7
+  [1,0,0,0, 0,0,0,0, 0,1,0,0, 1,0,0,0],  // displaced
+];
+const DUB_BASS_STEPS = [
+  [0,-1,-1,-1, -1,-1,-1,-1, 0,-1,-1,-1,  -1,-1,-1,-1],
+  [0,-1,-1,-1, -1,-1,-1,5,  -1,-1,-1,-1, 7,-1,-1,-1],
+  [0,-1,-1,-1, 3,-1,-1,-1,  -1,-1,-1,-1, -1,-1,0,-1],
+  [0,-1,-1,7,  -1,-1,-1,-1, 5,-1,-1,-1,  -1,-1,-1,-1],
+];
+
+// SYNTH patterns
+const SYNTH_KICK_VARS = [
+  [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0],
+  [1,0,0,0, 1,0,0,0, 1,0,0,1, 0,0,1,0],
+  [1,0,1,0, 0,0,0,0, 1,0,0,0, 1,0,0,0],
+  [1,0,0,0, 1,0,0,1, 1,0,0,0, 0,1,0,0],
+];
+
+// TRAP patterns (swing, triplets)
+const TRAP_KICK_VARS = [
+  [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
+  [1,0,0,0, 0,0,1,0, 0,0,0,0, 1,0,0,0],
+  [1,0,0,0, 0,1,0,0, 1,0,0,0, 0,0,0,1],
+  [1,0,0,1, 0,0,0,0, 1,0,0,0, 0,1,0,0],
+];
+const TRAP_HAT_VARS = [
+  [1,0,1,0,1,1,0,1, 1,0,1,0,1,1,0,1],  // swing 16ths
+  [1,1,0,1,0,1,1,0, 1,1,0,1,1,0,1,0],
+  [1,0,0,1,1,0,1,0, 0,1,1,0,1,0,0,1],
+  [1,1,1,0,1,0,1,1, 0,1,0,1,1,0,1,0],
+];
+
+// INDUSTRIAL patterns
+const IND_KICK_VARS = [
+  [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,0],  // relentless 8ths
+  [1,0,0,1, 1,0,0,1, 1,0,0,1, 1,0,0,1],
+  [1,1,0,0, 1,1,0,0, 1,1,0,0, 1,1,0,0],
+  [1,0,1,1, 0,0,1,0, 1,0,1,1, 0,0,1,0],
+];
+
+function getKickPat(type, v) {
+  const map = {phonk:PHONK_KICK_VARS,dubstep:DUB_KICK_VARS,synth:SYNTH_KICK_VARS,trap:TRAP_KICK_VARS,industrial:IND_KICK_VARS};
+  const arr = map[type] || PHONK_KICK_VARS;
+  return arr[v % arr.length];
+}
+function getBassPat(type, v) {
+  const map = {phonk:PHONK_BASS_STEPS,dubstep:DUB_BASS_STEPS};
+  if (!map[type]) return PHONK_BASS_STEPS[v%4];
+  return map[type][v % map[type].length];
+}
+
+// ARP note sequences (semitones from chord root, repeating)
+const ARP_SEQS = [
+  [0,3,7,12,7,3, 0,3,10,12],
+  [0,7,3,10,0,5, 7,3,12,7],
+  [0,5,3,7, 10,7,5,3],
+  [0,12,7,3, 5,10,7,0],
+];
+
+// ═══════════════════════════════════════════════════
+//  MAIN STEP SCHEDULER
+// ═══════════════════════════════════════════════════
+
+let arpStep = 0;
+let leadStep = 0;
+let melStep = 0;
+
+function schedStep(s16, t) {
+  const step = s16 % 16;
+  const bar  = Math.floor(s16 / 16);
+  globalBar  = bar;
+  currentVar = Math.floor(bar / BARS_PER_VAR) % TOTAL_VARS;
+
+  const sp = spb16();
+  const T  = currentTrack();
+  const type = T.type;
+
+  // Chord root for this variation
+  const cr  = chordRootHz(currentVar);
+  const cr2 = cr * 0.5; // sub bass octave
+
+  // Scale for melody
+  const scale = buildScale(cr, T.scale);
+
+  // ── VARIATION: snare / hat accent pattern changes ──
+  const snapOffset = currentVar % 2 === 0 ? 0 : 1; // subtle offbeat shift
+
+  // ────────────────────────────────
+  //  PHONK
+  // ────────────────────────────────
+  if (type === 'phonk') {
+    const kp = getKickPat('phonk', currentVar);
+    const bp = getBassPat('phonk', currentVar);
+
+    // Kick
+    if (kp[step]) kick(t, {gain:0.9, subFreq:62, decay:0.3});
+
+    // Snare on 4,12 + occasional accent
+    if (step===4||step===12) snare(t,{gain:0.48,crack:currentVar>4});
+    // Ghost snare on varied steps
+    if ((currentVar%2===1) && (step===6||step===14)) snare(t,{gain:0.12,tone:210,decay:0.08});
+
+    // Cowbell on off-8ths — classic phonk signature, intensity varies
+    const cowSteps = currentVar < 4
+      ? [2,6,10,14]
+      : [2,6,10,14,3,11];  // extra hits in later variations
+    if (cowSteps.includes(step)) cowbell(t,{gain:0.28+currentVar*0.02, dur:0.12+currentVar*0.01});
+
+    // Hi-hat: tight 16ths with open on off-beats
+    const openHat = (step===6||step===14);
+    if (step%2===0) hat(t,{gain:0.16+currentVar*0.01, open:openHat});
+    // Variation: extra 32nd-note flam in high vars
+    if (currentVar>=5 && step%4===2) hat(t+sp*0.5,{gain:0.09});
+
+    // 808 Bass line
+    if (bp[step]>=0) {
+      const freq = cr2 * Math.pow(2, bp[step]/12);
+      const bdur = sp * (bp[step]===0 ? 6 : 3);
+      bass808(t, freq, bdur, {gain:0.72, grit:0.04+currentVar*0.008});
+    }
+
+    // Phonk lead — minor melody, evolves every 2 variations
+    const leadSeq = [0,3,0,5, 7,5,3,0, 3,7,5,3, 0,5,3,7][leadStep%16];
+    if (step===0||step===8) {
+      const lf = scale[leadSeq % scale.length];
+      note(lf*2,'sawtooth',t,sp*7.5,0.10+currentVar*0.008,
+        {attack:0.015,filterHz:2000+currentVar*200,reverbAmt:0.28,detune:currentVar*2});
+      leadStep++;
+    }
+    // Counter-melody every 4 vars
+    if (currentVar>=4 && (step===4||step===12)) {
+      const cf = scale[(melStep+2)%scale.length];
+      note(cf*2,'triangle',t,sp*3,0.07,{attack:0.01,filterHz:3500,reverbAmt:0.2});
+      melStep++;
+    }
+
+    // Dark atmosphere pad (always present, very subtle)
+    if (step===0 && bar%8===0) {
+      const padFreqs = [cr, cr*Math.pow(2,3/12), cr*Math.pow(2,7/12)];
+      pad(t, padFreqs, sp*128, {gain:0.045+currentVar*0.005, attack:1.2, reverbAmt:0.5});
+    }
+
+    // Phonk sweep: noise downward every 8 bars
+    if (step===15 && bar%8===7) {
+      noise(t, sp*2, 0.07, {lpHz:4000,hpHz:200,attack:0.01});
+    }
+  }
+
+  // ────────────────────────────────
+  //  DUBSTEP
+  // ────────────────────────────────
+  else if (type === 'dubstep') {
+    const kp = getKickPat('dubstep', currentVar);
+    const bp = getBassPat('dubstep', currentVar);
+
+    // Half-time kick (heavier sub)
+    if (kp[step]) kick(t,{gain:0.95,subFreq:58,decay:0.5,click:true});
+
+    // Snare on beat 3 of bar (step 8)
+    if (step===8) snare(t,{gain:0.55,crack:true,decay:0.2});
+    // Snare roll in high vars
+    if (currentVar>=5 && step===15) snare(t,{gain:0.25,decay:0.08});
+
+    // 4/4 hat pattern over half-time kick
+    const hatG = step%4===0 ? 0.19 : step%2===0 ? 0.13 : 0.08;
+    hat(t,{gain:hatG, open:step===6||step===14});
+    // Open hats more prominent in later vars
+    if (currentVar>=3 && (step===2||step===10)) hat(t,{gain:0.22,open:true});
+
+    // Wobble bass — evolves LFO rate per variation
+    if (bp[step]>=0) {
+      const freq = cr2 * Math.pow(2, bp[step]/12);
+      const bdur = sp * (bp[step]===0 ? 8 : 4);
+      const lfoRate = 2 + currentVar * 0.7; // 2Hz → 7.9Hz across variations
+      const wobDepth = 400 + currentVar * 100;
+      wobbleBass(t, freq, bdur, {gain:0.65, lfoRate, wobDepth});
+      // Sub layer always
+      note(freq*0.5,'sine',t,bdur,0.25,{attack:0.01,filterHz:180});
+    }
+
+    // Dubstep lead — every 4 bars, synth stab
+    if (step===0) {
+      const stabFreqs = [scale[0],scale[2],scale[4]];
+      const sf = stabFreqs[currentVar%3] * (currentVar>=4?2:1);
+      note(sf,'sawtooth',t,sp*2,0.13+currentVar*0.01,{attack:0.005,filterHz:2500+currentVar*300,reverbAmt:0.25});
+    }
+    // Synth screech in variations 4+
+    if (currentVar>=4 && step===8) {
+      const sf = scale[4]*4;
+      note(sf,'square',t,sp*1.5,0.08,{attack:0.003,filterHz:6000,reverbAmt:0.15});
+    }
+
+    // Pad
+    if (step===0 && bar%8===0) {
+      pad(t,[cr,cr*Math.pow(2,3/12),cr*Math.pow(2,7/12)],sp*128,{gain:0.05+currentVar*0.004,attack:0.8,reverbAmt:0.4});
+    }
+  }
+
+  // ────────────────────────────────
+  //  DARKSYNTH
+  // ────────────────────────────────
+  else if (type === 'synth') {
+    const kp = getKickPat('synth', currentVar);
+
+    // Kick
+    if (kp[step]) kick(t,{gain:0.85,subFreq:65,decay:0.25});
+
+    // Snare on 4,12
+    if (step===4||step===12) snare(t,{gain:0.42,crack:true});
+
+    // Hi-hat: steady 8ths with 16th feel
+    hat(t,{gain:step%4===0?0.20:0.12,open:step===14});
+
+    // Distorted synth bass (saw + dist)
+    if (step===0||step===8) {
+      const bfreq = cr2;
+      note(bfreq,'sawtooth',t,sp*8,0.4,{attack:0.01,filterHz:500+currentVar*60,distAmt:15+currentVar*3});
+      note(bfreq*2,'sawtooth',t,sp*4,0.08,{attack:0.01,filterHz:1200});
+    }
+    if (step===5||step===13) {
+      const bfreq = cr2 * Math.pow(2, [0,3,5,7][currentVar%4]/12);
+      note(bfreq,'sawtooth',t,sp*3,0.3,{attack:0.01,filterHz:400+currentVar*50,distAmt:12});
+    }
+
+    // Arpeggio — the signature synthwave element
+    const arpSeq = ARP_SEQS[currentVar % ARP_SEQS.length];
+    const arpNote = cr * 2 * Math.pow(2, arpSeq[arpStep % arpSeq.length]/12);
+    // Trigger arp on 16th grid but only some steps (rhythmic pattern)
+    const arpTrig = [1,0,1,0,0,1,0,1, 1,0,0,1,0,1,1,0][step];
+    if (arpTrig) {
+      arp(t, arpNote, {gain:0.09+currentVar*0.007, filterHz:3000+currentVar*300, reverbAmt:0.22});
+      arpStep++;
+    }
+
+    // Pad chord (all the time, very present in darksynth)
+    if (step===0 && bar%4===0) {
+      const padNotes = [cr, cr*Math.pow(2,3/12), cr*Math.pow(2,7/12), cr*Math.pow(2,10/12)];
+      pad(t, padNotes, sp*64, {gain:0.07+currentVar*0.005, attack:0.5, reverbAmt:0.4});
+    }
+
+    // Lead melody
+    if (step===0||step===8) {
+      const mf = scale[(melStep) % scale.length] * 4;
+      note(mf,'sawtooth',t,sp*7,0.1,{attack:0.02,filterHz:4000+currentVar*400,reverbAmt:0.25});
+      melStep++;
+    }
+  }
+
+  // ────────────────────────────────
+  //  TRAP
+  // ────────────────────────────────
+  else if (type === 'trap') {
+    const kp = getKickPat('trap', currentVar);
+    const hp = TRAP_HAT_VARS[currentVar % TRAP_HAT_VARS.length];
+
+    // Kick
+    if (kp[step]) kick(t,{gain:0.88,subFreq:55,decay:0.45});
+
+    // Snare / clap
+    if (step===4||step===12) snare(t,{gain:0.5,crack:false,decay:0.22});
+    // Trap snare roll in vars 4+
+    if (currentVar>=4 && (step===11||step===13||step===15)) snare(t,{gain:0.15+step*0.01,decay:0.06});
+
+    // Swing hi-hats (trap signature)
+    if (hp[step]) hat(t,{gain:0.14+currentVar*0.008, open:step%8===6});
+    // Triplet fill
+    if (currentVar>=3 && step===14) {
+      hat(t,{gain:0.10}); hat(t+sp*0.66,{gain:0.09}); hat(t+sp*1.33,{gain:0.08});
+    }
+
+    // 808 bass — deep and long
+    const trapBassSteps = [[0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+                           [0,-1,-1,-1,-1,-1,7,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+                           [0,-1,-1,-1,5,-1,-1,-1,-1,-1,3,-1,-1,-1,-1,-1],
+                           [0,-1,-1,5,-1,-1,-1,-1,7,-1,-1,-1,5,-1,-1,-1]];
+    const tbp = trapBassSteps[currentVar%4];
+    if (tbp[step]>=0) {
+      const freq = cr2 * Math.pow(2, tbp[step]/12);
+      bass808(t, freq, sp*12, {gain:0.75, grit:0.03});
+    }
+
+    // Trap melody — minor pentatonic stabs
+    if (step===0) {
+      const mf = scale[melStep%6] * 4;
+      note(mf,'triangle',t,sp*4,0.10,{attack:0.01,filterHz:3000,reverbAmt:0.25});
+      melStep++;
+    }
+    if (currentVar>=2 && step===8) {
+      const mf = scale[(melStep+2)%6] * 4;
+      note(mf,'sine',t,sp*3,0.08,{attack:0.015,filterHz:2500,reverbAmt:0.3});
+    }
+
+    // Pad
+    if (step===0 && bar%8===0)
+      pad(t,[cr,cr*Math.pow(2,3/12),cr*Math.pow(2,7/12)],sp*128,{gain:0.05,attack:1.5,reverbAmt:0.5});
+  }
+
+  // ────────────────────────────────
+  //  INDUSTRIAL
+  // ────────────────────────────────
+  else if (type === 'industrial') {
+    const kp = getKickPat('industrial', currentVar);
+
+    // Distorted kick on every hit
+    if (kp[step]) {
+      kick(t,{gain:0.7,subFreq:70,decay:0.15,click:false});
+      noise(t,0.06,0.4,{lpHz:2000,hpHz:400,attack:0.001}); // clicky metal
+    }
+
+    // Snare / rimshot
+    if (step===4||step===12) snare(t,{gain:0.6,tone:220,decay:0.1,crack:true});
+    if (currentVar>=3 && (step===6||step===14)) snare(t,{gain:0.25,tone:300,decay:0.06});
+
+    // Metallic hats — no subtlety
+    noise(t,0.03,0.22,{lpHz:15000,hpHz:6000,attack:0.001});
+
+    // Industrial bass — distorted square
+    if (step===0||step===8) {
+      note(cr2,'square',t,sp*8,0.5,{attack:0.005,filterHz:400+currentVar*30,distAmt:20+currentVar*4});
+    }
+    if (step===4||step===12) {
+      const f2 = cr2 * Math.pow(2, [0,3,5,7,8][currentVar%5]/12);
+      note(f2,'square',t,sp*3,0.35,{attack:0.005,filterHz:350,distAmt:18});
+    }
+
+    // Harsh lead
+    if (step===0) {
+      note(cr*4,'sawtooth',t,sp*8,0.15+currentVar*0.01,{attack:0.01,filterHz:5000+currentVar*500,distAmt:10,reverbAmt:0.15});
+      melStep++;
+    }
+
+    // Texture noise layer — always present
+    noise(t, sp*0.9, 0.04+currentVar*0.004, {lpHz:800,hpHz:100,attack:0.05});
+
+    // Pad (very subtle under all the noise)
+    if (step===0 && bar%8===0)
+      pad(t,[cr,cr*Math.pow(2,1/12),cr*Math.pow(2,7/12)],sp*128,{gain:0.035,attack:2,reverbAmt:0.45});
+  }
+
+  // ── Pool cleanup ──
+  if (step===0 && pool.length > 300) {
+    pool = pool.filter(n=>{try{return n.context&&n.context.state!=='closed';}catch(e){return false;}});
+  }
+}
+
+// ═══════════════════════════════════════════════════
+//  SCHEDULER LOOP
+// ═══════════════════════════════════════════════════
+function runScheduler() {
+  while (nextBeat < ctx.currentTime + LOOKAHEAD) {
+    schedStep(globalStep, nextBeat);
+    globalStep++;
+    nextBeat += spb16();
+  }
+}
+
+// ═══════════════════════════════════════════════════
+//  PLAY / STOP
+// ═══════════════════════════════════════════════════
+function togglePlay() {
+  initCtx();
+  if (ctx.state === 'suspended') ctx.resume();
+  playing ? stopAll(false) : startAll();
+}
+
+function startAll() {
+  playing = true;
+  globalStep = 0; globalBar = 0; currentVar = 0;
+  arpStep = 0; leadStep = 0; melStep = 0;
+  sessFading = false;
+  nextBeat = ctx.currentTime + 0.06;
+  sched = setInterval(runScheduler, SCHED_MS);
+  updatePlayUI();
+  startVis();
+  buildVarStrip();
+  if (sessMins > 0) startSessTimer();
+}
+
+function stopAll(fade=false) {
+  if (fade && masterGain) {
+    masterGain.gain.cancelScheduledValues(ctx.currentTime);
+    masterGain.gain.setValueAtTime(masterGain.gain.value, ctx.currentTime);
+    masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 3.5);
+    setTimeout(()=>{
+      clearInterval(sched); playing=false; sessFading=false;
+      masterGain.gain.setValueAtTime(vol, ctx.currentTime+0.1);
+      stopSessTimer(); stopVis(); updatePlayUI();
+    }, 3800);
+  } else {
+    clearInterval(sched); playing=false;
+    if (masterGain) { masterGain.gain.cancelScheduledValues(ctx.currentTime); masterGain.gain.setValueAtTime(vol,ctx.currentTime); }
+    stopSessTimer(); stopVis(); updatePlayUI();
+  }
+}
+
+// ═══════════════════════════════════════════════════
+//  SESSION TIMER
+// ═══════════════════════════════════════════════════
+function startSessTimer() {
+  document.getElementById('stimer').classList.add('on');
+  sessStart = Date.now();
+  const total = sessMins * 60;
+  updateTimerUI(0, total);
+  sessInterval = setInterval(()=>{
+    const el = Math.floor((Date.now()-sessStart)/1000);
+    updateTimerUI(el, total);
+    if (el >= total && !sessFading) {
+      sessFading = true;
+      document.getElementById('stim-fade').classList.add('on');
+      stopAll(true);
+    }
+  }, 1000);
+}
+function stopSessTimer() {
+  clearInterval(sessInterval);
+  document.getElementById('stim-fade').classList.remove('on');
+}
+function updateTimerUI(el, total) {
+  const rem = Math.max(total-el, 0);
+  const fmt = s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  document.getElementById('stim-el').textContent  = fmt(el);
+  document.getElementById('stim-rem').textContent = fmt(rem)+' remaining';
+  document.getElementById('stim-fill').style.width = Math.min(el/total,1)*100+'%';
+}
+
+// ═══════════════════════════════════════════════════
+//  VISUALISER
+// ═══════════════════════════════════════════════════
+function startVis() {
+  visInt = setInterval(()=>{
+    visPhase += 0.22;
+    const T = currentTrack();
+    const intensity = 0.4 + (currentVar/TOTAL_VARS)*0.6;
+    for(let i=0;i<18;i++){
+      const el=document.getElementById('vb'+i); if(!el) continue;
+      const base = 4 + intensity*16;
+      const wave = Math.sin(visPhase+i*0.65)*base;
+      const spike= Math.max(0,Math.sin(visPhase*3.5+i*1.15)*intensity*14);
+      el.style.height = Math.max(2,base+wave+spike)+'px';
+      el.style.opacity = 0.35+intensity*0.6;
+    }
+    // Update layer dots and var strip
+    updateLayerDots();
+    updateVarStrip();
+  }, 70);
+}
+function stopVis() {
+  clearInterval(visInt);
+  for(let i=0;i<18;i++){const el=document.getElementById('vb'+i);if(el){el.style.height='2px';el.style.opacity='0.15';}}
+  updateLayerDots(true);
+}
+
+// ═══════════════════════════════════════════════════
+//  LAYER DOTS
+// ═══════════════════════════════════════════════════
+const LAYER_CONFIG = {
+  phonk:      {kick:1,bass:1,hat:1,cow:1,lead:1,pad:1,fx:1},
+  dubstep:    {kick:1,bass:1,hat:1,cow:0,lead:1,pad:1,fx:1},
+  synth:      {kick:1,bass:1,hat:1,cow:0,lead:1,pad:1,fx:1},
+  trap:       {kick:1,bass:1,hat:1,cow:0,lead:1,pad:1,fx:0},
+  industrial: {kick:1,bass:1,hat:1,cow:0,lead:1,pad:0,fx:1},
+};
+function updateLayerDots(forceOff=false) {
+  const T = currentTrack();
+  const cfg = LAYER_CONFIG[T.type];
+  const layerIds = ['kick','bass','hat','cow','lead','pad','fx'];
+  layerIds.forEach(l=>{
+    const el = document.getElementById('ld-'+l);
+    if (!el) return;
+    const shouldBeLit = !forceOff && playing && cfg[l];
+    el.classList.toggle('lit', !!shouldBeLit);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+//  VARIATION STRIP
+// ═══════════════════════════════════════════════════
+function buildVarStrip() {
+  const el = document.getElementById('var-segs');
+  el.innerHTML = '';
+  for (let i=0;i<TOTAL_VARS;i++) {
+    const d = document.createElement('div');
+    d.className='var-seg'; d.id='vseg'+i;
+    el.appendChild(d);
+  }
+}
+function updateVarStrip() {
+  for(let i=0;i<TOTAL_VARS;i++){
+    const el=document.getElementById('vseg'+i); if(!el) continue;
+    if (i<currentVar) el.className='var-seg done';
+    else if (i===currentVar) el.className='var-seg active';
+    else el.className='var-seg';
+  }
+  document.getElementById('var-num').textContent = currentVar+1;
+}
+
+// ═══════════════════════════════════════════════════
+//  PLAY UI
+// ═══════════════════════════════════════════════════
+function updatePlayUI() {
+  document.getElementById('ico-play').style.display  = playing ? 'none' : '';
+  document.getElementById('ico-pause').style.display = playing ? '' : 'none';
+  const dot = document.getElementById('sdot');
+  dot.className = 'sdot' + (playing ? ' on' : '');
+  updateLayerDots(!playing);
+  if (!playing) { buildVarStrip(); updateVarStrip(); }
+}
+
+function updateMeta() {
+  const T = currentTrack();
+  const bpmVal = bpmOverride || T.bpm;
+  document.getElementById('t-label').textContent = T.name;
+  document.getElementById('t-bpm').textContent   = bpmVal+' BPM';
+  document.getElementById('t-sess').textContent  = sessMins===0?'looping ∞':sessMins+' min';
+  document.getElementById('bpm-disp').innerHTML  = bpmOverride ? bpmOverride+' <span>BPM</span>' : '— <span>auto</span>';
+  document.getElementById('sess-disp').innerHTML = sessMins===0?'∞ <span>loop</span>':sessMins+' <span>min</span>';
+}
+
+// ═══════════════════════════════════════════════════
+//  CONTROLS
+// ═══════════════════════════════════════════════════
+function selectTrack(idx, btn) {
+  trackIdx = idx;
+  document.querySelectorAll('.track-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  bpmOverride = null;
+  document.getElementById('bpm-sl').value = TRACKS[idx].bpm;
+  updateMeta();
+  if (playing) {
+    stopAll(false);
+    arpStep=0; leadStep=0; melStep=0;
+    setTimeout(startAll, 80);
+  }
+  updateLayerDots();
+}
+
+function onBpmSlider(v) {
+  bpmOverride = v;
+  updateMeta();
+}
+
+function onSess(v) {
+  sessMins = v;
+  updateMeta();
+  if (v===0) document.getElementById('stimer').classList.remove('on');
+}
+
+function onVol(v) {
+  vol = v/100;
+  if (masterGain) {
+    masterGain.gain.cancelScheduledValues(ctx.currentTime);
+    masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+  }
+}
+
+// ─── Init ───
+updateMeta();
+buildVarStrip();
+</script>
+</body>
+</html>

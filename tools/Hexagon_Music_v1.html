@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Music</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --card: #161616;
+    --accent: #c8ff00;
+    --text: #f0f0f0;
+    --muted: #666;
+    --border: #252525;
+    --danger: #ff4444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 48px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+  .header-title span { color: var(--accent); }
+  .header-sub {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 16px 8px;
+    font-weight: 600;
+  }
+
+  /* ── Vibe Pills ── */
+  .vibe-row {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 16px;
+  }
+  .vibe-pill {
+    flex: 1;
+    padding: 10px 6px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    line-height: 1.1;
+  }
+  .vibe-pill .vibe-icon { font-size: 1.3rem; }
+  .vibe-pill .vibe-bpm-hint {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+    font-weight: 500;
+  }
+  .vibe-pill:hover { border-color: var(--accent); color: var(--text); }
+  .vibe-pill.active {
+    border-color: var(--accent);
+    background: rgba(200,255,0,0.08);
+    color: var(--accent);
+  }
+
+  /* ── Muscle group pills ── */
+  .muscle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 0 16px 16px;
+  }
+  .muscle-pill {
+    padding: 8px 4px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+  }
+  .muscle-pill:hover { border-color: var(--accent); color: var(--text); }
+  .muscle-pill.active {
+    border-color: var(--accent);
+    background: rgba(200,255,0,0.1);
+    color: var(--accent);
+  }
+
+  /* ── Sliders ── */
+  .slider-row {
+    padding: 4px 16px 16px;
+  }
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .slider-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .slider-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+  .slider-value span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-left: 3px;
+    letter-spacing: 0.06em;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 8px rgba(200,255,0,0.4);
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+  input[type=range]::-webkit-slider-thumb:active {
+    box-shadow: 0 0 16px rgba(200,255,0,0.7);
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    cursor: pointer;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 16px;
+  }
+
+  /* ── Visualiser ── */
+  .vis-wrap {
+    padding: 16px 16px 12px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    height: 72px;
+  }
+  .vis-bar {
+    flex: 1;
+    max-width: 12px;
+    border-radius: 2px 2px 0 0;
+    background: var(--accent);
+    opacity: 0.7;
+    transition: height 0.08s ease;
+    min-height: 3px;
+  }
+
+  /* ── Transport / Play Button ── */
+  .transport-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    padding: 20px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .play-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+    box-shadow: 0 0 20px rgba(200,255,0,0.25);
+  }
+  .play-btn:hover {
+    box-shadow: 0 0 32px rgba(200,255,0,0.5);
+    transform: scale(1.04);
+  }
+  .play-btn:active { transform: scale(0.97); }
+  .play-btn svg { color: #0d0d0d; }
+
+  .transport-info { flex: 1; min-width: 0; }
+  .transport-vibe {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .transport-vibe .highlight { color: var(--accent); }
+  .transport-meta {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .transport-meta strong { color: var(--text); font-weight: 600; }
+
+  /* ── Session timer ── */
+  .session-timer {
+    width: 100%;
+    display: none;
+  }
+  .session-timer.visible { display: block; }
+  .timer-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .timer-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 1s linear;
+    width: 0%;
+  }
+  .timer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .timer-elapsed {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+  .timer-remaining {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .timer-fade-notice {
+    font-size: 0.68rem;
+    color: var(--danger);
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+    display: none;
+  }
+  .timer-fade-notice.visible { display: block; }
+
+  /* ── Volume ── */
+  .vol-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px 16px;
+  }
+  .vol-icon { color: var(--muted); flex-shrink: 0; }
+  .vol-row input[type=range] { flex: 1; }
+
+  /* ── Status dot ── */
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--muted);
+    display: inline-block;
+    margin-right: 6px;
+    transition: background 0.3s;
+  }
+  .status-dot.playing {
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse-dot 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── Fade out overlay ── */
+  .fade-flash {
+    position: fixed;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+</style>
+</head>
+<body>
+
+<div class="fade-flash" id="fade-flash"></div>
+
+<div class="header">
+  <div class="header-title"><span>HEX</span>AGON</div>
+  <div class="header-sub">Music</div>
+</div>
+
+<!-- Vibe Selector -->
+<div class="card">
+  <div class="card-label">Vibe</div>
+  <div class="vibe-row">
+    <button class="vibe-pill active" data-vibe="pump" onclick="selectVibe('pump',this)">
+      <span class="vibe-icon">⚡</span>
+      PUMP UP
+      <span class="vibe-bpm-hint">130–160 BPM</span>
+    </button>
+    <button class="vibe-pill" data-vibe="focused" onclick="selectVibe('focused',this)">
+      <span class="vibe-icon">🎯</span>
+      FOCUSED
+      <span class="vibe-bpm-hint">100–120 BPM</span>
+    </button>
+    <button class="vibe-pill" data-vibe="ambient" onclick="selectVibe('ambient',this)">
+      <span class="vibe-icon">🌊</span>
+      AMBIENT
+      <span class="vibe-bpm-hint">60–80 BPM</span>
+    </button>
+  </div>
+</div>
+
+<!-- Muscle Group -->
+<div class="card">
+  <div class="card-label">Muscle Group <span style="color:#444;font-weight:400;text-transform:none;letter-spacing:0">— sets vibe & BPM suggestion</span></div>
+  <div class="muscle-grid">
+    <button class="muscle-pill" data-muscle="Chest" onclick="selectMuscle('Chest',this)">Chest</button>
+    <button class="muscle-pill" data-muscle="Back" onclick="selectMuscle('Back',this)">Back</button>
+    <button class="muscle-pill" data-muscle="Shoulders" onclick="selectMuscle('Shoulders',this)">Shoulders</button>
+    <button class="muscle-pill" data-muscle="Arms" onclick="selectMuscle('Arms',this)">Arms</button>
+    <button class="muscle-pill" data-muscle="Legs" onclick="selectMuscle('Legs',this)">Legs</button>
+    <button class="muscle-pill" data-muscle="Core" onclick="selectMuscle('Core',this)">Core</button>
+  </div>
+</div>
+
+<!-- BPM + Session Length -->
+<div class="card">
+  <div class="slider-row">
+    <div class="slider-header">
+      <span class="slider-label">BPM</span>
+      <div class="slider-value" id="bpm-display">140 <span>BPM</span></div>
+    </div>
+    <input type="range" id="bpm-slider" min="60" max="180" value="140" step="1" oninput="onBpmChange(this.value)">
+  </div>
+  <div class="divider"></div>
+  <div class="slider-row" style="margin-top:12px">
+    <div class="slider-header">
+      <span class="slider-label">Session Length</span>
+      <div class="slider-value" id="session-display">45 <span>min</span></div>
+    </div>
+    <input type="range" id="session-slider" min="0" max="90" value="45" step="5" oninput="onSessionChange(this.value)">
+    <div style="display:flex;justify-content:space-between;margin-top:4px">
+      <span style="font-size:0.6rem;color:var(--muted)">Loop ∞</span>
+      <span style="font-size:0.6rem;color:var(--muted)">90 min</span>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <!-- Volume -->
+  <div class="vol-row">
+    <svg class="vol-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
+    <input type="range" id="vol-slider" min="0" max="100" value="75" step="1" oninput="onVolChange(this.value)">
+    <svg class="vol-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+  </div>
+</div>
+
+<!-- Transport -->
+<div class="transport-card">
+  <button class="play-btn" id="play-btn" onclick="togglePlay()">
+    <svg id="play-icon" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <svg id="pause-icon" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+  </button>
+  <div class="transport-info">
+    <div class="transport-vibe">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="transport-vibe-label" class="highlight">PUMP UP</span>
+    </div>
+    <div class="transport-meta" id="transport-meta">
+      <strong id="meta-bpm">140 BPM</strong> · <span id="meta-session">45 min session</span>
+    </div>
+    <!-- Visualiser -->
+    <div class="vis-wrap" id="vis-wrap">
+      <div class="vis-bar" id="b0"></div>
+      <div class="vis-bar" id="b1"></div>
+      <div class="vis-bar" id="b2"></div>
+      <div class="vis-bar" id="b3"></div>
+      <div class="vis-bar" id="b4"></div>
+      <div class="vis-bar" id="b5"></div>
+      <div class="vis-bar" id="b6"></div>
+      <div class="vis-bar" id="b7"></div>
+      <div class="vis-bar" id="b8"></div>
+      <div class="vis-bar" id="b9"></div>
+      <div class="vis-bar" id="b10"></div>
+      <div class="vis-bar" id="b11"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Session Timer -->
+<div class="card session-timer" id="session-timer-card">
+  <div style="padding:14px 16px 12px">
+    <div class="timer-row" style="margin-bottom:10px">
+      <span class="slider-label">Session Progress</span>
+      <span class="timer-remaining" id="timer-remaining">45:00 remaining</span>
+    </div>
+    <div class="timer-track">
+      <div class="timer-fill" id="timer-fill"></div>
+    </div>
+    <div class="timer-row" style="margin-top:6px">
+      <span class="timer-elapsed" id="timer-elapsed">0:00</span>
+      <span class="timer-fade-notice" id="timer-fade-notice">⚡ Fading out…</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════
+let audioCtx = null;
+let masterGain = null;
+let playing = false;
+let currentVibe = 'pump';
+let bpm = 140;
+let sessionMins = 45;
+let volume = 0.75;
+
+// Scheduler
+let nextBeatTime = 0;
+let beatStep = 0;
+let schedInterval = null;
+let lookahead = 0.1;    // seconds ahead to schedule
+let schedFreq  = 50;    // ms between scheduler runs
+
+// Active nodes
+let activeNodes = [];
+let ambientNodes = [];
+
+// Session timer
+let sessionStartTime = null;
+let sessionTimerInterval = null;
+let sessionTotalSecs = 0;
+let fadingOut = false;
+
+// Visualiser
+let visInterval = null;
+let visPhase = 0;
+
+// ══════════════════════════════════════
+//  MUSCLE → VIBE + BPM MAPPING
+// ══════════════════════════════════════
+const musclePresets = {
+  Chest:     { vibe: 'pump',    bpm: 145 },
+  Back:      { vibe: 'pump',    bpm: 138 },
+  Shoulders: { vibe: 'focused', bpm: 118 },
+  Arms:      { vibe: 'focused', bpm: 112 },
+  Legs:      { vibe: 'pump',    bpm: 155 },
+  Core:      { vibe: 'ambient', bpm: 72  },
+};
+
+const vibeLabels = { pump: 'PUMP UP', focused: 'FOCUSED', ambient: 'AMBIENT' };
+const vibeBpmRanges = { pump: [130,160], focused: [100,120], ambient: [60,80] };
+
+// ══════════════════════════════════════
+//  INIT AUDIO
+// ══════════════════════════════════════
+function initAudio() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  masterGain = audioCtx.createGain();
+  masterGain.gain.setValueAtTime(volume, audioCtx.currentTime);
+  masterGain.connect(audioCtx.destination);
+}
+
+// ══════════════════════════════════════
+//  SYNTHESIS HELPERS
+// ══════════════════════════════════════
+function playNote(freq, type, startTime, duration, gainVal, detune=0) {
+  const osc = audioCtx.createOscillator();
+  const g   = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, startTime);
+  if (detune) osc.detune.setValueAtTime(detune, startTime);
+  g.gain.setValueAtTime(0, startTime);
+  g.gain.linearRampToValueAtTime(gainVal, startTime + 0.005);
+  g.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+  osc.connect(g);
+  g.connect(masterGain);
+  osc.start(startTime);
+  osc.stop(startTime + duration + 0.01);
+  activeNodes.push(osc);
+}
+
+function playNoise(startTime, duration, gainVal, lpFreq=1200) {
+  const bufSize = audioCtx.sampleRate * 0.2;
+  const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  const lp = audioCtx.createBiquadFilter();
+  lp.type = 'lowpass';
+  lp.frequency.setValueAtTime(lpFreq, startTime);
+  const g = audioCtx.createGain();
+  g.gain.setValueAtTime(gainVal, startTime);
+  g.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+  src.connect(lp); lp.connect(g); g.connect(masterGain);
+  src.start(startTime);
+  src.stop(startTime + duration + 0.01);
+  activeNodes.push(src);
+}
+
+// ══════════════════════════════════════
+//  BEAT PATTERNS
+// ══════════════════════════════════════
+// 16-step patterns per vibe
+const patterns = {
+  pump: {
+    kick:  [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0],
+    snare: [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
+    hat:   [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,1],
+    bass:  [1,0,0,1, 0,0,1,0, 1,0,0,0, 0,1,0,0],
+  },
+  focused: {
+    kick:  [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
+    snare: [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
+    hat:   [1,0,1,0, 1,0,0,0, 1,0,1,0, 1,0,0,0],
+    bass:  [1,0,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0],
+  },
+  ambient: {
+    kick:  [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+    snare: [0,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
+    hat:   [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0],
+    bass:  [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
+  }
+};
+
+// Bass note sequences per vibe
+const bassSeqs = {
+  pump:    [55, 55, 0, 0,  65, 0, 73, 0,  55, 0, 0, 0,  49, 0, 0, 0],
+  focused: [55, 0, 0, 0,   0, 0, 65, 0,   0, 0, 0, 58,  0, 0, 0, 0],
+  ambient: [41, 0, 0, 0,   0, 0, 0, 0,    46, 0, 0, 0,   0, 0, 0, 0],
+};
+
+// Chord / pad notes for ambient
+const ambientChords = [
+  [220, 277, 330, 415],
+  [196, 247, 294, 370],
+  [207, 261, 311, 392],
+  [185, 233, 277, 349],
+];
+let ambientChordIdx = 0;
+let ambientChordEvery = 16; // steps
+
+function scheduleStep(stepIdx, time) {
+  const p   = patterns[currentVibe];
+  const spb = 60 / bpm / 4; // seconds per 16th note
+
+  // Kick drum
+  if (p.kick[stepIdx]) {
+    playNote(60, 'sine', time, 0.35, currentVibe === 'pump' ? 0.9 : 0.6);
+    playNote(60, 'sine', time, 0.08, 0.4); // click
+    playNoise(time, 0.04, 0.15, 200);
+  }
+
+  // Snare
+  if (p.snare[stepIdx]) {
+    playNoise(time, 0.18, currentVibe === 'pump' ? 0.55 : 0.35, 4000);
+    playNote(200, 'triangle', time, 0.12, 0.25);
+  }
+
+  // Hi-hat
+  if (p.hat[stepIdx]) {
+    const hatGain = currentVibe === 'ambient' ? 0.07 : (stepIdx % 2 === 0 ? 0.18 : 0.10);
+    playNoise(time, 0.05, hatGain, 8000);
+  }
+
+  // Bass
+  if (p.bass[stepIdx]) {
+    const freq = bassSeqs[currentVibe][stepIdx];
+    if (freq) {
+      const dur = currentVibe === 'ambient' ? 1.2 : 0.25;
+      const gain = currentVibe === 'ambient' ? 0.22 : 0.35;
+      playNote(freq, 'sawtooth', time, dur, gain);
+      playNote(freq * 2, 'sine', time, dur * 0.6, gain * 0.2);
+    }
+  }
+
+  // Ambient pad chord (every N steps)
+  if (currentVibe === 'ambient' && stepIdx % ambientChordEvery === 0) {
+    const chord = ambientChords[ambientChordIdx % ambientChords.length];
+    ambientChordIdx++;
+    chord.forEach((f, ci) => {
+      const osc = audioCtx.createOscillator();
+      const g   = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(f, time);
+      const fadeIn  = 0.6;
+      const sustain = spb * ambientChordEvery * 0.9;
+      g.gain.setValueAtTime(0, time);
+      g.gain.linearRampToValueAtTime(0.06 - ci * 0.008, time + fadeIn);
+      g.gain.setValueAtTime(0.06 - ci * 0.008, time + sustain - 0.5);
+      g.gain.linearRampToValueAtTime(0, time + sustain);
+      osc.connect(g); g.connect(masterGain);
+      osc.start(time); osc.stop(time + sustain + 0.1);
+      activeNodes.push(osc);
+    });
+  }
+
+  // Focused: melodic accent on off-beats
+  if (currentVibe === 'focused' && (stepIdx === 6 || stepIdx === 14)) {
+    const melody = [523, 587, 659, 698, 523, 587][Math.floor(Math.random() * 6)];
+    playNote(melody, 'triangle', time, 0.15, 0.12);
+  }
+
+  // Pump: extra synth hit on beat 3
+  if (currentVibe === 'pump' && stepIdx === 8) {
+    playNote(110, 'sawtooth', time, 0.08, 0.15);
+    playNote(880, 'sine', time, 0.04, 0.05);
+  }
+}
+
+// ══════════════════════════════════════
+//  SCHEDULER
+// ══════════════════════════════════════
+function scheduler() {
+  const spb = 60 / bpm / 4;
+  while (nextBeatTime < audioCtx.currentTime + lookahead) {
+    scheduleStep(beatStep % 16, nextBeatTime);
+    beatStep++;
+    nextBeatTime += spb;
+  }
+  // Prune dead nodes
+  activeNodes = activeNodes.filter(n => {
+    try { return n.context && n.context.state !== 'closed'; }
+    catch(e) { return false; }
+  });
+}
+
+// ══════════════════════════════════════
+//  PLAY / PAUSE
+// ══════════════════════════════════════
+function togglePlay() {
+  initAudio();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+
+  if (playing) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+}
+
+function startMusic() {
+  playing = true;
+  beatStep = 0;
+  nextBeatTime = audioCtx.currentTime + 0.05;
+  fadingOut = false;
+
+  schedInterval = setInterval(scheduler, schedFreq);
+
+  updatePlayUI();
+  startVisualiser();
+
+  if (sessionMins > 0) {
+    startSessionTimer();
+  }
+}
+
+function stopMusic(fade=false) {
+  if (fade) {
+    // Fade master gain
+    masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+    masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+    masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 3);
+    setTimeout(() => {
+      clearInterval(schedInterval);
+      playing = false;
+      fadingOut = false;
+      masterGain.gain.setValueAtTime(volume, audioCtx.currentTime);
+      stopSessionTimer();
+      stopVisualiser();
+      updatePlayUI();
+    }, 3200);
+  } else {
+    clearInterval(schedInterval);
+    playing = false;
+    fadingOut = false;
+    masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+    masterGain.gain.setValueAtTime(volume, audioCtx.currentTime);
+    stopSessionTimer();
+    stopVisualiser();
+    updatePlayUI();
+  }
+}
+
+// ══════════════════════════════════════
+//  SESSION TIMER
+// ══════════════════════════════════════
+function startSessionTimer() {
+  const card = document.getElementById('session-timer-card');
+  card.classList.add('visible');
+  sessionStartTime = Date.now();
+  sessionTotalSecs = sessionMins * 60;
+  updateTimerDisplay(0);
+  sessionTimerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+    updateTimerDisplay(elapsed);
+    if (elapsed >= sessionTotalSecs && !fadingOut) {
+      fadingOut = true;
+      document.getElementById('timer-fade-notice').classList.add('visible');
+      stopMusic(true);
+    }
+  }, 1000);
+}
+
+function stopSessionTimer() {
+  clearInterval(sessionTimerInterval);
+  document.getElementById('timer-fade-notice').classList.remove('visible');
+  // Don't hide card — keep progress visible
+}
+
+function updateTimerDisplay(elapsed) {
+  const total   = sessionTotalSecs;
+  const pct     = Math.min(elapsed / total, 1) * 100;
+  const remain  = Math.max(total - elapsed, 0);
+  const em = Math.floor(elapsed / 60), es = elapsed % 60;
+  const rm = Math.floor(remain / 60),  rs = remain % 60;
+  document.getElementById('timer-elapsed').textContent  = `${em}:${String(es).padStart(2,'0')}`;
+  document.getElementById('timer-remaining').textContent = `${rm}:${String(rs).padStart(2,'0')} remaining`;
+  document.getElementById('timer-fill').style.width = pct + '%';
+}
+
+// ══════════════════════════════════════
+//  VISUALISER
+// ══════════════════════════════════════
+function startVisualiser() {
+  visInterval = setInterval(updateVisualiser, 80);
+}
+function stopVisualiser() {
+  clearInterval(visInterval);
+  for (let i = 0; i < 12; i++) {
+    const b = document.getElementById('b' + i);
+    if (b) b.style.height = '3px';
+  }
+}
+function updateVisualiser() {
+  visPhase += 0.18;
+  const spb = 60 / bpm / 4;
+  const beatPos = (audioCtx.currentTime - (nextBeatTime - spb * 16)) / (spb * 16);
+  for (let i = 0; i < 12; i++) {
+    const b = document.getElementById('b' + i);
+    if (!b) continue;
+    const base = currentVibe === 'ambient' ? 10 : currentVibe === 'focused' ? 14 : 18;
+    const wave = Math.sin(visPhase + i * 0.7) * base;
+    const spike = Math.max(0, Math.sin(visPhase * 4 + i * 1.2) * (currentVibe === 'pump' ? 22 : 10));
+    const h = Math.max(3, base + wave + spike);
+    b.style.height = h + 'px';
+    // Accent colour pulse on kick beat
+    const kickStep = (beatStep % 16);
+    if (kickStep === 0 || kickStep === 8) {
+      b.style.opacity = '1';
+    } else {
+      b.style.opacity = '0.55';
+    }
+  }
+}
+
+// ══════════════════════════════════════
+//  UI UPDATE
+// ══════════════════════════════════════
+function updatePlayUI() {
+  const dot   = document.getElementById('status-dot');
+  const pIcon = document.getElementById('play-icon');
+  const paIcon= document.getElementById('pause-icon');
+  if (playing) {
+    dot.classList.add('playing');
+    pIcon.style.display  = 'none';
+    paIcon.style.display = '';
+  } else {
+    dot.classList.remove('playing');
+    pIcon.style.display  = '';
+    paIcon.style.display = 'none';
+  }
+}
+
+function updateMeta() {
+  document.getElementById('meta-bpm').textContent    = bpm + ' BPM';
+  document.getElementById('meta-session').textContent = sessionMins === 0 ? 'looping ∞' : sessionMins + ' min session';
+  document.getElementById('transport-vibe-label').textContent = vibeLabels[currentVibe];
+  document.getElementById('bpm-display').innerHTML   = bpm + ' <span>BPM</span>';
+  document.getElementById('session-display').innerHTML = sessionMins === 0 ? '∞ <span>loop</span>' : sessionMins + ' <span>min</span>';
+}
+
+// ══════════════════════════════════════
+//  CONTROLS
+// ══════════════════════════════════════
+function selectVibe(vibe, btn) {
+  currentVibe = vibe;
+  document.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  // Set BPM to midpoint of range
+  const [lo, hi] = vibeBpmRanges[vibe];
+  bpm = Math.round((lo + hi) / 2);
+  document.getElementById('bpm-slider').value = bpm;
+  updateMeta();
+}
+
+function selectMuscle(muscle, btn) {
+  document.querySelectorAll('.muscle-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const preset = musclePresets[muscle];
+  if (!preset) return;
+  currentVibe = preset.vibe;
+  bpm = preset.bpm;
+  document.getElementById('bpm-slider').value = bpm;
+  // Update vibe pills
+  document.querySelectorAll('.vibe-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.vibe === currentVibe);
+  });
+  updateMeta();
+}
+
+function onBpmChange(val) {
+  bpm = parseInt(val);
+  updateMeta();
+}
+
+function onSessionChange(val) {
+  sessionMins = parseInt(val);
+  updateMeta();
+  // Hide timer card if loop mode
+  if (sessionMins === 0) {
+    document.getElementById('session-timer-card').classList.remove('visible');
+  }
+}
+
+function onVolChange(val) {
+  volume = parseInt(val) / 100;
+  if (masterGain) {
+    masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+    masterGain.gain.setValueAtTime(volume, audioCtx.currentTime);
+  }
+}
+
+// Init display
+updateMeta();
+</script>
+</body>
+</html>

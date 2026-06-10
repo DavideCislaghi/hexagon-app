@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Music</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --card: #161616;
+    --accent: #c8ff00;
+    --text: #f0f0f0;
+    --muted: #555;
+    --muted2: #888;
+    --border: #252525;
+    --danger: #ff4444;
+    --warn: #ff9500;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 16px 60px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    width: 100%;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .header-left { display: flex; align-items: baseline; gap: 10px; }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+  .header-title span { color: var(--accent); }
+  .header-sub {
+    font-size: 0.7rem;
+    color: var(--muted2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .ver-badge {
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    font-style: italic;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .card-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 13px 16px 7px;
+    font-weight: 700;
+  }
+
+  /* ── Vibe pills ── */
+  .vibe-row { display: flex; gap: 8px; padding: 0 16px 16px; }
+  .vibe-pill {
+    flex: 1;
+    padding: 11px 4px 9px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted2);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.07em;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+  }
+  .vibe-pill .vi { font-size: 1.2rem; }
+  .vibe-pill .vbpm {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.58rem; letter-spacing: 0.05em;
+    opacity: 0.55; font-weight: 500;
+  }
+  .vibe-pill:hover { border-color: #444; color: var(--text); }
+  .vibe-pill.active { border-color: var(--accent); background: rgba(200,255,0,0.07); color: var(--accent); }
+
+  /* ── Sliders ── */
+  .sl-wrap { padding: 4px 16px 14px; }
+  .sl-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
+  .sl-label { font-size: 0.65rem; color: var(--muted2); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sl-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.35rem; color: var(--accent); letter-spacing: 0.05em; line-height: 1;
+  }
+  .sl-val span { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; color: var(--muted2); margin-left: 2px; }
+  input[type=range] {
+    -webkit-appearance: none; width: 100%; height: 3px;
+    border-radius: 2px; background: var(--border); outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 17px; height: 17px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+    box-shadow: 0 0 7px rgba(200,255,0,0.35); cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 17px; height: 17px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg); cursor: pointer;
+  }
+  .sl-hints { display: flex; justify-content: space-between; margin-top: 5px; }
+  .sl-hints span { font-size: 0.58rem; color: var(--muted); }
+
+  .divider { height: 1px; background: var(--border); margin: 0 16px; }
+
+  /* ── Transport ── */
+  .transport-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    padding: 18px 16px 16px;
+    margin-bottom: 10px;
+  }
+  .transport-top { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+  .play-btn {
+    width: 62px; height: 62px; border-radius: 50%;
+    background: var(--accent); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: all 0.15s;
+    box-shadow: 0 0 18px rgba(200,255,0,0.2);
+  }
+  .play-btn:hover { box-shadow: 0 0 30px rgba(200,255,0,0.45); transform: scale(1.04); }
+  .play-btn:active { transform: scale(0.96); }
+  .play-btn svg { color: #0d0d0d; }
+
+  .transport-info { flex: 1; min-width: 0; }
+  .t-vibe-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.55rem; letter-spacing: 0.08em; line-height: 1;
+    margin-bottom: 3px;
+  }
+  .t-vibe-name .hl { color: var(--accent); }
+  .t-meta { font-size: 0.7rem; color: var(--muted2); }
+  .t-meta strong { color: var(--text); font-weight: 600; }
+
+  /* ── Phase display ── */
+  .phase-strip {
+    display: flex; gap: 4px; align-items: center;
+    padding: 0 0 2px;
+  }
+  .phase-seg {
+    height: 3px; border-radius: 2px; flex: 1;
+    background: var(--border); transition: background 0.3s;
+    position: relative;
+  }
+  .phase-seg.done { background: rgba(200,255,0,0.3); }
+  .phase-seg.active { background: var(--accent); }
+  .phase-label {
+    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-top: 5px; font-weight: 600;
+  }
+  .phase-label span { color: var(--accent); }
+
+  /* ── Visualiser ── */
+  .vis-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 2px; height: 48px; margin-top: 12px;
+  }
+  .vbar {
+    flex: 1; max-width: 10px; min-height: 2px;
+    border-radius: 2px 2px 0 0;
+    background: var(--accent); opacity: 0.6;
+    transition: height 0.07s ease;
+  }
+
+  /* ── Session timer ── */
+  .session-timer { display: none; }
+  .session-timer.visible { display: block; }
+  .tim-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 7px; }
+  .tim-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 1s linear; width: 0%; }
+  .tim-row { display: flex; justify-content: space-between; align-items: center; }
+  .tim-elapsed { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.06em; color: var(--accent); }
+  .tim-remain { font-size: 0.68rem; color: var(--muted2); }
+  .tim-fade { font-size: 0.65rem; color: var(--danger); display: none; margin-top: 3px; }
+  .tim-fade.visible { display: block; }
+
+  /* ── Vol row ── */
+  .vol-row { display: flex; align-items: center; gap: 10px; padding: 10px 16px 14px; }
+  .vol-icon { color: var(--muted); flex-shrink: 0; }
+
+  /* ── Status dot ── */
+  .sdot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--muted); display: inline-block;
+    margin-right: 7px; vertical-align: middle;
+    transition: background 0.3s;
+  }
+  .sdot.on { background: var(--accent); box-shadow: 0 0 7px var(--accent); animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+  /* ── Note info ── */
+  .note-row {
+    font-size: 0.65rem; color: var(--muted); font-style: italic;
+    letter-spacing: 0.03em; padding: 0 16px 14px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-title"><span>HEX</span>AGON</div>
+    <div class="header-sub">Music</div>
+  </div>
+  <div class="ver-badge">v2</div>
+</div>
+
+<!-- Vibe -->
+<div class="card">
+  <div class="card-label">Vibe</div>
+  <div class="vibe-row">
+    <button class="vibe-pill active" data-vibe="phonk" onclick="selectVibe('phonk',this)">
+      <span class="vi">💀</span>PHONK<span class="vbpm">140–160 BPM</span>
+    </button>
+    <button class="vibe-pill" data-vibe="dubstep" onclick="selectVibe('dubstep',this)">
+      <span class="vi">⚡</span>DUBSTEP<span class="vbpm">140 BPM half-time</span>
+    </button>
+    <button class="vibe-pill" data-vibe="synthwave" onclick="selectVibe('synthwave',this)">
+      <span class="vi">🌆</span>SYNTHWAVE<span class="vbpm">120–128 BPM</span>
+    </button>
+  </div>
+</div>
+
+<!-- BPM + Session -->
+<div class="card">
+  <div class="sl-wrap">
+    <div class="sl-head">
+      <span class="sl-label">BPM</span>
+      <div class="sl-val" id="bpm-disp">148 <span>BPM</span></div>
+    </div>
+    <input type="range" id="bpm-sl" min="60" max="180" value="148" step="1" oninput="setBpm(+this.value)">
+  </div>
+  <div class="divider"></div>
+  <div class="sl-wrap" style="margin-top:10px">
+    <div class="sl-head">
+      <span class="sl-label">Session Length</span>
+      <div class="sl-val" id="sess-disp">45 <span>min</span></div>
+    </div>
+    <input type="range" id="sess-sl" min="0" max="90" value="45" step="5" oninput="setSess(+this.value)">
+    <div class="sl-hints"><span>Loop ∞</span><span>90 min</span></div>
+  </div>
+  <div class="divider"></div>
+  <div class="vol-row">
+    <svg class="vol-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
+    <input type="range" id="vol-sl" min="0" max="100" value="72" step="1" oninput="setVol(+this.value)">
+    <svg class="vol-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+  </div>
+</div>
+
+<!-- Transport -->
+<div class="transport-card">
+  <div class="transport-top">
+    <button class="play-btn" id="play-btn" onclick="togglePlay()">
+      <svg id="ico-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <svg id="ico-pause" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </button>
+    <div class="transport-info">
+      <div class="t-vibe-name">
+        <span class="sdot" id="sdot"></span><span id="t-vibe-label" class="hl">PHONK</span>
+      </div>
+      <div class="t-meta"><strong id="t-bpm">148 BPM</strong> · <span id="t-sess">45 min session</span></div>
+    </div>
+  </div>
+
+  <!-- Phase strip -->
+  <div id="phase-strip" class="phase-strip"></div>
+  <div class="phase-label">Structure: <span id="phase-name">—</span></div>
+
+  <!-- Visualiser -->
+  <div class="vis-row" id="vis-row">
+    <div class="vbar" id="vb0"></div><div class="vbar" id="vb1"></div>
+    <div class="vbar" id="vb2"></div><div class="vbar" id="vb3"></div>
+    <div class="vbar" id="vb4"></div><div class="vbar" id="vb5"></div>
+    <div class="vbar" id="vb6"></div><div class="vbar" id="vb7"></div>
+    <div class="vbar" id="vb8"></div><div class="vbar" id="vb9"></div>
+    <div class="vbar" id="vb10"></div><div class="vbar" id="vb11"></div>
+    <div class="vbar" id="vb12"></div><div class="vbar" id="vb13"></div>
+    <div class="vbar" id="vb14"></div>
+  </div>
+
+  <!-- Session timer -->
+  <div class="session-timer" id="sess-timer" style="margin-top:14px">
+    <div class="tim-track"><div class="tim-fill" id="tim-fill"></div></div>
+    <div class="tim-row">
+      <span class="tim-elapsed" id="tim-el">0:00</span>
+      <span class="tim-remain" id="tim-rem">45:00 remaining</span>
+    </div>
+    <div class="tim-fade" id="tim-fade">⚡ Fading out…</div>
+  </div>
+</div>
+
+<div class="note-row" id="note-row">Tap play to start. The track will evolve through intro → build → drop → breakdown cycles.</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  CONSTANTS & CONFIG
+// ════════════════════════════════════════════════════════
+
+// Minor pentatonic scale degrees (semitones from root)
+// Root = A2 (110 Hz)
+const ROOT = 110;
+
+// Scale intervals for minor / phrygian feel
+const MINOR_SCALE    = [0, 2, 3, 5, 7, 8, 10, 12]; // natural minor
+const PHRYG_SCALE    = [0, 1, 3, 5, 7, 8, 10, 12]; // phrygian (darker)
+
+function scaleFreq(root, semitones) {
+  return root * Math.pow(2, semitones / 12);
+}
+
+// Chord progressions (as scale degree indices into MINOR_SCALE)
+// i - VI - III - VII  (classic dark phonk)
+// i - iv - VI - VII
+const PROG_PHONK    = [[0,4,7],[8,12,15],[3,7,10],[10,14,17]]; // Am-F-C-G minor
+const PROG_DUBSTEP  = [[0,3,7],[5,8,12],[7,10,14],[3,7,10]];
+const PROG_SYNTH    = [[0,4,7],[5,9,12],[7,10,14],[8,12,15]];
+
+// Semitone offsets for chord roots (from A root)
+const CHORD_ROOTS_PHONK   = [0, 8, 3, 10];  // Am, F, C, G
+const CHORD_ROOTS_DUBSTEP = [0, 5, 7, 3];   // Am, Dm, Em, Cm
+const CHORD_ROOTS_SYNTH   = [0, 5, 7, 8];   // Am, Dm, Em, F
+
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+let ctx = null, masterGain = null;
+let playing = false;
+let vibe = 'phonk';
+let bpm = 148;
+let sessMins = 45;
+let vol = 0.72;
+
+// Scheduler
+let schedTimer = null;
+let nextBeat = 0;
+let step16 = 0;          // 16th note counter (global, never resets while playing)
+const LOOKAHEAD = 0.12;
+const SCHED_MS  = 50;
+
+// Song structure
+// Each section is N bars long. 1 bar = 16 steps.
+// Sections cycle: intro(4) → build(4) → drop(8) → breakdown(4) → build(4) → drop(8) → ...
+let sectionDef = [];   // [{name, bars, intensity}]
+let sectionIdx = 0;    // which section we're in
+let sectionBar = 0;    // bar within current section
+let totalBars  = 0;    // absolute bar count
+
+// Session timer
+let sessStart = null, sessTimer = null, sessFading = false;
+
+// Visualiser
+let visTimer = null, visPhase = 0;
+
+// Active nodes cache (for cleanup)
+let nodes = [];
+
+// Key change: every N cycles (cycles = full intro→drop sequence)
+let cycleCount = 0;
+let keyShift   = 0;   // semitones added to ROOT
+
+// ════════════════════════════════════════════════════════
+//  SECTION DEFINITIONS
+// ════════════════════════════════════════════════════════
+// intensity 0–1: drives density, filter cutoff, reverb
+const SECTIONS = {
+  phonk: [
+    { name:'INTRO',     bars:4,  intensity:0.2 },
+    { name:'BUILD',     bars:4,  intensity:0.55 },
+    { name:'DROP',      bars:8,  intensity:1.0 },
+    { name:'BREAKDOWN', bars:4,  intensity:0.25 },
+    { name:'BUILD',     bars:4,  intensity:0.65 },
+    { name:'DROP',      bars:8,  intensity:1.0 },
+  ],
+  dubstep: [
+    { name:'INTRO',     bars:4,  intensity:0.15 },
+    { name:'BUILD',     bars:8,  intensity:0.5 },
+    { name:'DROP',      bars:8,  intensity:1.0 },
+    { name:'BREAKDOWN', bars:4,  intensity:0.2 },
+    { name:'BUILD',     bars:4,  intensity:0.7 },
+    { name:'DROP',      bars:8,  intensity:1.0 },
+  ],
+  synthwave: [
+    { name:'INTRO',     bars:4,  intensity:0.3 },
+    { name:'VERSE',     bars:8,  intensity:0.55 },
+    { name:'CHORUS',    bars:8,  intensity:1.0 },
+    { name:'BRIDGE',    bars:4,  intensity:0.35 },
+    { name:'VERSE',     bars:4,  intensity:0.6 },
+    { name:'CHORUS',    bars:8,  intensity:1.0 },
+  ],
+};
+
+function getTotalBarsInCycle() {
+  return SECTIONS[vibe].reduce((s,sec) => s + sec.bars, 0);
+}
+
+function getSectionAt(absBar) {
+  const secs = SECTIONS[vibe];
+  const cycleLen = getTotalBarsInCycle();
+  const barInCycle = absBar % cycleLen;
+  let acc = 0;
+  for (let i=0; i<secs.length; i++) {
+    acc += secs[i].bars;
+    if (barInCycle < acc) return { sec:secs[i], idx:i, totalSecs:secs.length };
+  }
+  return { sec:secs[secs.length-1], idx:secs.length-1, totalSecs:secs.length };
+}
+
+function getIntensity() {
+  const { sec } = getSectionAt(totalBars);
+  return sec.intensity;
+}
+
+// ════════════════════════════════════════════════════════
+//  AUDIO HELPERS
+// ════════════════════════════════════════════════════════
+function initCtx() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  masterGain = ctx.createGain();
+  masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+
+  // Subtle soft-clip via waveshaper
+  const ws = ctx.createWaveShaper();
+  ws.curve = makeDistCurve(8);
+  ws.oversample = '2x';
+  masterGain.connect(ws);
+  ws.connect(ctx.destination);
+}
+
+function makeDistCurve(amount) {
+  const n = 256, curve = new Float32Array(n);
+  for (let i=0; i<n; i++) {
+    const x = (i * 2) / n - 1;
+    curve[i] = (Math.PI + amount) * x / (Math.PI + amount * Math.abs(x));
+  }
+  return curve;
+}
+
+// Create a reverb impulse response
+let reverbBuf = null;
+function getReverbBuf() {
+  if (reverbBuf) return reverbBuf;
+  const dur = 1.8, sr = ctx.sampleRate;
+  const buf = ctx.createBuffer(2, sr * dur, sr);
+  for (let c=0; c<2; c++) {
+    const d = buf.getChannelData(c);
+    for (let i=0; i<d.length; i++) {
+      d[i] = (Math.random()*2-1) * Math.pow(1 - i/(sr*dur), 2.5);
+    }
+  }
+  reverbBuf = buf;
+  return buf;
+}
+
+function makeReverb(wet=0.25) {
+  const conv = ctx.createConvolver();
+  conv.buffer = getReverbBuf();
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(wet, ctx.currentTime);
+  conv.connect(g);
+  return { conv, g }; // g → masterGain
+}
+
+// Core note scheduler: osc → gain → [reverb →] master
+function schedNote(freq, type, t, dur, gainPeak, opts={}) {
+  const { detune=0, reverbWet=0, filterFreq=0, attack=0.005, release=null } = opts;
+  const osc = ctx.createOscillator();
+  const env = ctx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t);
+  if (detune) osc.detune.setValueAtTime(detune, t);
+
+  const rel = release || dur;
+  env.gain.setValueAtTime(0, t);
+  env.gain.linearRampToValueAtTime(gainPeak, t + attack);
+  env.gain.setValueAtTime(gainPeak, t + dur - rel * 0.3);
+  env.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+  let chain = osc;
+  if (filterFreq > 0) {
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(filterFreq, t);
+    lp.Q.setValueAtTime(2, t);
+    osc.connect(lp);
+    chain = lp;
+  }
+
+  if (reverbWet > 0) {
+    const { conv, g } = makeReverb(reverbWet);
+    chain.connect(env);
+    env.connect(conv);
+    g.connect(masterGain);
+    // dry
+    const dry = ctx.createGain();
+    dry.gain.setValueAtTime(1 - reverbWet * 0.5, t);
+    env.connect(dry);
+    dry.connect(masterGain);
+  } else {
+    chain.connect(env);
+    env.connect(masterGain);
+  }
+
+  osc.start(t);
+  osc.stop(t + dur + 0.05);
+  nodes.push(osc);
+}
+
+function schedNoise(t, dur, gainPeak, lpFreq=6000, opts={}) {
+  const { attack=0.003, hpFreq=0 } = opts;
+  const bufLen = Math.ceil(ctx.sampleRate * Math.min(dur, 0.3));
+  const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i=0; i<bufLen; i++) d[i] = Math.random()*2-1;
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const lp = ctx.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.setValueAtTime(lpFreq, t);
+  const env = ctx.createGain();
+  env.gain.setValueAtTime(0, t);
+  env.gain.linearRampToValueAtTime(gainPeak, t + attack);
+  env.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+  if (hpFreq > 0) {
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass'; hp.frequency.setValueAtTime(hpFreq, t);
+    src.connect(hp); hp.connect(lp);
+  } else {
+    src.connect(lp);
+  }
+  lp.connect(env); env.connect(masterGain);
+  src.start(t); src.stop(t + dur + 0.05);
+  nodes.push(src);
+}
+
+// Cowbell: two detuned square waves
+function schedCowbell(t, dur, gain) {
+  [562, 845].forEach(f => {
+    schedNote(f, 'square', t, dur, gain * 0.5,
+      { filterFreq: 3500, attack: 0.001, release: dur * 0.4 });
+  });
+}
+
+// ════════════════════════════════════════════════════════
+//  BEAT PATTERNS
+// ════════════════════════════════════════════════════════
+
+// 16-step patterns.  Each row is indexed by [step % 16]
+// We vary patterns by section intensity.
+
+function getPatterns(intensity) {
+  const loud = intensity >= 0.9;
+  const med  = intensity >= 0.5;
+  const low  = intensity < 0.3;
+
+  const phonkKick =   [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,1];
+  const phonkKickLo = [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0];
+  const phonkSnare =  [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0];
+  const phonkCow =    [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0];
+  const phonkHat =    [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,1];
+  const phonkHatLo =  [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0];
+
+  const dubKick =     [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0]; // half-time
+  const dubSnare =    [0,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0]; // on 3
+  const dubHat =      [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0];
+  const dubWob =      [1,0,0,0, 0,0,0,1, 0,0,1,0, 0,0,0,0];
+
+  const swKick =      [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0];
+  const swSnare =     [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0];
+  const swHat =       [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,0];
+  const swArpTrig =   [1,0,0,1, 0,0,1,0, 0,1,0,0, 1,0,0,0];
+
+  if (vibe === 'phonk') return {
+    kick:  low ? phonkKickLo : phonkKick,
+    snare: phonkSnare,
+    cow:   med ? phonkCow : null,
+    hat:   low ? phonkHatLo : phonkHat,
+    bass:  true, cowbell: med,
+  };
+  if (vibe === 'dubstep') return {
+    kick:  dubKick, snare: dubSnare, hat: dubHat,
+    wob:   loud ? dubWob : null,
+    bass:  true,
+  };
+  // synthwave
+  return {
+    kick:  swKick, snare: swSnare, hat: swHat,
+    arpTrig: swArpTrig, bass: true,
+  };
+}
+
+// ════════════════════════════════════════════════════════
+//  CHORD / MELODY STATE
+// ════════════════════════════════════════════════════════
+let chordStep = 0;  // which chord in the progression (changes every 4 bars)
+let arpStep   = 0;  // arpeggio position
+
+function chordRoots() {
+  if (vibe==='phonk')    return CHORD_ROOTS_PHONK;
+  if (vibe==='dubstep')  return CHORD_ROOTS_DUBSTEP;
+  return CHORD_ROOTS_SYNTH;
+}
+function currentRoot() {
+  const cr = chordRoots();
+  return ROOT * Math.pow(2, (cr[chordStep % cr.length] + keyShift) / 12);
+}
+function currentChord() {
+  // Returns [root, third, fifth] frequencies
+  const r = currentRoot();
+  if (vibe==='phonk' || vibe==='dubstep') {
+    // minor triad
+    return [r, r*Math.pow(2,3/12), r*Math.pow(2,7/12)];
+  }
+  // synthwave: minor 7th feel
+  return [r, r*Math.pow(2,3/12), r*Math.pow(2,7/12), r*Math.pow(2,10/12)];
+}
+
+// Bass line notes (per 16th step within a bar)
+const BASS_STEPS_PHONK   = [0,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1]; // -1=rest, 0=root, n=interval
+const BASS_STEPS_PHONK2  = [0,-1,-1,-1, -1,-1,12,-1, -1,-1,-1,7,  -1,-1,-1,-1];
+const BASS_STEPS_DUB     = [0,-1,-1,-1, -1,-1,-1,-1, 7,-1,-1,-1,  -1,-1,3,-1];
+const BASS_STEPS_SYNTH   = [0,-1,-1,-1, 5,-1,-1,-1,  7,-1,-1,-1,  3,-1,-1,-1];
+
+function bassSteps(intensity) {
+  if (vibe==='phonk')   return intensity>0.6 ? BASS_STEPS_PHONK2 : BASS_STEPS_PHONK;
+  if (vibe==='dubstep') return BASS_STEPS_DUB;
+  return BASS_STEPS_SYNTH;
+}
+
+// Arpeggio patterns for synthwave / phonk build
+const ARP_PAT = [0, 3, 7, 12, 7, 3, 0, 3]; // semitones above root
+
+// ════════════════════════════════════════════════════════
+//  STEP SEQUENCER
+// ════════════════════════════════════════════════════════
+
+function scheduleStep(s16, t) {
+  const step = s16 % 16;         // 0–15 within bar
+  const bar  = Math.floor(s16 / 16);  // absolute bar
+
+  // Update chord every 4 bars
+  chordStep = Math.floor(bar / 4);
+
+  // Update section tracking
+  totalBars = bar;
+  const cycleLen = getTotalBarsInCycle();
+  const { sec, idx } = getSectionAt(bar);
+  const intensity = sec.intensity;
+
+  const spb = 60 / bpm / 4;  // seconds per 16th note
+  const P = getPatterns(intensity);
+
+  // ── KICK ──
+  if (P.kick[step]) {
+    const kickGain = intensity > 0.5 ? 0.85 : 0.55;
+    // Sub thump (sine, pitch envelope)
+    const kickOsc = ctx.createOscillator();
+    const kickEnv = ctx.createGain();
+    kickOsc.type = 'sine';
+    kickOsc.frequency.setValueAtTime(vibe==='dubstep' ? 80 : 65, t);
+    kickOsc.frequency.exponentialRampToValueAtTime(35, t + 0.12);
+    kickEnv.gain.setValueAtTime(kickGain, t);
+    kickEnv.gain.exponentialRampToValueAtTime(0.001, t + (vibe==='dubstep' ? 0.55 : 0.3));
+    kickOsc.connect(kickEnv); kickEnv.connect(masterGain);
+    kickOsc.start(t); kickOsc.stop(t + 0.6);
+    nodes.push(kickOsc);
+    // Click transient
+    schedNoise(t, 0.025, 0.3, 3000, { attack:0.001 });
+  }
+
+  // ── SNARE / CLAP ──
+  if (P.snare && P.snare[step]) {
+    schedNoise(t, 0.18, intensity>0.5 ? 0.5 : 0.3, 5000, { attack:0.002, hpFreq:600 });
+    schedNote(190, 'triangle', t, 0.1, 0.2);
+    if (intensity > 0.8) {
+      // Extra crack
+      schedNoise(t + 0.01, 0.06, 0.25, 8000, { attack:0.001, hpFreq:2000 });
+    }
+  }
+
+  // ── COWBELL (phonk signature) ──
+  if (P.cowbell && P.hat && P.hat[step]) {
+    const step4 = step % 4;
+    if (step4 === 2) {
+      // Cowbell on the off-beat 8ths
+      schedCowbell(t, 0.12, intensity * 0.4);
+    } else {
+      // Normal hi-hat
+      const hg = (step % 2 === 0) ? 0.18 : 0.1;
+      schedNoise(t, 0.04, hg * intensity, 9000, { attack:0.001, hpFreq:4000 });
+    }
+  } else if (P.hat && P.hat[step]) {
+    const hg = (step % 2 === 0) ? 0.16 : 0.09;
+    schedNoise(t, 0.04, hg * intensity, 9000, { attack:0.001, hpFreq:3500 });
+  }
+
+  // ── BASS LINE ──
+  const bs = bassSteps(intensity);
+  if (bs[step] >= 0) {
+    const rootHz = currentRoot() / 2;  // one octave down
+    const freq = rootHz * Math.pow(2, bs[step] / 12);
+    const bassDur = spb * 3.5;
+
+    if (vibe === 'dubstep' && intensity > 0.8) {
+      // Wobble bass — LFO-modulated filter on saw
+      schedWobbleBass(freq, t, bassDur, intensity);
+    } else if (vibe === 'phonk') {
+      // 808-style: sine with long tail
+      schedNote(freq, 'sine', t, bassDur * (intensity>0.5?1.4:1.0),
+        intensity > 0.5 ? 0.7 : 0.45,
+        { attack:0.008, filterFreq: 300 });
+      // Slight grit
+      schedNote(freq * 2, 'sawtooth', t, bassDur * 0.4, 0.08,
+        { attack:0.003, filterFreq:400 });
+    } else {
+      // Synthwave: punchy saw
+      schedNote(freq, 'sawtooth', t, bassDur,
+        intensity > 0.5 ? 0.5 : 0.35,
+        { attack:0.01, filterFreq:600 + intensity*800 });
+    }
+  }
+
+  // ── WOBBLE BASS for dubstep (separate steps) ──
+  if (P.wob && P.wob[step] && vibe === 'dubstep' && intensity > 0.7) {
+    const rootHz = currentRoot() / 2;
+    schedWobbleBass(rootHz, t, spb * 3, intensity);
+  }
+
+  // ── PHONK MELODY / LEAD ──
+  if (vibe === 'phonk' && intensity > 0.6 && step % 8 === 0) {
+    const chord = currentChord();
+    // Melody note from chord tones
+    const notes = [chord[0]*2, chord[1]*2, chord[2]*2, chord[0]*4];
+    const mel = notes[Math.floor(bar / 2) % notes.length];
+    schedNote(mel, 'sawtooth', t, spb * 6, 0.12,
+      { attack:0.02, filterFreq:2400 + intensity*1200, reverbWet:0.3,
+        detune: Math.random()*8-4 });
+  }
+
+  // ── SYNTHWAVE ARPEGGIO ──
+  if (vibe === 'synthwave' && P.arpTrig && P.arpTrig[step]) {
+    const r = currentRoot() * 2; // up an octave
+    const semis = ARP_PAT[arpStep % ARP_PAT.length];
+    arpStep++;
+    const freq = r * Math.pow(2, semis / 12);
+    schedNote(freq, 'sawtooth', t, spb * 1.8,
+      0.1 + intensity * 0.12,
+      { attack:0.004, filterFreq:3000 + intensity*2000, reverbWet:0.25 });
+    // Octave double
+    schedNote(freq * 2, 'square', t, spb * 0.9, 0.04,
+      { attack:0.003, filterFreq:5000 });
+  }
+
+  // ── SYNTHWAVE PAD ── (every 4 bars on bar start)
+  if (vibe === 'synthwave' && step === 0 && bar % 4 === 0) {
+    const chord = currentChord();
+    chord.forEach((f, ci) => {
+      const padDur = spb * 64; // 4 bars
+      const padGain = (0.07 - ci * 0.01) * intensity;
+      schedNote(f, 'sine', t, padDur, padGain,
+        { attack:0.5, reverbWet:0.4, detune: ci%2===0?-4:4 });
+      schedNote(f, 'triangle', t, padDur, padGain * 0.5,
+        { attack:0.6, reverbWet:0.3, detune:8 });
+    });
+  }
+
+  // ── PHONK PAD / ATMOSPHERE ──
+  if (vibe === 'phonk' && step === 0 && bar % 4 === 0 && intensity < 0.5) {
+    // Breakdown: spooky pad
+    const chord = currentChord();
+    chord.forEach((f, ci) => {
+      schedNote(f, 'sine', t, spb*64, (0.08-ci*0.015)*intensity,
+        { attack:1.2, reverbWet:0.5, detune:ci*6 });
+    });
+  }
+
+  // ── BUILD RISER ── (last bar of BUILD section)
+  const { sec: curSec } = getSectionAt(bar);
+  if (curSec.name === 'BUILD' || curSec.name === 'VERSE') {
+    const barInSec = bar % curSec.bars;
+    if (barInSec === curSec.bars - 1 && step === 0) {
+      schedRiser(t, spb * 16);
+    }
+  }
+
+  // ── BREAKDOWN SWEEP ── (start of breakdown)
+  if ((curSec.name === 'BREAKDOWN' || curSec.name === 'BRIDGE') && step === 0 && bar % getTotalBarsInCycle() === getSectionStartBar('BREAKDOWN')) {
+    // Filter sweep down
+    schedFilterSweep(t, spb * 16 * 4, 'down');
+  }
+
+  // Update key every full cycle
+  const barsInCycle = getTotalBarsInCycle();
+  if (step === 0 && bar > 0 && bar % barsInCycle === 0) {
+    cycleCount++;
+    // Shift key up a minor 3rd every 2 cycles, cycle back after 4
+    keyShift = [0, 0, 3, 3, 7, 7, 5, 5][cycleCount % 8];
+  }
+
+  // Prune dead nodes
+  if (step === 0 && nodes.length > 200) {
+    nodes = nodes.filter(n => {
+      try { return n.context && n.context.state !== 'closed'; }
+      catch(e) { return false; }
+    });
+  }
+}
+
+function getSectionStartBar(name) {
+  let acc = 0;
+  for (const sec of SECTIONS[vibe]) {
+    if (sec.name === name) return acc;
+    acc += sec.bars;
+  }
+  return 0;
+}
+
+// ════════════════════════════════════════════════════════
+//  SPECIAL EFFECTS
+// ════════════════════════════════════════════════════════
+
+function schedWobbleBass(baseFreq, t, dur, intensity) {
+  const osc  = ctx.createOscillator();
+  const env  = ctx.createGain();
+  const lp   = ctx.createBiquadFilter();
+  const lfo  = ctx.createOscillator();
+  const lfoG = ctx.createGain();
+
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(baseFreq, t);
+
+  lp.type = 'lowpass';
+  lp.Q.setValueAtTime(8, t);
+  const wobFreq = 2 + intensity * 4; // LFO Hz
+  const wobDepth= 400 + intensity * 800;
+  lp.frequency.setValueAtTime(200, t);
+
+  lfo.type = 'sine';
+  lfo.frequency.setValueAtTime(wobFreq, t);
+  lfoG.gain.setValueAtTime(wobDepth, t);
+  lfo.connect(lfoG); lfoG.connect(lp.frequency);
+
+  env.gain.setValueAtTime(0, t);
+  env.gain.linearRampToValueAtTime(0.6 * intensity, t + 0.01);
+  env.gain.exponentialRampToValueAtTime(0.001, t + dur);
+
+  osc.connect(lp); lp.connect(env); env.connect(masterGain);
+  osc.start(t); osc.stop(t + dur + 0.05);
+  lfo.start(t); lfo.stop(t + dur + 0.05);
+  nodes.push(osc, lfo);
+}
+
+function schedRiser(t, dur) {
+  const osc = ctx.createOscillator();
+  const env = ctx.createGain();
+  const lp  = ctx.createBiquadFilter();
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(30, t);
+  osc.frequency.exponentialRampToValueAtTime(800, t + dur);
+  lp.type = 'lowpass';
+  lp.frequency.setValueAtTime(300, t);
+  lp.frequency.linearRampToValueAtTime(8000, t + dur);
+  env.gain.setValueAtTime(0, t);
+  env.gain.linearRampToValueAtTime(0.15, t + dur * 0.5);
+  env.gain.linearRampToValueAtTime(0, t + dur);
+  osc.connect(lp); lp.connect(env); env.connect(masterGain);
+  osc.start(t); osc.stop(t + dur + 0.05);
+  nodes.push(osc);
+  // White noise riser
+  schedNoise(t, dur, 0.08, 3000 + dur * 500);
+}
+
+function schedFilterSweep(t, dur, dir) {
+  // Just a noise whoosh
+  const g = dir === 'down' ? 0.12 : 0.08;
+  schedNoise(t, Math.min(dur, 2), g, dir==='down' ? 4000 : 600);
+}
+
+// ════════════════════════════════════════════════════════
+//  SCHEDULER LOOP
+// ════════════════════════════════════════════════════════
+function scheduler() {
+  const spb = 60 / bpm / 4;
+  while (nextBeat < ctx.currentTime + LOOKAHEAD) {
+    scheduleStep(step16, nextBeat);
+    step16++;
+    nextBeat += spb;
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  PLAY / STOP
+// ════════════════════════════════════════════════════════
+function togglePlay() {
+  initCtx();
+  if (ctx.state === 'suspended') ctx.resume();
+  playing ? stopAll() : startAll();
+}
+
+function startAll() {
+  playing  = true;
+  step16   = 0;
+  totalBars = 0;
+  cycleCount = 0;
+  keyShift   = 0;
+  arpStep    = 0;
+  chordStep  = 0;
+  sessFading = false;
+  nextBeat   = ctx.currentTime + 0.05;
+  schedTimer = setInterval(scheduler, SCHED_MS);
+  updatePlayUI();
+  startVis();
+  if (sessMins > 0) startSessTimer();
+  updatePhaseUI(0);
+}
+
+function stopAll(fade=false) {
+  if (fade) {
+    masterGain.gain.cancelScheduledValues(ctx.currentTime);
+    masterGain.gain.setValueAtTime(masterGain.gain.value, ctx.currentTime);
+    masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 3.5);
+    setTimeout(() => {
+      clearInterval(schedTimer);
+      playing = false; sessFading = false;
+      masterGain.gain.setValueAtTime(vol, ctx.currentTime + 0.1);
+      stopSessTimer(); stopVis(); updatePlayUI();
+    }, 3800);
+  } else {
+    clearInterval(schedTimer);
+    playing = false;
+    masterGain.gain.cancelScheduledValues(ctx.currentTime);
+    masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+    stopSessTimer(); stopVis(); updatePlayUI();
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  SESSION TIMER
+// ════════════════════════════════════════════════════════
+function startSessTimer() {
+  const card = document.getElementById('sess-timer');
+  card.classList.add('visible');
+  sessStart = Date.now();
+  const total = sessMins * 60;
+  updateTimerUI(0, total);
+  sessTimer = setInterval(() => {
+    const el = Math.floor((Date.now() - sessStart) / 1000);
+    updateTimerUI(el, total);
+    if (el >= total && !sessFading) {
+      sessFading = true;
+      document.getElementById('tim-fade').classList.add('visible');
+      stopAll(true);
+    }
+  }, 1000);
+}
+
+function stopSessTimer() {
+  clearInterval(sessTimer);
+  document.getElementById('tim-fade').classList.remove('visible');
+}
+
+function updateTimerUI(el, total) {
+  const rem = Math.max(total - el, 0);
+  const pct = Math.min(el / total, 1) * 100;
+  const fmt = s => `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  document.getElementById('tim-el').textContent   = fmt(el);
+  document.getElementById('tim-rem').textContent  = fmt(rem) + ' remaining';
+  document.getElementById('tim-fill').style.width = pct + '%';
+}
+
+// ════════════════════════════════════════════════════════
+//  PHASE UI
+// ════════════════════════════════════════════════════════
+let phaseUITimer = null;
+function startPhaseUI() {
+  phaseUITimer = setInterval(() => {
+    if (!playing) return;
+    updatePhaseUI(totalBars);
+  }, 200);
+}
+function stopPhaseUI() { clearInterval(phaseUITimer); }
+
+function updatePhaseUI(bar) {
+  const secs = SECTIONS[vibe];
+  const cycleLen = getTotalBarsInCycle();
+  const barInCycle = bar % cycleLen;
+  const strip = document.getElementById('phase-strip');
+
+  // Build strip segments if needed
+  if (strip.children.length !== secs.length) {
+    strip.innerHTML = '';
+    secs.forEach(() => {
+      const d = document.createElement('div');
+      d.className = 'phase-seg';
+      strip.appendChild(d);
+    });
+  }
+
+  let acc = 0, curIdx = 0, curName = secs[0].name;
+  const segs = strip.children;
+  for (let i=0; i<secs.length; i++) {
+    const end = acc + secs[i].bars;
+    if (barInCycle >= acc) {
+      if (barInCycle < end) {
+        curIdx = i; curName = secs[i].name;
+      }
+    }
+    if (barInCycle >= end) segs[i].className = 'phase-seg done';
+    else if (barInCycle >= acc) segs[i].className = 'phase-seg active';
+    else segs[i].className = 'phase-seg';
+    acc = end;
+  }
+  document.getElementById('phase-name').textContent = curName;
+}
+
+// ════════════════════════════════════════════════════════
+//  VISUALISER
+// ════════════════════════════════════════════════════════
+let visPhase2 = 0;
+function startVis() {
+  startPhaseUI();
+  visTimer = setInterval(() => {
+    visPhase2 += 0.2;
+    const intensity = getIntensity();
+    for (let i=0; i<15; i++) {
+      const el = document.getElementById('vb'+i);
+      if (!el) continue;
+      const base = 4 + intensity * 18;
+      const wave = Math.sin(visPhase2 + i * 0.6) * base;
+      const spike = Math.max(0, Math.sin(visPhase2 * 3 + i * 1.1) * intensity * 16);
+      el.style.height = Math.max(2, base + wave + spike) + 'px';
+      el.style.opacity = 0.4 + intensity * 0.55;
+    }
+  }, 75);
+}
+
+function stopVis() {
+  stopPhaseUI();
+  clearInterval(visTimer);
+  for (let i=0; i<15; i++) {
+    const el = document.getElementById('vb'+i);
+    if (el) { el.style.height = '2px'; el.style.opacity = '0.2'; }
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  PLAY UI
+// ════════════════════════════════════════════════════════
+function updatePlayUI() {
+  const dot = document.getElementById('sdot');
+  document.getElementById('ico-play').style.display  = playing ? 'none' : '';
+  document.getElementById('ico-pause').style.display = playing ? '' : 'none';
+  dot.className = 'sdot' + (playing ? ' on' : '');
+  updateNote();
+}
+
+function updateMeta() {
+  const vibeNames = { phonk:'PHONK', dubstep:'DUBSTEP', synthwave:'SYNTHWAVE' };
+  document.getElementById('t-vibe-label').textContent = vibeNames[vibe];
+  document.getElementById('t-bpm').textContent = bpm + ' BPM';
+  document.getElementById('t-sess').textContent = sessMins === 0 ? 'looping ∞' : sessMins + ' min session';
+  document.getElementById('bpm-disp').innerHTML = bpm + ' <span>BPM</span>';
+  document.getElementById('sess-disp').innerHTML = sessMins === 0 ? '∞ <span>loop</span>' : sessMins + ' <span>min</span>';
+}
+
+const notes = {
+  phonk:    'Dark minor key, 808 bass, cowbell hits, atmospheric pads in breakdowns. Evolves through riser builds and full drops.',
+  dubstep:  'Half-time kick groove, growling wobble bass, heavy snare on beat 3. Builds with filter sweeps into massive drops.',
+  synthwave:'Driving kick, staccato arpeggios, lush minor pads. Verse → Chorus structure with key shifts across cycles.',
+};
+function updateNote() {
+  document.getElementById('note-row').textContent = playing
+    ? notes[vibe]
+    : 'Tap play to start. The track evolves through structured phases — watch the progress bar above.';
+}
+
+// ════════════════════════════════════════════════════════
+//  CONTROLS
+// ════════════════════════════════════════════════════════
+function selectVibe(v, btn) {
+  vibe = v;
+  document.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  // Set default BPM
+  bpm = { phonk:148, dubstep:140, synthwave:124 }[v];
+  document.getElementById('bpm-sl').value = bpm;
+  updateMeta();
+  updatePhaseUI(0);
+  if (playing) { stopAll(); setTimeout(startAll, 100); }
+}
+
+function setBpm(v) {
+  bpm = v;
+  updateMeta();
+}
+
+function setSess(v) {
+  sessMins = v;
+  updateMeta();
+  if (v === 0) document.getElementById('sess-timer').classList.remove('visible');
+}
+
+function setVol(v) {
+  vol = v / 100;
+  if (masterGain) {
+    masterGain.gain.cancelScheduledValues(ctx.currentTime);
+    masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+  }
+}
+
+// Init
+updateMeta();
+updatePhaseUI(0);
+</script>
+</body>
+</html>
