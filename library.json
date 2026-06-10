@@ -4283,20 +4283,6 @@
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/seated-front-deltoid/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/seated-front-deltoid/end.jpg"
       }
-    },
-    {
-      "name": "Test Update Exercise 2",
-      "muscleGroups": [
-        "Core"
-      ],
-      "equipment": [
-        "Calisthenics"
-      ],
-      "tags": [
-        "Rectus Abdominis"
-      ],
-      "description": "Test exercise to trigger update badge.",
-      "images": {}
     }
   ]
 }
