@@ -258,7 +258,7 @@
         "Biceps",
         "Brachialis"
       ],
-      "description": "Sit on a bench, brace your elbow on the inside of your thigh. Curl the dumbbell up toward your shoulder, fully contracting the bicep. Excellent isolation — no body swing allowed.",
+      "description": "Sit on a bench, brace your elbow on the inside of your thigh. Curl the dumbbell up toward your shoulder, fully contracting the bicep. Excellent isolation \u2014 no body swing allowed.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/concentration-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/concentration-curl/end.jpg"
@@ -1079,7 +1079,7 @@
         "Latissimus Dorsi",
         "Core Stability"
       ],
-      "description": "Stand with the bar over your mid-foot, grip just outside your legs. Hinge down, brace your core, then drive the floor away to stand. The ultimate full-body pull — lats and traps keep the bar close.",
+      "description": "Stand with the bar over your mid-foot, grip just outside your legs. Hinge down, brace your core, then drive the floor away to stand. The ultimate full-body pull \u2014 lats and traps keep the bar close.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/deadlift/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/deadlift/end.jpg"
@@ -1497,7 +1497,7 @@
         "Triceps",
         "Front Delts"
       ],
-      "description": "Lie on a flat bench, grip just outside shoulder width. Lower the bar to your mid-chest with elbows at roughly 45°, then press back up to lockout. The foundational horizontal push.",
+      "description": "Lie on a flat bench, grip just outside shoulder width. Lower the bar to your mid-chest with elbows at roughly 45\u00b0, then press back up to lockout. The foundational horizontal push.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/flat-barbell-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/flat-barbell-bench-press/end.jpg"
@@ -1516,7 +1516,7 @@
         "Triceps",
         "Front Delts"
       ],
-      "description": "Set the bench to 30–45°. Lower the bar to your upper chest and press up. The incline angle shifts emphasis onto the upper portion of the pectoralis major and the anterior delts.",
+      "description": "Set the bench to 30\u201345\u00b0. Lower the bar to your upper chest and press up. The incline angle shifts emphasis onto the upper portion of the pectoralis major and the anterior delts.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-barbell-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-barbell-bench-press/end.jpg"
@@ -1534,7 +1534,7 @@
         "Lower Chest",
         "Triceps"
       ],
-      "description": "Set the bench to a 15–30° decline. Lower the bar to your lower chest. The decline angle preferentially loads the sternal head of the pec, giving a strong lower-chest contraction.",
+      "description": "Set the bench to a 15\u201330\u00b0 decline. Lower the bar to your lower chest. The decline angle preferentially loads the sternal head of the pec, giving a strong lower-chest contraction.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/decline-barbell-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/decline-barbell-bench-press/end.jpg"
@@ -1572,7 +1572,7 @@
         "Front Delts",
         "Triceps"
       ],
-      "description": "Set bench to 30–45°. Press dumbbells up from shoulder level, allowing a slight inward arc at the top. Independent arm movement helps address side-to-side strength imbalances.",
+      "description": "Set bench to 30\u201345\u00b0. Press dumbbells up from shoulder level, allowing a slight inward arc at the top. Independent arm movement helps address side-to-side strength imbalances.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-dumbbell-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-dumbbell-bench-press/end.jpg"
@@ -1648,7 +1648,7 @@
         "Triceps",
         "Serratus Anterior"
       ],
-      "description": "Start in a high plank with hands just outside shoulder width. Lower your chest to the floor with elbows at 45°, then press back up to full arm extension. A foundational bodyweight chest exercise.",
+      "description": "Start in a high plank with hands just outside shoulder width. Lower your chest to the floor with elbows at 45\u00b0, then press back up to full arm extension. A foundational bodyweight chest exercise.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/push-up/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/push-up/end.jpg"
@@ -2124,7 +2124,7 @@
         "Transverse Abdominis",
         "Hip Flexors"
       ],
-      "description": "Lie on your back with arms raised toward the ceiling and knees at 90°. Extend one arm and the opposite leg toward the floor while maintaining a flat lower back. Return and switch sides.",
+      "description": "Lie on your back with arms raised toward the ceiling and knees at 90\u00b0. Extend one arm and the opposite leg toward the floor while maintaining a flat lower back. Return and switch sides.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dead-bug/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dead-bug/end.jpg"
@@ -2669,7 +2669,7 @@
         "Quads",
         "Hamstrings"
       ],
-      "description": "Sit in the machine with feet at shoulder width on the platform. Lower the sled until your knees are at 90°, then press back to near-lockout. Foot placement can shift emphasis to quads vs hamstrings.",
+      "description": "Sit in the machine with feet at shoulder width on the platform. Lower the sled until your knees are at 90\u00b0, then press back to near-lockout. Foot placement can shift emphasis to quads vs hamstrings.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-press/end.jpg"
@@ -2781,7 +2781,7 @@
         "Adductors",
         "Hip Flexors"
       ],
-      "description": "Hold a dumbbell or kettlebell at chest height with both hands. Squat deep, pushing knees out over your toes. The front-loaded weight helps keep your torso upright — excellent for learning squat mechanics.",
+      "description": "Hold a dumbbell or kettlebell at chest height with both hands. Squat deep, pushing knees out over your toes. The front-loaded weight helps keep your torso upright \u2014 excellent for learning squat mechanics.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/goblet-squat/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/goblet-squat/end.jpg"
@@ -2815,7 +2815,7 @@
       "tags": [
         "Hamstrings"
       ],
-      "description": "Anchor your feet and start kneeling upright. Lower your torso slowly toward the floor, resisting with your hamstrings — ideally going all the way down. Use hands to push up if needed. Extremely effective for hamstring strength and injury prevention.",
+      "description": "Anchor your feet and start kneeling upright. Lower your torso slowly toward the floor, resisting with your hamstrings \u2014 ideally going all the way down. Use hands to push up if needed. Extremely effective for hamstring strength and injury prevention.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/nordic-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/nordic-curl/end.jpg"
@@ -3636,7 +3636,7 @@
         "VMO",
         "Hip Flexors"
       ],
-      "description": "Bar rests on your front delts with elbows high. Squat down keeping your torso upright — this makes it harder than a back squat but places more emphasis on the quads and demands more core stability.",
+      "description": "Bar rests on your front delts with elbows high. Squat down keeping your torso upright \u2014 this makes it harder than a back squat but places more emphasis on the quads and demands more core stability.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-front-squat/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-front-squat/end.jpg"
@@ -3690,7 +3690,7 @@
       "tags": [
         "Lateral Delts"
       ],
-      "description": "Set a low cable to one side. Raise the handle out away from the cable until your arm is at shoulder height. The cable maintains constant tension throughout — particularly effective at the bottom range.",
+      "description": "Set a low cable to one side. Raise the handle out away from the cable until your arm is at shoulder height. The cable maintains constant tension throughout \u2014 particularly effective at the bottom range.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-lateral-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-lateral-raise/end.jpg"
@@ -3817,7 +3817,7 @@
       "tags": [
         "Rotator Cuff"
       ],
-      "description": "Lie on your side holding a light dumbbell, or use a cable at waist height. With the elbow fixed at 90°, rotate the forearm up and outward. Targets the infraspinatus and teres minor — key rotator cuff health work.",
+      "description": "Lie on your side holding a light dumbbell, or use a cable at waist height. With the elbow fixed at 90\u00b0, rotate the forearm up and outward. Targets the infraspinatus and teres minor \u2014 key rotator cuff health work.",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/external-rotation/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/external-rotation/end.jpg"
@@ -4285,7 +4285,7 @@
       }
     },
     {
-      "name": "Test Update Exercise v4",
+      "name": "Test Update Exercise v5",
       "muscleGroups": [
         "Core"
       ],
