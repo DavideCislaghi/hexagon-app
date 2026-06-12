@@ -55,7 +55,6 @@
   body {
     background: var(--bg);
     color: var(--text);
-    overscroll-behavior-y: none;
     font-family: 'DM Sans', sans-serif;
     height: 100vh;
   }
@@ -3868,6 +3867,80 @@
   .cm-warmup-toggle.on::after { transform: translateX(14px); }
   .cm-warmup-fields { margin-top: 2px; }
   .cm-sr-section-title { font-size: 0.68rem; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; }
+  /* ── Music page ─────────────────────────────────────────────────────────── */
+  .music-page-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.12em;
+    color: var(--muted); border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .music-page-section-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.05em;
+    background: var(--border); color: var(--muted);
+    padding: 2px 7px; border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .music-page-section-badge--online {
+    background: rgba(200,255,0,0.12); color: var(--accent);
+    border: 1px solid rgba(200,255,0,0.25);
+  }
+  .music-track-card {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .music-track-card.is-playing {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 5%, var(--card));
+  }
+  .music-track-card:active { opacity: 0.8; }
+  .music-track-card-vis {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: #0d0d0d; flex-shrink: 0; overflow: hidden;
+    position: relative;
+  }
+  .music-track-card-vis canvas { display: block; }
+  .music-track-card-play-indicator {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .music-track-card.is-playing .music-track-card-play-indicator { opacity: 1; }
+  .music-track-card-body { flex: 1; min-width: 0; }
+  .music-track-card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: 0.07em;
+    color: var(--text); line-height: 1.1; margin-bottom: 3px;
+  }
+  .music-track-card.is-playing .music-track-card-name { color: var(--accent); }
+  .music-track-card-sub {
+    font-size: 0.65rem; color: var(--muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .music-track-card-meta {
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: 4px; flex-shrink: 0;
+  }
+  .music-track-card-bpm {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.04em;
+    color: var(--accent); line-height: 1;
+  }
+  .music-track-card-bpmlabel {
+    font-size: 0.55rem; letter-spacing: 0.08em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .music-track-card-type {
+    font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--border); color: var(--muted);
+    padding: 2px 6px; border-radius: 20px;
+  }
+
 </style>
 <script>
   // Runs in <head> before body paints — applies saved accent & dark mode instantly
@@ -3987,6 +4060,12 @@
       <span class="nav-sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
       <span class="nav-sub-label">Tags</span>
       <span class="nav-sub-count" id="nav-count-tags"></span>
+    </div>
+    <div class="nav-section-divider"></div>
+    <div class="nav-section-label" id="nav-label-music">Music</div>
+    <div class="nav-sub-item" data-page="music-page">
+      <span class="nav-sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+      <span class="nav-sub-label">Tracks</span>
     </div>
   </nav>
   <div class="drawer-footer">
@@ -5105,6 +5184,34 @@
     <div style="height:20px"></div>
   </div>
 
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       MUSIC PAGE
+  ════════════════════════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-music-page">
+    <div class="page-title">MUSIC</div>
+    <p class="page-sub">Workout soundtrack, synthesised on-device or streamed from file.</p>
+
+    <!-- ── Synth tracks section ──────────────────────────────────────────── -->
+    <div class="music-page-section-header" id="music-page-synth-header">
+      <span>SYNTH ENGINE</span>
+      <span class="music-page-section-badge">Always available</span>
+    </div>
+    <div id="music-page-synth-list"></div>
+
+    <!-- ── Real tracks section (online only) ─────────────────────────────── -->
+    <div class="music-page-section-header" id="music-page-real-header" style="display:none;">
+      <span>AUDIO FILES</span>
+      <span class="music-page-section-badge music-page-section-badge--online">Online</span>
+    </div>
+    <div id="music-page-real-list"></div>
+
+    <!-- ── Empty state ───────────────────────────────────────────────────── -->
+    <div id="music-page-real-empty" style="display:none;text-align:center;padding:24px 16px;color:var(--muted);font-size:0.75rem;letter-spacing:0.04em;">
+      No audio files found in the music library.
+    </div>
+  </div>
+
+
 </main>
 
 <!-- IMPORT MODAL -->
@@ -5263,10 +5370,13 @@
   let currentPage      = 'home';
   const WORKOUT_PAGES = new Set(['session','just-timers','session-history','stats']);
   const LIBRARY_PAGES = new Set(['exercises','categories','equipment','tags']);
+  const MUSIC_PAGES   = new Set(['music-page']);
 
   function syncSectionLabels() {
     document.getElementById('nav-label-workout').classList.toggle('active', WORKOUT_PAGES.has(currentPage));
     document.getElementById('nav-label-library').classList.toggle('active', LIBRARY_PAGES.has(currentPage));
+    const musicLabel = document.getElementById('nav-label-music');
+    if (musicLabel) musicLabel.classList.toggle('active', MUSIC_PAGES.has(currentPage));
   }
 
   // ── NAV ITEMS ──
@@ -5426,6 +5536,8 @@
     if (pageId === 'session-history') { _historyFilter = { type: 'total', label: 'All Sessions' }; _historyTypeFilter = 'all'; renderSessionHistory(); }
     if (pageId === 'stats') renderStats();
     if (pageId === 'guide') onGuideVisit();
+    if (pageId === 'music-page') { setTimeout(() => { if (typeof _mpInit === 'function') { if (typeof _mpStopAllCardVis === 'function') _mpStopAllCardVis(); _mpInit(); } }, 0); }
+    else if (typeof _mpStopAllCardVis === 'function') _mpStopAllCardVis();
     if (pageId === 'just-timers') {
       _showJtLanding();
       return;
@@ -12195,7 +12307,7 @@
 
 <!-- ── MUSIC PLAYER ─────────────────────────────────────────────────────────── -->
 <!-- Mini bar (always rendered, shown/hidden via JS) -->
-<div id="music-mini-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:1100;background:#1c1c1c;border-top:1px solid var(--border);border-radius:16px 16px 0 0;padding:0 16px 10px;font-family:'DM Sans',sans-serif;">
+<div id="music-mini-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:1100;background:#1c1c1c;border-top:1px solid var(--border);padding:0 16px 10px;font-family:'DM Sans',sans-serif;">
   <!-- Expand hint -->
   <div id="music-mini-expand-hint" style="display:flex;justify-content:center;padding:5px 0 4px;cursor:pointer;">
     <svg width="16" height="8" viewBox="0 0 16 8"><polyline points="1,7 8,1 15,7" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -13078,6 +13190,151 @@ function togglePlay() {
   if (ctx.state==='suspended') ctx.resume();
   playing ? stopAll(false) : startAll();
 }
+
+
+// ── Music Page ────────────────────────────────────────────────────────────────
+const MUSIC_TRACKS_JSON_URL = 'https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/tracks.json';
+let _mpRealTracks = null;   // null = not yet fetched; [] = fetched, none found
+let _mpCardFrames = {};     // canvas rAF handles keyed by track id
+
+function _mpRenderSynth() {
+  const list = document.getElementById('music-page-synth-list');
+  if (!list) return;
+  list.innerHTML = '';
+  MUSIC_TRACKS.forEach((t, i) => {
+    const isPlaying = _mPlaying && _mTrackIdx === i;
+    const card = document.createElement('div');
+    card.className = 'music-track-card' + (isPlaying ? ' is-playing' : '');
+    card.dataset.synthIdx = i;
+    card.innerHTML = `
+      <div class="music-track-card-vis">
+        <canvas id="mp-vis-${t.id}" width="88" height="88" style="width:44px;height:44px;display:block;"></canvas>
+        <div class="music-track-card-play-indicator">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        </div>
+      </div>
+      <div class="music-track-card-body">
+        <div class="music-track-card-name">${t.name}</div>
+        <div class="music-track-card-sub">${t.sub}</div>
+      </div>
+      <div class="music-track-card-meta">
+        <div class="music-track-card-bpm">${t.bpm}<span class="music-track-card-bpmlabel"> BPM</span></div>
+        <div class="music-track-card-type">${t.type}</div>
+      </div>`;
+    card.addEventListener('click', () => {
+      _mTrackIdx = i; _mBpmOvr = null;
+      if (!_mPlaying) {
+        musicTogglePlay();
+        musicPlayerShow();
+      } else {
+        _mSwitchTrack();
+      }
+      _mpRefreshAllCards();
+    });
+    list.appendChild(card);
+    _mpStartCardVis(t.id, i);
+  });
+}
+
+function _mpStartCardVis(trackId, trackIdx) {
+  if (_mpCardFrames[trackId]) cancelAnimationFrame(_mpCardFrames[trackId]);
+  const canvas = document.getElementById('mp-vis-' + trackId);
+  if (!canvas) return;
+  const W = canvas.width, H = canvas.height;
+  // Reuse shared bar state arrays (lightweight, per-card)
+  const bars = Array.from({length: 10}, (_, i) => ({
+    h: 0.1, vel: 0, target: 0,
+    freq: 0.5 + Math.random() * 2.5,
+    phase: Math.random() * Math.PI * 2
+  }));
+  function loop(ts) {
+    const ctx2 = canvas.getContext('2d');
+    const isActive = _mPlaying && _mTrackIdx === trackIdx;
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c8ff00';
+    const bpm = _mBpmOvr || MUSIC_TRACKS[trackIdx].bpm;
+    const speed = isActive ? bpm / 60 : 0.2;
+    ctx2.clearRect(0, 0, W, H);
+    const gap = 2, barW = Math.max(1, (W - gap * (bars.length - 1)) / bars.length);
+    bars.forEach((bar, i) => {
+      bar.target = isActive
+        ? (Math.sin(ts * 0.001 * bar.freq * speed + bar.phase) * 0.5 + 0.5) * 0.8 + 0.1
+        : Math.sin(ts * 0.0003 + bar.phase) * 0.06 + 0.08;
+      bar.vel = (bar.vel + (bar.target - bar.h) * 18 * 0.016) * 0.7;
+      bar.h = Math.max(0.04, Math.min(1, bar.h + bar.vel * 0.016));
+      const h = bar.h * H * 0.88, x = i * (barW + gap), y = H - h;
+      const grad = ctx2.createLinearGradient(0, y, 0, H);
+      grad.addColorStop(0, accent);
+      grad.addColorStop(1, accent + '22');
+      ctx2.fillStyle = grad;
+      ctx2.beginPath(); ctx2.roundRect(x, y, barW, h, [2, 2, 0, 0]); ctx2.fill();
+    });
+    _mpCardFrames[trackId] = requestAnimationFrame(loop);
+  }
+  _mpCardFrames[trackId] = requestAnimationFrame(loop);
+}
+
+function _mpStopAllCardVis() {
+  Object.values(_mpCardFrames).forEach(id => cancelAnimationFrame(id));
+  _mpCardFrames = {};
+}
+
+function _mpRefreshAllCards() {
+  // Update is-playing class on all synth cards
+  document.querySelectorAll('.music-track-card[data-synth-idx]').forEach(card => {
+    const idx = parseInt(card.dataset.synthIdx);
+    card.classList.toggle('is-playing', _mPlaying && _mTrackIdx === idx);
+    const nameEl = card.querySelector('.music-track-card-name');
+    if (nameEl) nameEl.style.color = (_mPlaying && _mTrackIdx === idx) ? 'var(--accent)' : '';
+  });
+}
+
+async function _mpFetchRealTracks() {
+  const realHeader = document.getElementById('music-page-real-header');
+  const realList   = document.getElementById('music-page-real-list');
+  const realEmpty  = document.getElementById('music-page-real-empty');
+  if (!realHeader) return;
+  try {
+    const resp = await fetch(MUSIC_TRACKS_JSON_URL, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('not found');
+    const data = await resp.json();
+    const tracks = Array.isArray(data) ? data : (data.tracks || []);
+    // Filter only tracks that have a url field (real audio files)
+    const realTracks = tracks.filter(t => t.url);
+    _mpRealTracks = realTracks;
+    if (realTracks.length > 0) {
+      realHeader.style.display = '';
+      realEmpty.style.display  = 'none';
+      realList.innerHTML = realTracks.map(t => `
+        <div class="music-track-card" style="opacity:0.6;cursor:default;">
+          <div class="music-track-card-vis" style="background:#111;display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <div class="music-track-card-body">
+            <div class="music-track-card-name">${t.name || t.id}</div>
+            <div class="music-track-card-sub">${t.sub || 'Audio file · coming soon'}</div>
+          </div>
+          <div class="music-track-card-meta">
+            ${t.bpm ? `<div class="music-track-card-bpm">${t.bpm}<span class="music-track-card-bpmlabel"> BPM</span></div>` : ''}
+            <div class="music-track-card-type" style="background:rgba(200,255,0,0.08);color:var(--accent);">file</div>
+          </div>
+        </div>`).join('');
+    } else {
+      realHeader.style.display = '';
+      realEmpty.style.display  = '';
+    }
+  } catch(e) {
+    // Offline or no file — silently hide the section
+    realHeader.style.display = 'none';
+    realEmpty.style.display  = 'none';
+    _mpRealTracks = [];
+  }
+}
+
+function _mpInit() {
+  _mpRenderSynth();
+  if (!isStandaloneMode()) _mpFetchRealTracks();
+}
+
 
 </script>
 
