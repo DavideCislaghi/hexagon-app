@@ -12230,8 +12230,8 @@
 
   <!-- Visualiser -->
   <div id="music-vis-wrap" style="background:#0d0d0d;border-radius:8px;overflow:hidden;margin-bottom:14px;border:1px solid var(--border);">
-    <canvas id="music-bar-canvas" width="480" height="80" style="width:100%;height:80px;display:block;"></canvas>
-    <canvas id="music-wave-canvas" width="480" height="80" style="width:100%;height:80px;display:none;"></canvas>
+    <canvas id="music-bar-canvas" style="width:100%;height:80px;display:block;"></canvas>
+    <canvas id="music-wave-canvas" style="width:100%;height:80px;display:none;"></canvas>
   </div>
 
   <!-- Track info -->
@@ -12510,7 +12510,8 @@ document.getElementById('music-mini-expand').addEventListener('click', () => {
   document.getElementById('music-expanded').style.display = 'block';
   document.getElementById('music-mini-bar').style.display = 'none';
   _mBuildQueue();
-  _mStartVis();
+  // Defer vis start by one frame so the panel has painted and has real dimensions
+  requestAnimationFrame(() => requestAnimationFrame(_mStartVis));
 });
 document.getElementById('music-collapse-btn').addEventListener('click', () => {
   _mExpanded = false;
@@ -12567,9 +12568,12 @@ function _mDrawWave(canvas, playing, bpm, ts) {
 
 function _mSyncCanvasSize(canvas) {
   const dpr = window.devicePixelRatio || 1;
-  // Use offsetWidth/offsetHeight — works even when panel was just made visible
-  const W = Math.round((canvas.offsetWidth  || canvas.parentElement.offsetWidth || 300) * dpr);
-  const H = Math.round((canvas.offsetHeight || 80) * dpr);
+  // parentElement width is the vis-wrap div — always available once panel is visible
+  const cssW = canvas.parentElement ? canvas.parentElement.clientWidth : 300;
+  const cssH = 80;
+  const W = Math.round(cssW * dpr);
+  const H = Math.round(cssH * dpr);
+  if (!W || !H) return; // not yet laid out
   if (canvas.width !== W || canvas.height !== H) {
     canvas.width  = W;
     canvas.height = H;
@@ -12675,6 +12679,20 @@ function musicSeek(e) {
   const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
   _mProgSecs = Math.round(pct * _mTrackDuration);
   _mUpdateProgressUI();
+  // Restart synth scheduler from matching variation (seek affects groove feel)
+  if (_mPlaying && ctx) {
+    clearInterval(sched); sched = null;
+    // Jump synth variation to match seek position
+    const barDuration = (60 / currentBpm()) * 4; // seconds per bar
+    const totalBars = Math.floor(_mProgSecs / barDuration);
+    currentVar = Math.floor(totalBars / BARS_PER_VAR) % TOTAL_VARS;
+    globalBar  = totalBars % BARS_PER_VAR;
+    nextBeat   = ctx.currentTime + 0.06;
+    globalStep = totalBars * 16;
+    arpStep = 0; leadStep = 0; melStep = 0;
+    playing = true;
+    sched = setInterval(runScheduler, SCHED_MS);
+  }
 }
 
 function _mStopProgress() {
