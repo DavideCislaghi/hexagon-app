@@ -12195,7 +12195,7 @@
 <div id="music-mini-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:1100;background:#1c1c1c;border-top:1px solid var(--border);padding:8px 16px 10px;font-family:'DM Sans',sans-serif;">
   <div style="display:flex;align-items:center;gap:12px;" id="music-mini-expand">
     <!-- Mini visualiser (tap area = whole bar) -->
-    <div style="width:48px;height:32px;border-radius:5px;background:#0d0d0d;flex-shrink:0;overflow:hidden;cursor:pointer;">
+    <div id="music-mini-canvas-wrap" style="width:48px;height:32px;border-radius:5px;background:#0d0d0d;flex-shrink:0;overflow:hidden;cursor:pointer;">
       <canvas id="music-mini-canvas" width="96" height="64" style="width:48px;height:32px;display:block;"></canvas>
     </div>
     <!-- Track info + progress bar -->
@@ -12423,18 +12423,26 @@ function musicNext() {
   _mBpmOvr = null;
   _mSwitchTrack();
 }
+function _mRestartSynth() {
+  // Ensure AudioContext is running then start scheduler
+  initCtx();
+  const doStart = () => { startAll(); _mResumeProgress(); };
+  if (ctx.state === 'suspended') ctx.resume().then(doStart);
+  else doStart();
+}
 function _mSwitchTrack() {
   _mStopProgress();
-  _mUpdateTrackUI();
   trackIdx    = _mTrackIdx;
   bpmOverride = _mBpmOvr;
+  _mUpdateTrackUI();
   if (_mPlaying) {
-    stopAll(false);
-    setTimeout(() => {
-      initCtx();
-      if (ctx.state === 'suspended') ctx.resume().then(() => { startAll(); _mResumeProgress(); });
-      else { startAll(); _mResumeProgress(); }
-    }, 80);
+    // Stop cleanly, then restart after audio nodes have settled
+    clearInterval(sched); sched = null; playing = false;
+    if (masterGain) {
+      masterGain.gain.cancelScheduledValues(ctx.currentTime);
+      masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+    }
+    setTimeout(_mRestartSynth, 120);
   }
 }
 
@@ -12494,6 +12502,9 @@ function musicSetVis(v) {
   document.getElementById('music-bar-canvas').style.display  = v === 'bars' ? 'block' : 'none';
   document.getElementById('music-wave-canvas').style.display = v === 'wave' ? 'block' : 'none';
   document.getElementById('music-vis-wrap').style.display    = v === 'none' ? 'none'  : 'block';
+  // Mini canvas wrapper: hide on None
+  const miniWrap = document.getElementById('music-mini-canvas-wrap');
+  if (miniWrap) miniWrap.style.display = v === 'none' ? 'none' : 'block';
 }
 
 // ── Show / Hide player ────────────────────────────────────────────────────────
@@ -12626,8 +12637,9 @@ function _mStartMiniVis() {
     const bpm    = _mBpmOvr || MUSIC_TRACKS[_mTrackIdx].bpm;
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c8ff00';
 
-    if (_mVis === 'bars' || _mVis === 'none') {
-      // Always show bars in mini even when None selected (mini needs something visible)
+    if (_mVis === 'none') {
+      // None: leave canvas blank (already cleared above)
+    } else if (_mVis === 'bars') {
       const speed = _mPlaying ? bpm/60 : 0.2;
       const gap = 2, barW = Math.max(1, (W - gap*(_mMiniBarState.length-1)) / _mMiniBarState.length);
       _mMiniBarState.forEach((bar, i) => {
@@ -12991,7 +13003,7 @@ function stopAll(fade=false) {
       masterGain.gain.setValueAtTime(vol, ctx.currentTime+0.1);
     }, 3800);
   } else {
-    clearInterval(sched); playing=false;
+    clearInterval(sched); sched=null; playing=false;
     if(masterGain){masterGain.gain.cancelScheduledValues(ctx.currentTime);masterGain.gain.setValueAtTime(vol,ctx.currentTime);}
   }
 }
