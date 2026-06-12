@@ -12193,27 +12193,35 @@
 <!-- ── MUSIC PLAYER ─────────────────────────────────────────────────────────── -->
 <!-- Mini bar (always rendered, shown/hidden via JS) -->
 <div id="music-mini-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:1100;background:#1c1c1c;border-top:1px solid var(--border);padding:8px 16px 10px;font-family:'DM Sans',sans-serif;">
-  <div style="display:flex;align-items:center;gap:12px;cursor:pointer;" id="music-mini-expand">
-    <!-- Mini visualiser -->
-    <canvas id="music-mini-canvas" width="96" height="32" style="width:48px;height:32px;border-radius:5px;background:#0d0d0d;flex-shrink:0;display:block;"></canvas>
-    <!-- Track info + progress -->
-    <div style="flex:1;min-width:0;">
+  <div style="display:flex;align-items:center;gap:12px;" id="music-mini-expand">
+    <!-- Mini visualiser (tap area = whole bar) -->
+    <div style="width:48px;height:32px;border-radius:5px;background:#0d0d0d;flex-shrink:0;overflow:hidden;cursor:pointer;">
+      <canvas id="music-mini-canvas" width="96" height="64" style="width:48px;height:32px;display:block;"></canvas>
+    </div>
+    <!-- Track info + progress bar -->
+    <div style="flex:1;min-width:0;cursor:pointer;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
-        <div id="music-mini-title" style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.08em;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%;">DARK PHONK</div>
+        <div id="music-mini-title" style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.08em;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:65%;">DARK PHONK</div>
         <div id="music-mini-bpm" style="font-size:0.65rem;color:var(--muted);flex-shrink:0;">148 BPM</div>
       </div>
-      <!-- Animated activity bar when playing -->
       <div style="height:2px;background:var(--border);border-radius:1px;overflow:hidden;">
-        <div id="music-mini-bar-fill" style="height:100%;width:0%;background:var(--accent);border-radius:1px;transition:width 0.3s linear;"></div>
+        <div id="music-mini-bar-fill" style="height:100%;width:0%;background:var(--accent);border-radius:1px;transition:width 1s linear;"></div>
       </div>
     </div>
-    <!-- Play/pause -->
-    <button id="music-mini-playbtn" onclick="event.stopPropagation();musicTogglePlay();" style="width:34px;height:34px;border-radius:50%;background:var(--accent);border:none;color:#0d0d0d;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:none;transition:box-shadow 0.2s;">▶</button>
+    <!-- Prev / Play-Pause / Next -->
+    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+      <button onclick="event.stopPropagation();musicPrev();" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;">⏮</button>
+      <button id="music-mini-playbtn" onclick="event.stopPropagation();musicTogglePlay();" style="width:34px;height:34px;border-radius:50%;background:var(--accent);border:none;color:#0d0d0d;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:none;transition:box-shadow 0.2s;">
+        <svg id="music-mini-play-ico" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        <svg id="music-mini-pause-ico" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+      <button onclick="event.stopPropagation();musicNext();" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;">⏭</button>
+    </div>
   </div>
 </div>
 
 <!-- Expanded player panel (slides up) -->
-<div id="music-expanded" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:1101;background:#1c1c1c;border-top:1px solid var(--border);border-radius:16px 16px 0 0;padding:0 16px 20px;font-family:'DM Sans',sans-serif;max-height:90vh;overflow-y:auto;">
+<div id="music-expanded" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:1101;background:#1c1c1c;border-top:1px solid var(--border);border-radius:16px 16px 0 0;padding:0 16px 14px;font-family:'DM Sans',sans-serif;max-height:90vh;overflow-y:auto;">
 
   <!-- Drag handle -->
   <div id="music-collapse-btn" style="display:flex;justify-content:center;padding:12px 0 8px;cursor:pointer;">
@@ -12227,9 +12235,20 @@
   </div>
 
   <!-- Track info -->
-  <div style="margin-bottom:12px;">
+  <div style="margin-bottom:10px;">
     <div id="music-track-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:0.1em;color:var(--accent);line-height:1;">DARK PHONK</div>
     <div id="music-track-sub" style="font-size:0.7rem;color:var(--muted);margin-top:2px;">808 bass · cowbell hits · dark minor keys</div>
+  </div>
+
+  <!-- Progress bar -->
+  <div style="margin-bottom:14px;">
+    <div style="height:3px;background:var(--border);border-radius:2px;position:relative;overflow:visible;">
+      <div id="music-progress-fill" style="height:100%;width:0%;background:var(--accent);border-radius:2px;transition:width 1s linear;"></div>
+      <div id="music-progress-dot" style="position:absolute;top:50%;left:0%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent);pointer-events:none;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:0.65rem;color:var(--muted);">
+      <span id="music-time-cur">0:00</span><span id="music-time-tot">0:00</span>
+    </div>
   </div>
 
   <!-- Row 1: Transport + BPM -->
@@ -12237,7 +12256,10 @@
     <!-- Transport -->
     <div style="display:flex;align-items:center;gap:8px;">
       <button onclick="musicPrev()" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;">⏮</button>
-      <button id="music-play-btn" onclick="musicTogglePlay()" style="width:50px;height:50px;border-radius:50%;background:var(--accent);border:none;color:#0d0d0d;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:none;transition:box-shadow 0.2s;">▶</button>
+      <button id="music-play-btn" onclick="musicTogglePlay()" style="width:52px;height:52px;border-radius:50%;background:var(--accent);border:none;color:#0d0d0d;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:none;transition:box-shadow 0.2s;">
+        <svg id="music-play-ico" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        <svg id="music-pause-ico" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
       <button onclick="musicNext()" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;">⏭</button>
     </div>
     <!-- BPM -->
@@ -12346,25 +12368,39 @@ function _mUpdateTrackUI() {
 function musicTogglePlay() {
   if (!_mPlaying) {
     _mPlaying = true;
-    // Sync synth engine track
     trackIdx   = _mTrackIdx;
     bpmOverride = _mBpmOvr;
-    togglePlay(); // calls synth engine
+    togglePlay();
     _mStartVis();
+    _mStartProgress();
+    // init total time display
+    const tot = document.getElementById('music-time-tot');
+    if (tot) tot.textContent = _mFmtTime(_mTrackDuration);
   } else {
     _mPlaying = false;
     stopAll(false);
     _mStopVis();
+    _mStopProgress();
   }
   _mUpdatePlayUI();
 }
 
 function _mUpdatePlayUI() {
-  const playBtn  = document.getElementById('music-play-btn');
-  const miniBtn  = document.getElementById('music-mini-playbtn');
-  const glow     = _mPlaying ? '0 0 18px rgba(200,255,0,0.5)' : 'none';
-  if (playBtn)  { playBtn.textContent  = _mPlaying ? '⏸' : '▶'; playBtn.style.boxShadow  = glow; }
-  if (miniBtn)  { miniBtn.textContent  = _mPlaying ? '⏸' : '▶'; miniBtn.style.boxShadow  = glow; }
+  const glow = _mPlaying ? '0 0 18px rgba(200,255,0,0.5)' : 'none';
+  // Expanded play button
+  const playBtn = document.getElementById('music-play-btn');
+  if (playBtn) playBtn.style.boxShadow = glow;
+  const playIco  = document.getElementById('music-play-ico');
+  const pauseIco = document.getElementById('music-pause-ico');
+  if (playIco)  playIco.style.display  = _mPlaying ? 'none' : '';
+  if (pauseIco) pauseIco.style.display = _mPlaying ? '' : 'none';
+  // Mini play button
+  const miniBtn = document.getElementById('music-mini-playbtn');
+  if (miniBtn) miniBtn.style.boxShadow = glow;
+  const miniPlayIco  = document.getElementById('music-mini-play-ico');
+  const miniPauseIco = document.getElementById('music-mini-pause-ico');
+  if (miniPlayIco)  miniPlayIco.style.display  = _mPlaying ? 'none' : '';
+  if (miniPauseIco) miniPauseIco.style.display = _mPlaying ? '' : 'none';
 }
 
 // ── Prev / Next ───────────────────────────────────────────────────────────────
@@ -12384,12 +12420,13 @@ function musicNext() {
   _mSwitchTrack();
 }
 function _mSwitchTrack() {
+  _mStopProgress();
   _mUpdateTrackUI();
   if (_mPlaying) {
     trackIdx   = _mTrackIdx;
     bpmOverride = _mBpmOvr;
     stopAll(false);
-    setTimeout(startAll, 80);
+    setTimeout(() => { startAll(); _mStartProgress(); }, 80);
   }
 }
 
@@ -12526,14 +12563,24 @@ function _mDrawWave(canvas, playing, bpm, ts) {
   ctx2.stroke(); ctx2.shadowBlur=0;
 }
 
+function _mSyncCanvasSize(canvas) {
+  const rect = canvas.getBoundingClientRect();
+  const dpr  = window.devicePixelRatio || 1;
+  const W = Math.round(rect.width  * dpr);
+  const H = Math.round(rect.height * dpr);
+  if (canvas.width !== W || canvas.height !== H) {
+    canvas.width  = W;
+    canvas.height = H;
+  }
+}
 function _mStartVis() {
   if (_mVisFrame) cancelAnimationFrame(_mVisFrame);
   const barsC = document.getElementById('music-bar-canvas');
   const waveC = document.getElementById('music-wave-canvas');
   const loop = (ts) => {
     const bpm = _mBpmOvr || MUSIC_TRACKS[_mTrackIdx].bpm;
-    if (_mVis === 'bars') _mDrawBars(barsC, _mPlaying, bpm, ts);
-    if (_mVis === 'wave') _mDrawWave(waveC, _mPlaying, bpm, ts);
+    if (_mVis === 'bars') { _mSyncCanvasSize(barsC); _mDrawBars(barsC, _mPlaying, bpm, ts); }
+    if (_mVis === 'wave') { _mSyncCanvasSize(waveC); _mDrawWave(waveC, _mPlaying, bpm, ts); }
     _mVisFrame = requestAnimationFrame(loop);
   };
   _mVisFrame = requestAnimationFrame(loop);
@@ -12570,6 +12617,50 @@ function _mStartMiniVis() {
 }
 function _mStopMiniVis() {
   if (_mMiniFrame) { cancelAnimationFrame(_mMiniFrame); _mMiniFrame = null; }
+}
+
+// ── Progress tracking (beat-based, not time-based since synth has no fixed duration) ──
+let _mProgInterval = null;
+let _mProgSecs = 0;
+const _mTrackDuration = 180; // treat each synth track as ~3 min for progress display
+
+function _mFmtTime(s) {
+  const m = Math.floor(s/60), sec = Math.floor(s%60);
+  return m + ':' + String(sec).padStart(2,'0');
+}
+function _mStartProgress() {
+  clearInterval(_mProgInterval);
+  _mProgSecs = 0;
+  _mProgInterval = setInterval(() => {
+    if (!_mPlaying) return;
+    _mProgSecs = Math.min(_mProgSecs + 1, _mTrackDuration);
+    const pct = (_mProgSecs / _mTrackDuration) * 100;
+    const fill = document.getElementById('music-progress-fill');
+    const dot  = document.getElementById('music-progress-dot');
+    const cur  = document.getElementById('music-time-cur');
+    const tot  = document.getElementById('music-time-tot');
+    const mini = document.getElementById('music-mini-bar-fill');
+    if (fill) fill.style.width = pct + '%';
+    if (dot)  dot.style.left  = pct + '%';
+    if (cur)  cur.textContent = _mFmtTime(_mProgSecs);
+    if (tot)  tot.textContent = _mFmtTime(_mTrackDuration);
+    if (mini) mini.style.width = pct + '%';
+    if (_mProgSecs >= _mTrackDuration) {
+      if (_mLoop) { _mProgSecs = 0; } else { musicNext(); }
+    }
+  }, 1000);
+}
+function _mStopProgress() {
+  clearInterval(_mProgInterval);
+  const fill = document.getElementById('music-progress-fill');
+  const dot  = document.getElementById('music-progress-dot');
+  const cur  = document.getElementById('music-time-cur');
+  const mini = document.getElementById('music-mini-bar-fill');
+  if (fill) fill.style.width = '0%';
+  if (dot)  dot.style.left  = '0%';
+  if (cur)  cur.textContent = '0:00';
+  if (mini) mini.style.width = '0%';
+  _mProgSecs = 0;
 }
 
 // ── Hook into session timer ───────────────────────────────────────────────────
