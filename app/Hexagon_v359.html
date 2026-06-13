@@ -13500,6 +13500,9 @@ async function _mpFetchRealTracks(query) {
   } catch(e) {
     console.warn('[Hexagon] Music fetch failed:', e);
     _mpRealTracks = [];
+    // Temp debug: show error in UI
+    const dbg = document.getElementById('music-page-real-empty');
+    if (dbg) dbg.textContent = 'Fetch error: ' + e.message + ' | URL: ' + MUSIC_TRACKS_JSON_URL;
     _mpRenderRealTracks(q);
   }
 }
