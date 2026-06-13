@@ -7,7 +7,8 @@
       "artist": "FleaLes",
       "bpm": 140,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_impact.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_impact.ogg",
+      "duration": 30
     },
     {
       "id": "concrete_velocity",
@@ -16,7 +17,8 @@
       "artist": "FleaLes",
       "bpm": 140,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_velocity.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_velocity.ogg",
+      "duration": 30
     },
     {
       "id": "hydraulic_crush",
@@ -25,7 +27,8 @@
       "artist": "FleaLes",
       "bpm": 140,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_crush.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_crush.ogg",
+      "duration": 30
     },
     {
       "id": "concrete_maw",
@@ -34,7 +37,8 @@
       "artist": "FleaLes",
       "bpm": 140,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_maw.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_maw.ogg",
+      "duration": 30
     },
     {
       "id": "piston_heart",
@@ -43,7 +47,8 @@
       "artist": "FleaLes",
       "bpm": 140,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/piston_heart.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/piston_heart.ogg",
+      "duration": 30
     },
     {
       "id": "max_load",
@@ -52,7 +57,8 @@
       "artist": "FleaLes",
       "bpm": 130,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/max_load.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/max_load.ogg",
+      "duration": 30
     },
     {
       "id": "concrete_teeth",
@@ -61,7 +67,8 @@
       "artist": "FleaLes",
       "bpm": 130,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_teeth.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_teeth.ogg",
+      "duration": 30
     },
     {
       "id": "iron_grip",
@@ -70,7 +77,8 @@
       "artist": "FleaLes",
       "bpm": 130,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/iron_grip.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/iron_grip.ogg",
+      "duration": 30
     },
     {
       "id": "iron_teeth",
@@ -79,7 +87,8 @@
       "artist": "FleaLes",
       "bpm": 130,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/iron_teeth.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/iron_teeth.ogg",
+      "duration": 30
     },
     {
       "id": "midnight_siege",
@@ -88,7 +97,8 @@
       "artist": "FleaLes",
       "bpm": 130,
       "type": "phonk",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/midnight_siege.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/midnight_siege.ogg",
+      "duration": 30
     },
     {
       "id": "after_hours_chase",
@@ -97,7 +107,8 @@
       "artist": "FleaLes",
       "bpm": 160,
       "type": "house",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/after_hours_chase.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/after_hours_chase.ogg",
+      "duration": 30
     },
     {
       "id": "apex_grip",
@@ -106,7 +117,8 @@
       "artist": "FleaLes",
       "bpm": 160,
       "type": "house",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/apex_grip.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/apex_grip.ogg",
+      "duration": 30
     },
     {
       "id": "rough_terrain",
@@ -115,7 +127,8 @@
       "artist": "FleaLes",
       "bpm": 160,
       "type": "house",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/rough_terrain.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/rough_terrain.ogg",
+      "duration": 30
     },
     {
       "id": "full_throttle_grip",
@@ -124,7 +137,8 @@
       "artist": "FleaLes",
       "bpm": 160,
       "type": "house",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/full_throttle_grip.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/full_throttle_grip.ogg",
+      "duration": 30
     },
     {
       "id": "grip_the_asphalt",
@@ -133,7 +147,8 @@
       "artist": "FleaLes",
       "bpm": 160,
       "type": "house",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/grip_the_asphalt.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/grip_the_asphalt.ogg",
+      "duration": 30
     },
     {
       "id": "rpm_havoc",
