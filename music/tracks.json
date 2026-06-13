@@ -1,50 +1,49 @@
-[
-  {
-    "id": "iron-oath",
-    "title": "IRON OATH",
-    "artist": "Unknown",
-    "bpm": 140,
-    "vibe": "Phonk",
-    "file": "music/iron-oath.ogg"
-  },
-  {
-    "id": "voltage-drop",
-    "title": "VOLTAGE DROP",
-    "artist": "Unknown",
-    "bpm": 150,
-    "vibe": "Dubstep",
-    "file": "music/voltage-drop.ogg"
-  },
-  {
-    "id": "neon-grid",
-    "title": "NEON GRID",
-    "artist": "Unknown",
-    "bpm": 128,
-    "vibe": "Synthwave",
-    "file": "music/neon-grid.ogg"
-  },
-  {
-    "id": "dead-weight",
-    "title": "DEAD WEIGHT",
-    "artist": "Unknown",
-    "bpm": 138,
-    "vibe": "Phonk",
-    "file": "music/dead-weight.ogg"
-  },
-  {
-    "id": "circuit-break",
-    "title": "CIRCUIT BREAK",
-    "artist": "Unknown",
-    "bpm": 145,
-    "vibe": "Dubstep",
-    "file": "music/circuit-break.ogg"
-  },
-  {
-    "id": "chrome-abyss",
-    "title": "CHROME ABYSS",
-    "artist": "Unknown",
-    "bpm": 132,
-    "vibe": "Synthwave",
-    "file": "music/chrome-abyss.ogg"
-  }
-]
+{
+  "tracks": [
+    {
+      "id": "hydraulic_impact",
+      "name": "HYDRAULIC IMPACT",
+      "sub": "Cyberpunk wave phonk \u00b7 heavy machinery \u00b7 dark rhythm",
+      "artist": "FleaLes",
+      "bpm": 140,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_impact.ogg"
+    },
+    {
+      "id": "concrete_velocity",
+      "name": "CONCRETE VELOCITY",
+      "sub": "Cyberpunk wave phonk \u00b7 underground speed \u00b7 gritty drive",
+      "artist": "FleaLes",
+      "bpm": 140,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_velocity.ogg"
+    },
+    {
+      "id": "hydraulic_crush",
+      "name": "HYDRAULIC CRUSH",
+      "sub": "Cyberpunk wave phonk \u00b7 industrial bass \u00b7 crushing drop",
+      "artist": "FleaLes",
+      "bpm": 140,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_crush.ogg"
+    },
+    {
+      "id": "concrete_maw",
+      "name": "CONCRETE MAW",
+      "sub": "Cyberpunk wave phonk \u00b7 dark distortion \u00b7 relentless grid",
+      "artist": "FleaLes",
+      "bpm": 140,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_maw.ogg"
+    },
+    {
+      "id": "piston_heart",
+      "name": "PISTON HEART",
+      "sub": "Cyberpunk wave phonk \u00b7 mechanical pulse \u00b7 raw energy",
+      "artist": "FleaLes",
+      "bpm": 140,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/piston_heart.ogg"
+    }
+  ]
+}
