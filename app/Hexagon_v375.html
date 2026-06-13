@@ -13643,6 +13643,22 @@ async function _mpFetchRealTracks(query) {
     const existingIds = new Set(ALL_TRACKS.map(t => t.id));
     realTracks.forEach(t => { if (!existingIds.has(t.id)) ALL_TRACKS.push(t); });
     _mpRenderRealTracks(q);
+    // Probe durations asynchronously and update cards when ready
+    realTracks.forEach(t => {
+      if (t.duration) return; // already known
+      const probe = document.createElement('audio');
+      probe.preload = 'metadata';
+      probe.src = t.url;
+      probe.addEventListener('loadedmetadata', function() {
+        if (isFinite(probe.duration) && probe.duration > 0) {
+          t.duration = Math.round(probe.duration);
+          // Update the duration div on any rendered card for this track
+          const durEl = document.getElementById('mp-dur-' + t.id);
+          if (durEl) { durEl.textContent = _mFmtTime(t.duration); durEl.style.display = ''; }
+        }
+        probe.src = '';
+      }, { once: true });
+    });
   } catch(e) {
     _mpRealTracks = [];
     _mpRenderRealTracks(q);
@@ -13691,7 +13707,7 @@ function _mpRenderRealTracks(query) {
       '<div class="music-track-card-meta">' +
         (t.bpm ? '<div class="music-track-card-bpm">' + t.bpm + '<span class="music-track-card-bpmlabel"> BPM</span></div>' : '') +
         '<div class="music-track-card-type">' + (t.type || 'phonk') + '</div>' +
-        (t.duration ? '<div class="music-track-card-dur">' + _mFmtTime(t.duration) + '</div>' : '') +
+        '<div class="music-track-card-dur" id="mp-dur-' + t.id + '" style="' + (t.duration ? '' : 'display:none;') + '">' + (t.duration ? _mFmtTime(t.duration) : '') + '</div>' +
       '</div>';
     card.addEventListener('click', function() {
       if (allIdx < 0) return;
