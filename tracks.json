@@ -142,7 +142,8 @@
       "artist": "FleaLes",
       "bpm": 160,
       "type": "house",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/rpm_havoc.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/rpm_havoc.ogg",
+      "duration": 171
     },
     {
       "id": "velocity_pulse",
@@ -151,7 +152,8 @@
       "artist": "FleaLes",
       "bpm": 160,
       "type": "house",
-      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/velocity_pulse.ogg"
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/velocity_pulse.ogg",
+      "duration": 161
     }
   ]
 }
