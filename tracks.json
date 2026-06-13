@@ -44,6 +44,51 @@
       "bpm": 140,
       "type": "phonk",
       "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/piston_heart.ogg"
+    },
+    {
+      "id": "max_load",
+      "name": "MAX LOAD",
+      "sub": "Dark phonk trap \u00b7 peak pressure \u00b7 heavy groove",
+      "artist": "FleaLes",
+      "bpm": 130,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/max_load.ogg"
+    },
+    {
+      "id": "concrete_teeth",
+      "name": "CONCRETE TEETH",
+      "sub": "Dark phonk trap \u00b7 grinding bass \u00b7 trap swing",
+      "artist": "FleaLes",
+      "bpm": 130,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_teeth.ogg"
+    },
+    {
+      "id": "iron_grip",
+      "name": "IRON GRIP",
+      "sub": "Dark phonk trap \u00b7 iron lock \u00b7 relentless trap roll",
+      "artist": "FleaLes",
+      "bpm": 130,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/iron_grip.ogg"
+    },
+    {
+      "id": "iron_teeth",
+      "name": "IRON TEETH",
+      "sub": "Dark phonk trap \u00b7 raw metal \u00b7 snapping percussion",
+      "artist": "FleaLes",
+      "bpm": 130,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/iron_teeth.ogg"
+    },
+    {
+      "id": "midnight_siege",
+      "name": "MIDNIGHT SIEGE",
+      "sub": "Dark phonk trap \u00b7 nocturnal pressure \u00b7 dark trap drive",
+      "artist": "FleaLes",
+      "bpm": 130,
+      "type": "phonk",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/midnight_siege.ogg"
     }
   ]
 }
