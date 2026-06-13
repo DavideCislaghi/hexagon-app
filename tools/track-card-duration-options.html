@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duration Placement Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d0d0d;
+    color: #f0f0f0;
+    font-family: 'DM Sans', sans-serif;
+    padding: 24px 16px;
+  }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #ff9500;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .option-block {
+    margin-bottom: 28px;
+  }
+  .option-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+
+  /* BASE CARD */
+  .card {
+    background: #161616;
+    border: 1px solid #252525;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card-vis {
+    width: 44px; height: 44px;
+    background: #111;
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-vis svg { opacity: 0.4; }
+  .card-body { flex: 1; min-width: 0; }
+  .card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .card-sub {
+    font-size: 0.65rem;
+    color: #666;
+    margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .card-meta {
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: 4px; flex-shrink: 0;
+  }
+  .bpm {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: #ff9500;
+    line-height: 1;
+  }
+  .bpm span { font-size: 0.55rem; letter-spacing: 0.08em; }
+  .vibe {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: #ff9500;
+    border: 1px solid #ff9500;
+    border-radius: 20px;
+    padding: 2px 7px;
+    text-transform: uppercase;
+  }
+  .dur {
+    font-size: 0.6rem;
+    color: #555;
+    letter-spacing: 0.04em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .dur-accent {
+    font-size: 0.6rem;
+    color: #ff9500;
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+  }
+  .dur-muted {
+    font-size: 0.6rem;
+    color: #888;
+    letter-spacing: 0.03em;
+  }
+
+  /* OPTION 2 — inline after sub */
+  .card-sub-row {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 2px;
+  }
+  .card-sub-row .card-sub { margin-top: 0; }
+  .dot { color: #444; font-size: 0.55rem; }
+
+  /* OPTION 3 — duration replaces sub, sub moves up */
+  .card-name-row {
+    display: flex; align-items: baseline; gap: 6px;
+  }
+
+  /* OPTION 4 — duration in meta between bpm and vibe */
+
+  /* OPTION 5 — pill on bottom-right of card */
+  .card-5 { position: relative; }
+  .dur-pill {
+    position: absolute;
+    bottom: 8px; right: 10px;
+    font-size: 0.55rem;
+    color: #888;
+    letter-spacing: 0.05em;
+    background: #1e1e1e;
+    border-radius: 20px;
+    padding: 1px 6px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #1e1e1e;
+    margin: 4px 0 16px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Duration Placement — 5 Options</h1>
+
+<!-- OPTION 1 -->
+<div class="option-block">
+  <div class="option-label">Option 1 — Below vibe tag (current)</div>
+  <div class="card">
+    <div class="card-vis">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">RPM HAVOC</div>
+      <div class="card-sub">Fast drift house · raw RPM · controlled chaos</div>
+    </div>
+    <div class="card-meta">
+      <div class="bpm">160<span> BPM</span></div>
+      <div class="vibe">House</div>
+      <div class="dur">2:51</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION 2 -->
+<div class="option-block">
+  <div class="option-label">Option 2 — Inline in subtitle row</div>
+  <div class="card">
+    <div class="card-vis">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">RPM HAVOC</div>
+      <div class="card-sub-row">
+        <div class="card-sub">Fast drift house · raw RPM · controlled chaos</div>
+        <span class="dot">·</span>
+        <span class="dur-muted">2:51</span>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="bpm">160<span> BPM</span></div>
+      <div class="vibe">House</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION 3 -->
+<div class="option-block">
+  <div class="option-label">Option 3 — Between BPM and vibe tag</div>
+  <div class="card">
+    <div class="card-vis">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">RPM HAVOC</div>
+      <div class="card-sub">Fast drift house · raw RPM · controlled chaos</div>
+    </div>
+    <div class="card-meta">
+      <div class="bpm">160<span> BPM</span></div>
+      <div class="dur-muted">2:51</div>
+      <div class="vibe">House</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION 4 -->
+<div class="option-block">
+  <div class="option-label">Option 4 — Next to BPM, same row</div>
+  <div class="card">
+    <div class="card-vis">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">RPM HAVOC</div>
+      <div class="card-sub">Fast drift house · raw RPM · controlled chaos</div>
+    </div>
+    <div class="card-meta">
+      <div style="display:flex;align-items:baseline;gap:5px;">
+        <div class="bpm">160<span> BPM</span></div>
+        <div class="dur" style="color:#555;">2:51</div>
+      </div>
+      <div class="vibe">House</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION 5 -->
+<div class="option-block">
+  <div class="option-label">Option 5 — Inline with track name</div>
+  <div class="card">
+    <div class="card-vis">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name-row">
+        <div class="card-name">RPM HAVOC</div>
+        <div class="dur-muted" style="font-size:0.62rem;">2:51</div>
+      </div>
+      <div class="card-sub">Fast drift house · raw RPM · controlled chaos</div>
+    </div>
+    <div class="card-meta">
+      <div class="bpm">160<span> BPM</span></div>
+      <div class="vibe">House</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
