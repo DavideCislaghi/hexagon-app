@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Sort Control Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0d;
+    --card: #161616;
+    --accent: #c8ff00;
+    --text: #f0f0f0;
+    --muted: #666;
+    --border: #252525;
+    --card2: #1c1c1c;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 32px 20px 60px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 40px;
+  }
+
+  /* ── Option wrapper ── */
+  .option-block {
+    margin-bottom: 48px;
+  }
+  .option-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .option-label span.tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: #1e1e1e;
+    color: #666;
+  }
+  .option-desc {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+    max-width: 440px;
+  }
+
+  /* ── Simulated page header ── */
+  .page-sim {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .page-sim-header {
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .page-sim-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+  }
+  .page-sim-title span { color: var(--accent); }
+  .page-sim-sub {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .page-sim-body {
+    padding: 14px 16px;
+  }
+
+  /* ── Fake track cards ── */
+  .track-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .track-card {
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+  }
+  .track-vis {
+    width: 36px; height: 36px;
+    border-radius: 5px;
+    background: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .track-vis svg { stroke: var(--muted); }
+  .track-body { flex: 1; min-width: 0; }
+  .track-name { font-size: 0.8rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .track-sub  { font-size: 0.63rem; color: var(--muted); margin-top: 2px; }
+  .track-meta { text-align: right; flex-shrink: 0; }
+  .track-bpm  { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.05em; }
+  .track-dur  { font-size: 0.6rem; color: var(--muted); }
+
+
+  /* ══════════════════════════════════════════
+     OPTION A — Pill Row
+  ══════════════════════════════════════════ */
+  .pill-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: #111;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .pill:hover { border-color: #444; color: var(--text); }
+  .pill.active {
+    background: var(--accent);
+    color: #0d0d0d;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+
+  /* ══════════════════════════════════════════
+     OPTION B — Sort Bar (cycling)
+  ══════════════════════════════════════════ */
+  .sort-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .sort-bar-label {
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .sort-bar-divider {
+    width: 1px; height: 14px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .sort-bar-value {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+  }
+  .sort-bar-arrow {
+    font-size: 0.65rem;
+    color: var(--accent);
+  }
+  .sort-bar-hint {
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .sort-bar:hover .sort-bar-label { color: var(--text); }
+
+
+  /* ══════════════════════════════════════════
+     OPTION C — Segmented Control
+  ══════════════════════════════════════════ */
+  .seg-ctrl {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .seg-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 8px 4px;
+    cursor: pointer;
+    border-right: 1px solid var(--border);
+    user-select: none;
+    transition: background 0.12s;
+    position: relative;
+  }
+  .seg-btn:last-child { border-right: none; }
+  .seg-btn:hover { background: #181818; }
+  .seg-btn.active { background: rgba(200,255,0,0.07); }
+  .seg-btn-label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.12s;
+  }
+  .seg-btn.active .seg-btn-label { color: var(--accent); }
+  .seg-arrow {
+    font-size: 0.55rem;
+    color: transparent;
+    transition: color 0.12s;
+    line-height: 1;
+  }
+  .seg-btn.active .seg-arrow { color: var(--accent); }
+  /* bottom accent bar */
+  .seg-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.15s;
+    border-radius: 2px 2px 0 0;
+  }
+  .seg-btn.active::after { transform: scaleX(1); }
+
+  /* divider between options */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 0 48px;
+  }
+
+  /* notes */
+  .pros-cons {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+  }
+  .pro, .con {
+    font-size: 0.65rem;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 6px;
+    flex: 1;
+  }
+  .pro { background: rgba(200,255,0,0.06); color: #a8d800; border: 1px solid rgba(200,255,0,0.12); }
+  .con { background: rgba(255,80,80,0.05); color: #cc6666; border: 1px solid rgba(255,80,80,0.1); }
+  .pro strong, .con strong {
+    display: block;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.58rem;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Sort Controls</h1>
+<p class="subtitle">Three concepts — Hexagon design system · Tracks page</p>
+
+
+<!-- ══════════════════════════════════════
+     OPTION A
+══════════════════════════════════════ -->
+<div class="option-block">
+  <div class="option-label">
+    Option A — Pill Row
+    <span class="tag">Familiar</span>
+  </div>
+  <p class="option-desc">Scrollable row of pills above the track list. One active at a time; tapping toggles direction on the same key (second tap reverses). Same pattern as rest timer pills.</p>
+
+  <div class="page-sim">
+    <div class="page-sim-header">
+      <div>
+        <div class="page-sim-title"><span>TRA</span>CKS</div>
+      </div>
+      <div class="page-sim-sub" style="margin-left:auto">Workout Soundtrack</div>
+    </div>
+    <div class="page-sim-body">
+      <div class="pill-row" id="pill-row">
+        <div class="pill active" data-key="name" data-dir="asc" onclick="pillClick(this,'name')">Name A–Z</div>
+        <div class="pill" data-key="bpm" data-dir="asc" onclick="pillClick(this,'bpm')">BPM ↑</div>
+        <div class="pill" data-key="dur" data-dir="asc" onclick="pillClick(this,'dur')">Duration ↑</div>
+        <div class="pill" data-key="vibe" data-dir="asc" onclick="pillClick(this,'vibe')">Vibe A–Z</div>
+      </div>
+      <div class="track-list" id="track-list-a"></div>
+    </div>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro"><strong>✓ Strengths</strong>All options visible at once. Matches existing app patterns. Minimal learning curve.</div>
+    <div class="con"><strong>✗ Trade-offs</strong>Can get crowded if adding more sort keys. Direction (asc/desc) requires second tap — not self-evident.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+
+<!-- ══════════════════════════════════════
+     OPTION B
+══════════════════════════════════════ -->
+<div class="option-block">
+  <div class="option-label">
+    Option B — Sort Bar
+    <span class="tag">Compact</span>
+  </div>
+  <p class="option-desc">Single row that reads "SORT · Title ↑". Tapping cycles through all options. Very space-efficient — works even if you add 10 sort options.</p>
+
+  <div class="page-sim">
+    <div class="page-sim-header">
+      <div>
+        <div class="page-sim-title"><span>TRA</span>CKS</div>
+      </div>
+      <div class="page-sim-sub" style="margin-left:auto">Workout Soundtrack</div>
+    </div>
+    <div class="page-sim-body">
+      <div class="sort-bar" id="sort-bar-b" onclick="sortBarClick()">
+        <span class="sort-bar-label">Sort</span>
+        <span class="sort-bar-divider"></span>
+        <span class="sort-bar-value" id="sort-bar-val">
+          <span id="sort-bar-text">Name</span>
+          <span class="sort-bar-arrow" id="sort-bar-arr">↑</span>
+        </span>
+        <span class="sort-bar-hint">tap to cycle</span>
+      </div>
+      <div class="track-list" id="track-list-b"></div>
+    </div>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro"><strong>✓ Strengths</strong>Tiny footprint. Scales to many options. Clean, minimal look.</div>
+    <div class="con"><strong>✗ Trade-offs</strong>Least discoverable — users may not know it's interactive. Current sort state isn't immediately obvious at a glance.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+
+<!-- ══════════════════════════════════════
+     OPTION C
+══════════════════════════════════════ -->
+<div class="option-block">
+  <div class="option-label">
+    Option C — Segmented Control
+    <span class="tag">Recommended</span>
+  </div>
+  <p class="option-desc">4-segment bar: NAME · BPM · DURATION · VIBE. Tap once to sort asc, tap again to flip to desc. Bottom accent bar marks the active segment. Direction arrow flips in-place.</p>
+
+  <div class="page-sim">
+    <div class="page-sim-header">
+      <div>
+        <div class="page-sim-title"><span>TRA</span>CKS</div>
+      </div>
+      <div class="page-sim-sub" style="margin-left:auto">Workout Soundtrack</div>
+    </div>
+    <div class="page-sim-body">
+      <div class="seg-ctrl" id="seg-ctrl">
+        <div class="seg-btn active" data-key="name" onclick="segClick(this)">
+          <span class="seg-btn-label">Name</span>
+          <span class="seg-arrow" id="seg-arr-name">↑</span>
+        </div>
+        <div class="seg-btn" data-key="bpm" onclick="segClick(this)">
+          <span class="seg-btn-label">BPM</span>
+          <span class="seg-arrow" id="seg-arr-bpm">↑</span>
+        </div>
+        <div class="seg-btn" data-key="dur" onclick="segClick(this)">
+          <span class="seg-btn-label">Duration</span>
+          <span class="seg-arrow" id="seg-arr-dur">↑</span>
+        </div>
+        <div class="seg-btn" data-key="vibe" onclick="segClick(this)">
+          <span class="seg-btn-label">Vibe</span>
+          <span class="seg-arrow" id="seg-arr-vibe">↑</span>
+        </div>
+      </div>
+      <div class="track-list" id="track-list-c"></div>
+    </div>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro"><strong>✓ Strengths</strong>Most discoverable. Direction arrow is always visible on the active key. Transfers cleanly to Library pages. iOS/Android native-feeling pattern.</div>
+    <div class="con"><strong>✗ Trade-offs</strong>Slightly more horizontal space needed. Labels may need abbreviation on very small screens.</div>
+  </div>
+</div>
+
+
+<script>
+// ── Fake track data ─────────────────────────────────────────────────────────
+const TRACKS = [
+  { name: 'Abyss Drive',     vibe: 'Phonk',     bpm: 140, dur: 214 },
+  { name: 'Concrete Ritual', vibe: 'Dubstep',   bpm: 175, dur: 188 },
+  { name: 'Neon Decay',      vibe: 'Synthwave', bpm: 120, dur: 302 },
+  { name: 'Iron Pulse',      vibe: 'Phonk',     bpm: 155, dur: 156 },
+  { name: 'Void Circuit',    vibe: 'Dubstep',   bpm: 168, dur: 241 },
+];
+
+function fmt(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return m + ':' + String(sec).padStart(2,'0');
+}
+
+function renderTracks(listId, sorted) {
+  const el = document.getElementById(listId);
+  el.innerHTML = sorted.map(t => `
+    <div class="track-card">
+      <div class="track-vis">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="track-body">
+        <div class="track-name">${t.name}</div>
+        <div class="track-sub">${t.vibe} · ${t.bpm} BPM</div>
+      </div>
+      <div class="track-meta">
+        <div class="track-bpm">${t.bpm}</div>
+        <div class="track-dur">${fmt(t.dur)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function sortTracks(key, dir) {
+  return [...TRACKS].sort((a,b) => {
+    let va = a[key], vb = b[key];
+    if (typeof va === 'string') va = va.toLowerCase(), vb = vb.toLowerCase();
+    if (va < vb) return dir === 'asc' ? -1 : 1;
+    if (va > vb) return dir === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+// keys map to TRACKS fields
+const keyMap = { name:'name', bpm:'bpm', dur:'dur', vibe:'vibe' };
+
+// ── Option A ─────────────────────────────────────────────────────────────────
+const pillLabels = {
+  name: { asc:'Name A–Z', desc:'Name Z–A' },
+  bpm:  { asc:'BPM ↑',    desc:'BPM ↓' },
+  dur:  { asc:'Duration ↑', desc:'Duration ↓' },
+  vibe: { asc:'Vibe A–Z', desc:'Vibe Z–A' },
+};
+let pillState = { key:'name', dir:'asc' };
+renderTracks('track-list-a', sortTracks('name','asc'));
+
+function pillClick(el, key) {
+  const newDir = (pillState.key === key && pillState.dir === 'asc') ? 'desc' : 'asc';
+  pillState = { key, dir: newDir };
+  document.querySelectorAll('#pill-row .pill').forEach(p => {
+    const k = p.dataset.key;
+    p.classList.toggle('active', k === key);
+    p.textContent = (k === key) ? pillLabels[k][newDir] : pillLabels[k]['asc'];
+  });
+  renderTracks('track-list-a', sortTracks(keyMap[key], newDir));
+}
+
+// ── Option B ─────────────────────────────────────────────────────────────────
+const bCycle = [
+  { key:'name', dir:'asc',  label:'Name',     arrow:'↑' },
+  { key:'name', dir:'desc', label:'Name',     arrow:'↓' },
+  { key:'bpm',  dir:'asc',  label:'BPM',      arrow:'↑' },
+  { key:'bpm',  dir:'desc', label:'BPM',      arrow:'↓' },
+  { key:'dur',  dir:'asc',  label:'Duration', arrow:'↑' },
+  { key:'dur',  dir:'desc', label:'Duration', arrow:'↓' },
+  { key:'vibe', dir:'asc',  label:'Vibe',     arrow:'↑' },
+  { key:'vibe', dir:'desc', label:'Vibe',     arrow:'↓' },
+];
+let bIdx = 0;
+renderTracks('track-list-b', sortTracks('name','asc'));
+
+function sortBarClick() {
+  bIdx = (bIdx + 1) % bCycle.length;
+  const { key, dir, label, arrow } = bCycle[bIdx];
+  document.getElementById('sort-bar-text').textContent = label;
+  document.getElementById('sort-bar-arr').textContent = arrow;
+  renderTracks('track-list-b', sortTracks(keyMap[key], dir));
+}
+
+// ── Option C ─────────────────────────────────────────────────────────────────
+let segState = { key:'name', dir:'asc' };
+renderTracks('track-list-c', sortTracks('name','asc'));
+
+function segClick(el) {
+  const key = el.dataset.key;
+  const newDir = (segState.key === key && segState.dir === 'asc') ? 'desc' : 'asc';
+  segState = { key, dir: newDir };
+
+  document.querySelectorAll('#seg-ctrl .seg-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.key === key);
+    const arr = btn.querySelector('.seg-arrow');
+    if (btn.dataset.key === key) {
+      arr.textContent = newDir === 'asc' ? '↑' : '↓';
+    } else {
+      arr.textContent = '↑';
+    }
+  });
+  renderTracks('track-list-c', sortTracks(keyMap[key], newDir));
+}
+</script>
+</body>
+</html>
