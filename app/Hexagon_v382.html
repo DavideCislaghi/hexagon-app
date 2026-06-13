@@ -12766,33 +12766,32 @@ function _mPlayFileTrack(t) {
     _mAudioEl.volume = vol;
     _mAudioEl.load();
     _mAudioEl.play().catch(() => {});
+    _mResumeProgress();
     _mAudioEl.onended = function() {
       if (_mLoop) return;
       if (_mPlaying) musicNext();
     };
   };
   if (_mCrossfade && _mAudioEl.src && !_mAudioEl.paused) {
-    // Fade out current, then swap
-    const FADE = 600; // ms
+    const FADE = 600;
     const steps = 20;
     const startVol = _mAudioEl.volume;
     let step = 0;
     const fadeOut = setInterval(() => {
       step++;
-      _mAudioEl.volume = Math.max(0, startVol * (1 - step/steps));
+      _mAudioEl.volume = Math.max(0, startVol * (1 - step / steps));
       if (step >= steps) {
         clearInterval(fadeOut);
         startNew();
-        // Fade new track in
         _mAudioEl.volume = 0;
         let si = 0;
         const fadeIn = setInterval(() => {
           si++;
-          _mAudioEl.volume = Math.min(vol, vol * (si/steps));
+          _mAudioEl.volume = Math.min(vol, vol * (si / steps));
           if (si >= steps) clearInterval(fadeIn);
-        }, FADE/steps);
+        }, FADE / steps);
       }
-    }, FADE/steps);
+    }, FADE / steps);
   } else {
     startNew();
   }
@@ -12833,13 +12832,15 @@ function _mSwitchTrack() {
   _mUpdateTrackUI();
   if (_mPlaying) {
     if (t.source === 'file') {
+      // Stop synth immediately; let _mPlayFileTrack handle audio fade itself
+      // — do NOT pause _mAudioEl before calling it or the fadeout check fails
       _mStopSynth();
-      _mAudioEl.pause();
-      setTimeout(() => { _mPlayFileTrack(t); _mResumeProgress(); }, 60);
+      _mPlayFileTrack(t); // _mResumeProgress called inside when crossfade is on
     } else {
+      // Synth: pause file audio, then _mRestartSynth fades masterGain while
+      // still live — do NOT call _mStopSynth first or there's nothing to fade
       _mAudioEl.pause();
-      _mStopSynth();
-      setTimeout(_mRestartSynth, 120);
+      _mRestartSynth();
     }
   }
 }
