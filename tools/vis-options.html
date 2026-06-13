@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Visualiser Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0d0d0d; --card:#161616; --accent:#c8ff00; --text:#f0f0f0; --muted:#555; --border:#252525; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; padding:20px 14px 60px; }
+  h1 { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:.12em; color:var(--accent); margin-bottom:2px; }
+  .subtitle { font-size:.66rem; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:28px; }
+  .section { margin-bottom:44px; }
+  .opt-label { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:.12em; color:var(--muted); margin-bottom:2px; }
+  .opt-desc { font-size:.63rem; color:var(--muted); opacity:.7; margin-bottom:10px; }
+  canvas {
+    width:100%; height:90px; display:block;
+    background:#0d0d0d;
+    border-radius:8px;
+    border:1px solid var(--border);
+  }
+  .divider { height:1px; background:var(--border); margin:28px 0; }
+</style>
+</head>
+<body>
+
+<h1>Visualiser Options</h1>
+<p class="subtitle">5 new modes beyond Bars & Waveform</p>
+
+<div class="section">
+  <div class="opt-label">Option 1 — Radial Burst</div>
+  <div class="opt-desc">Spikes radiate from a central circle. Pulses with beat energy. Feels like a vinyl record or radar.</div>
+  <canvas id="c1"></canvas>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="opt-label">Option 2 — Particles</div>
+  <div class="opt-desc">Dots drift upward, spawning faster on the beat. Speed and count driven by BPM.</div>
+  <canvas id="c2"></canvas>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="opt-label">Option 3 — Oscilloscope Ring</div>
+  <div class="opt-desc">A circle that deforms into a wobbly shape. Dark, hypnotic. Morphs continuously.</div>
+  <canvas id="c3"></canvas>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="opt-label">Option 4 — DNA / Lissajous</div>
+  <div class="opt-desc">Two sine waves interweave as a scrolling ribbon. BPM sets the frequency ratio. Elegant, technical.</div>
+  <canvas id="c4"></canvas>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="opt-label">Option 5 — Grid Pulse</div>
+  <div class="opt-desc">A dot matrix where cells light up based on beat phase. Like a drum machine sequencer coming alive.</div>
+  <canvas id="c5"></canvas>
+</div>
+
+<script>
+const ACCENT = '#c8ff00';
+const BPM = 140;
+
+// ── helpers ───────────────────────────────────────────────────────────────────
+function initCanvas(id) {
+  const el = document.getElementById(id);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const cssW = el.parentElement.clientWidth;
+  const cssH = 90;
+  el.width  = cssW * dpr;
+  el.height = cssH * dpr;
+  const ctx = el.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { el, ctx, W: cssW, H: cssH };
+}
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return {r,g,b};
+}
+const AC = hexToRgb(ACCENT);
+
+// ── OPTION 1 — Radial Burst ───────────────────────────────────────────────────
+(function() {
+  const { ctx, W, H } = initCanvas('c1');
+  const cx = W/2, cy = H/2;
+  const NUM = 64;
+  const spikes = Array.from({length:NUM}, (_,i) => ({
+    base: 0.12,
+    h: 0.12,
+    vel: 0,
+    phase: (i/NUM)*Math.PI*2,
+    freq: 0.4 + Math.random()*1.8,
+  }));
+  const speed = BPM / 60;
+  function draw(ts) {
+    ctx.clearRect(0,0,W,H);
+    const t = ts * 0.001;
+    const r0 = Math.min(W,H)*0.12; // inner radius
+    const rMax = Math.min(W,H)*0.44;
+
+    // glow centre
+    const grd = ctx.createRadialGradient(cx,cy,0,cx,cy,r0*1.4);
+    grd.addColorStop(0, `rgba(${AC.r},${AC.g},${AC.b},0.18)`);
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.beginPath(); ctx.arc(cx,cy,r0*1.4,0,Math.PI*2); ctx.fill();
+
+    // inner ring
+    ctx.beginPath(); ctx.arc(cx,cy,r0,0,Math.PI*2);
+    ctx.strokeStyle = `rgba(${AC.r},${AC.g},${AC.b},0.35)`;
+    ctx.lineWidth = 1; ctx.stroke();
+
+    // spikes
+    ctx.beginPath();
+    spikes.forEach((s,i) => {
+      s.h = Math.sin(t * s.freq * speed + s.phase)*0.5+0.5;
+      const len = r0 + s.h * (rMax - r0);
+      const angle = s.phase;
+      const x1 = cx + Math.cos(angle)*r0;
+      const y1 = cy + Math.sin(angle)*r0;
+      const x2 = cx + Math.cos(angle)*len;
+      const y2 = cy + Math.sin(angle)*len;
+      ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+    });
+    ctx.strokeStyle = ACCENT;
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ── OPTION 2 — Particles ─────────────────────────────────────────────────────
+(function() {
+  const { ctx, W, H } = initCanvas('c2');
+  const particles = [];
+  const MAX = 80;
+  let lastSpawn = 0;
+  const spawnInterval = (60/BPM)*1000 / 6; // spawn ~6 per beat
+
+  function spawn(ts) {
+    particles.push({
+      x: Math.random()*W,
+      y: H + 4,
+      r: 1 + Math.random()*2.5,
+      vx: (Math.random()-0.5)*0.5,
+      vy: -(0.6 + Math.random()*1.4) * (BPM/100),
+      alpha: 0.7 + Math.random()*0.3,
+      born: ts,
+    });
+  }
+
+  function draw(ts) {
+    ctx.clearRect(0,0,W,H);
+
+    if (ts - lastSpawn > spawnInterval && particles.length < MAX) {
+      spawn(ts); if (Math.random()>.6) spawn(ts);
+      lastSpawn = ts;
+    }
+
+    for (let i = particles.length-1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      p.alpha -= 0.006;
+      if (p.y < -6 || p.alpha <= 0) { particles.splice(i,1); continue; }
+      const fade = p.alpha * (p.y/H);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${AC.r},${AC.g},${AC.b},${Math.min(p.alpha,fade*4)})`;
+      ctx.fill();
+    }
+
+    // floor glow line
+    const grd = ctx.createLinearGradient(0,H-1,W,H-1);
+    grd.addColorStop(0,'transparent');
+    grd.addColorStop(.5,`rgba(${AC.r},${AC.g},${AC.b},0.4)`);
+    grd.addColorStop(1,'transparent');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0,H-2,W,2);
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ── OPTION 3 — Oscilloscope Ring ─────────────────────────────────────────────
+(function() {
+  const { ctx, W, H } = initCanvas('c3');
+  const cx = W/2, cy = H/2;
+  const BASE_R = Math.min(W,H)*0.32;
+  const POINTS = 120;
+  const harmonics = [
+    {freq:1,   amp:0.15, phase:0},
+    {freq:2.3, amp:0.08, phase:1.1},
+    {freq:3.7, amp:0.05, phase:2.3},
+    {freq:5.1, amp:0.03, phase:0.7},
+  ];
+  const speed = BPM/60;
+
+  function draw(ts) {
+    ctx.clearRect(0,0,W,H);
+    const t = ts*0.001;
+
+    // outer glow
+    const grd = ctx.createRadialGradient(cx,cy,BASE_R*0.7,cx,cy,BASE_R*1.4);
+    grd.addColorStop(0,`rgba(${AC.r},${AC.g},${AC.b},0.07)`);
+    grd.addColorStop(1,'transparent');
+    ctx.fillStyle=grd; ctx.beginPath(); ctx.arc(cx,cy,BASE_R*1.4,0,Math.PI*2); ctx.fill();
+
+    // deforming ring (filled outline)
+    ctx.beginPath();
+    for (let i=0;i<=POINTS;i++) {
+      const ang = (i/POINTS)*Math.PI*2;
+      let r = BASE_R;
+      harmonics.forEach(h => {
+        r += BASE_R * h.amp * Math.sin(h.freq*ang + t*speed*h.freq + h.phase);
+      });
+      const x = cx + Math.cos(ang)*r;
+      const y = cy + Math.sin(ang)*r;
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = ACCENT;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.fillStyle = `rgba(${AC.r},${AC.g},${AC.b},0.04)`;
+    ctx.fill();
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ── OPTION 4 — DNA / Lissajous ribbon ────────────────────────────────────────
+(function() {
+  const { ctx, W, H } = initCanvas('c4');
+  const cy = H/2;
+  const speed = BPM/60;
+  const STEPS = 200;
+
+  function draw(ts) {
+    ctx.clearRect(0,0,W,H);
+    const t = ts*0.001;
+
+    // ribbon A
+    ctx.beginPath();
+    for (let i=0;i<=STEPS;i++) {
+      const x = (i/STEPS)*W;
+      const phase = (i/STEPS)*Math.PI*6 - t*speed*1.8;
+      const y = cy + Math.sin(phase)*H*0.36;
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = `rgba(${AC.r},${AC.g},${AC.b},0.9)`;
+    ctx.lineWidth = 1.5; ctx.stroke();
+
+    // ribbon B (offset phase = DNA cross)
+    ctx.beginPath();
+    for (let i=0;i<=STEPS;i++) {
+      const x = (i/STEPS)*W;
+      const phase = (i/STEPS)*Math.PI*6 - t*speed*1.8 + Math.PI;
+      const y = cy + Math.sin(phase)*H*0.36;
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = `rgba(${AC.r},${AC.g},${AC.b},0.35)`;
+    ctx.lineWidth = 1.2; ctx.stroke();
+
+    // cross-bars where they intersect
+    const BAR_COUNT = 14;
+    for (let b=0;b<BAR_COUNT;b++) {
+      const frac = b/BAR_COUNT;
+      const x = frac*W + ((W/BAR_COUNT)*0.5);
+      const phaseA = frac*Math.PI*6 - t*speed*1.8;
+      const phaseB = phaseA + Math.PI;
+      const yA = cy + Math.sin(phaseA)*H*0.36;
+      const yB = cy + Math.sin(phaseB)*H*0.36;
+      const alpha = 0.15 + Math.abs(Math.sin(phaseA))*0.25;
+      ctx.beginPath();
+      ctx.moveTo(x, yA); ctx.lineTo(x, yB);
+      ctx.strokeStyle = `rgba(${AC.r},${AC.g},${AC.b},${alpha})`;
+      ctx.lineWidth = 1; ctx.stroke();
+    }
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ── OPTION 5 — Grid Pulse ────────────────────────────────────────────────────
+(function() {
+  const { ctx, W, H } = initCanvas('c5');
+  const COLS = 24, ROWS = 5;
+  const cW = W/COLS, cH = H/ROWS;
+  const speed = BPM/60;
+  const cells = Array.from({length:ROWS*COLS}, (_,i) => ({
+    col: i%COLS, row: Math.floor(i/COLS),
+    phase: Math.random()*Math.PI*2,
+    freq: 0.3 + Math.random()*1.2,
+  }));
+
+  function draw(ts) {
+    ctx.clearRect(0,0,W,H);
+    const t = ts*0.001;
+
+    cells.forEach(c => {
+      const wave = Math.sin(t*c.freq*speed + c.phase - c.col*0.3)*0.5+0.5;
+      const beat = Math.sin(t*speed*Math.PI*2)*0.5+0.5;
+      const brightness = wave * (0.4 + beat*0.6);
+      if (brightness < 0.15) return;
+      const x = c.col*cW + cW*0.2;
+      const y = c.row*cH + cH*0.2;
+      const w = cW*0.6, h = cH*0.6;
+      const alpha = brightness * 0.85;
+      ctx.fillStyle = `rgba(${AC.r},${AC.g},${AC.b},${alpha})`;
+      ctx.beginPath();
+      ctx.roundRect(x,y,w,h,2);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
