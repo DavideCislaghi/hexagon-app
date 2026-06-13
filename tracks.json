@@ -134,6 +134,24 @@
       "bpm": 160,
       "type": "house",
       "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/grip_the_asphalt.ogg"
+    },
+    {
+      "id": "rpm_havoc",
+      "name": "RPM HAVOC",
+      "sub": "Fast drift house \u00b7 raw RPM \u00b7 controlled chaos",
+      "artist": "FleaLes",
+      "bpm": 160,
+      "type": "house",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/rpm_havoc.ogg"
+    },
+    {
+      "id": "velocity_pulse",
+      "name": "VELOCITY PULSE",
+      "sub": "Fast drift house \u00b7 speed pulse \u00b7 relentless drive",
+      "artist": "FleaLes",
+      "bpm": 160,
+      "type": "house",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/velocity_pulse.ogg"
     }
   ]
 }
