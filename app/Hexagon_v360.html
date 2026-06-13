@@ -12572,12 +12572,24 @@
 <script>
 // ── MUSIC PLAYER STATE ───────────────────────────────────────────────────────
 const MUSIC_TRACKS = [
-  { id:'dark-phonk',   name:'DARK PHONK',    sub:'808 bass · cowbell hits · dark minor keys · relentless groove',         bpm:148, type:'phonk',    key:55, scale:'phrygian' },
-  { id:'heavy-dub',    name:'HEAVY DUBSTEP', sub:'half-time kick · LFO wobble · growling bass · driving 4/4 hat',         bpm:140, type:'dubstep',  key:55, scale:'minor'    },
-  { id:'darksynth',    name:'DARKSYNTH',     sub:'synthwave arpeggios · distorted bass · cinematic pads · no mercy',      bpm:128, type:'synth',    key:57, scale:'minor'    },
-  { id:'trap-breaks',  name:'TRAP BREAKS',   sub:'swing hi-hats · rolling snares · 808 sub · trap triplets',              bpm:95,  type:'trap',     key:52, scale:'minor'    },
-  { id:'industrial',   name:'INDUSTRIAL',    sub:'distorted kicks · metallic percussion · aggressive textures · no space', bpm:160, type:'industrial',key:55, scale:'phrygian'},
+  { id:'dark-phonk',   name:'DARK PHONK',    sub:'808 bass · cowbell hits · dark minor keys · relentless groove',         bpm:148, type:'phonk',    key:55, scale:'phrygian', source:'synth' },
+  { id:'heavy-dub',    name:'HEAVY DUBSTEP', sub:'half-time kick · LFO wobble · growling bass · driving 4/4 hat',         bpm:140, type:'dubstep',  key:55, scale:'minor',    source:'synth' },
+  { id:'darksynth',    name:'DARKSYNTH',     sub:'synthwave arpeggios · distorted bass · cinematic pads · no mercy',      bpm:128, type:'synth',    key:57, scale:'minor',    source:'synth' },
+  { id:'trap-breaks',  name:'TRAP BREAKS',   sub:'swing hi-hats · rolling snares · 808 sub · trap triplets',              bpm:95,  type:'trap',     key:52, scale:'minor',    source:'synth' },
+  { id:'industrial',   name:'INDUSTRIAL',    sub:'distorted kicks · metallic percussion · aggressive textures · no space', bpm:160, type:'industrial',key:55, scale:'phrygian', source:'synth'},
 ];
+
+// Unified track list — real tracks appended after fetch
+let ALL_TRACKS = MUSIC_TRACKS.slice();
+
+// Hidden audio element for file-based track playback
+const _mAudioEl = (function() {
+  const el = document.createElement('audio');
+  el.preload = 'none';
+  el.style.display = 'none';
+  document.body.appendChild(el);
+  return el;
+})();
 
 let _mPlaying    = false;
 let _mTrackIdx   = 0;
@@ -12634,23 +12646,32 @@ function _mUpdateTrackUI() {
 
 // ── Play / Pause ──────────────────────────────────────────────────────────────
 function musicTogglePlay() {
+  const t = ALL_TRACKS[_mTrackIdx];
   if (!_mPlaying) {
     _mPlaying = true;
-    trackIdx    = _mTrackIdx;
-    bpmOverride = _mBpmOvr;
-    initCtx();
-    if (ctx.state === 'suspended') ctx.resume();
-    // Resume scheduler from where we paused — don't reset globalStep
-    playing = true;
-    nextBeat = ctx.currentTime + 0.06;
-    if (!sched) sched = setInterval(runScheduler, SCHED_MS);
+    if (t.source === 'file') {
+      _mStopSynth();
+      _mPlayFileTrack(t);
+    } else {
+      _mAudioEl.pause();
+      trackIdx    = _mTrackIdx;
+      bpmOverride = _mBpmOvr;
+      initCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+      playing = true;
+      nextBeat = ctx.currentTime + 0.06;
+      if (!sched) sched = setInterval(runScheduler, SCHED_MS);
+    }
     _mStartVis();
     _mResumeProgress();
   } else {
     _mPlaying = false;
-    // Pause: stop scheduler only, leave audio nodes to decay naturally
-    clearInterval(sched); sched = null;
-    playing = false;
+    if (t.source === 'file') {
+      _mAudioEl.pause();
+    } else {
+      clearInterval(sched); sched = null;
+      playing = false;
+    }
     _mPauseProgress();
   }
   _mUpdatePlayUI();
@@ -12677,27 +12698,48 @@ function _mUpdatePlayUI() {
 
 // ── Prev / Next ───────────────────────────────────────────────────────────────
 function musicPrev() {
-  _mTrackIdx = (_mTrackIdx === 0) ? MUSIC_TRACKS.length - 1 : _mTrackIdx - 1;
+  _mTrackIdx = (_mTrackIdx === 0) ? ALL_TRACKS.length - 1 : _mTrackIdx - 1;
   _mBpmOvr = null;
   _mSwitchTrack();
   if (typeof _mpRefreshAllCards === 'function') _mpRefreshAllCards();
 }
 function musicNext() {
   if (_mShuffle) {
-    let r; do { r = Math.floor(Math.random() * MUSIC_TRACKS.length); } while (r === _mTrackIdx && MUSIC_TRACKS.length > 1);
+    let r; do { r = Math.floor(Math.random() * ALL_TRACKS.length); } while (r === _mTrackIdx && ALL_TRACKS.length > 1);
     _mTrackIdx = r;
   } else {
-    _mTrackIdx = (_mTrackIdx + 1) % MUSIC_TRACKS.length;
+    _mTrackIdx = (_mTrackIdx + 1) % ALL_TRACKS.length;
   }
   _mBpmOvr = null;
   _mSwitchTrack();
   if (typeof _mpRefreshAllCards === 'function') _mpRefreshAllCards();
 }
+// ── Synth stop helper ─────────────────────────────────────────────────────────
+function _mStopSynth() {
+  clearInterval(sched); sched = null; playing = false;
+  if (masterGain && ctx) {
+    masterGain.gain.cancelScheduledValues(ctx.currentTime);
+    masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+  }
+}
+
+// ── File track playback ───────────────────────────────────────────────────────
+function _mPlayFileTrack(t) {
+  _mAudioEl.src = t.url;
+  _mAudioEl.loop = _mLoop;
+  _mAudioEl.volume = vol;
+  _mAudioEl.load();
+  _mAudioEl.play().catch(() => {});
+  _mAudioEl.onended = function() {
+    if (_mLoop) return;
+    if (_mPlaying) musicNext();
+  };
+}
+
 function _mRestartSynth() {
   initCtx();
   const doStart = () => {
     if (_mCrossfade && masterGain) {
-      // Fade out old, start new underneath, fade in
       const now = ctx.currentTime;
       masterGain.gain.cancelScheduledValues(now);
       masterGain.gain.setValueAtTime(vol, now);
@@ -12720,19 +12762,23 @@ function _mRestartSynth() {
   if (ctx.state === 'suspended') ctx.resume().then(doStart);
   else doStart();
 }
+
 function _mSwitchTrack() {
   _mStopProgress();
+  const t = ALL_TRACKS[_mTrackIdx];
   trackIdx    = _mTrackIdx;
   bpmOverride = _mBpmOvr;
   _mUpdateTrackUI();
   if (_mPlaying) {
-    // Stop cleanly, then restart after audio nodes have settled
-    clearInterval(sched); sched = null; playing = false;
-    if (masterGain) {
-      masterGain.gain.cancelScheduledValues(ctx.currentTime);
-      masterGain.gain.setValueAtTime(vol, ctx.currentTime);
+    if (t.source === 'file') {
+      _mStopSynth();
+      _mAudioEl.pause();
+      setTimeout(() => { _mPlayFileTrack(t); _mResumeProgress(); }, 60);
+    } else {
+      _mAudioEl.pause();
+      _mStopSynth();
+      setTimeout(_mRestartSynth, 120);
     }
-    setTimeout(_mRestartSynth, 120);
   }
 }
 
@@ -12749,6 +12795,7 @@ function musicToggleShuffle() {
 }
 function musicToggleLoop() {
   _mLoop = !_mLoop;
+  _mAudioEl.loop = _mLoop;
   document.getElementById('music-loop-btn').style.opacity = _mLoop ? '1' : '0.45';
   document.getElementById('music-loop-btn').querySelector('svg').style.color = _mLoop ? 'var(--accent)' : 'var(--text)';
 }
@@ -12762,15 +12809,16 @@ function musicToggleQueue() {
 function _mBuildQueue() {
   const list = document.getElementById('music-queue-list');
   if (!list) return;
-  list.innerHTML = MUSIC_TRACKS.map((t, i) => {
+  list.innerHTML = ALL_TRACKS.map((t, i) => {
     const active = i === _mTrackIdx;
     const bpmShow = (active && _mBpmOvr) ? _mBpmOvr : t.bpm;
+    const label = t.source === 'file' ? (t.artist || 'Audio file') : (bpmShow + ' BPM');
     return `<div onclick="musicSelectTrack(${i})" style="display:flex;align-items:center;justify-content:space-between;padding:10px 0 10px 10px;cursor:pointer;border-left:2px solid ${active ? 'var(--accent)' : 'transparent'};background:${active ? 'rgba(200,255,0,0.04)' : 'transparent'};transition:all 0.15s;">
       <div style="min-width:0;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.06em;color:${active ? 'var(--accent)' : 'var(--text)'};">${t.name}</div>
         <div style="font-size:0.6rem;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.sub.split('·')[0].trim()}</div>
       </div>
-      <div style="font-size:0.65rem;color:${active ? 'var(--accent)' : 'var(--muted)'};flex-shrink:0;margin-left:8px;padding-right:10px;">${bpmShow} BPM</div>
+      <div style="font-size:0.65rem;color:${active ? 'var(--accent)' : 'var(--muted)'};flex-shrink:0;margin-left:8px;padding-right:10px;">${label}</div>
     </div>`;
   }).join('');
 }
@@ -12835,7 +12883,7 @@ function musicPlayerHide() {
   document.getElementById('music-expanded').style.display   = 'none';
   document.body.classList.remove('music-player-visible');
   _mExpanded = false;
-  if (_mPlaying) { stopAll(false); _mPlaying = false; _mUpdatePlayUI(); _mStopVis(); }
+  if (_mPlaying) { stopAll(false); _mAudioEl.pause(); _mPlaying = false; _mUpdatePlayUI(); _mStopVis(); }
   _mStopMiniVis();
   // Deselect all track cards — return list to default state
   document.querySelectorAll('.music-track-card').forEach(c => {
@@ -13466,9 +13514,14 @@ function _mpStopAllCardVis() {
 }
 
 function _mpRefreshAllCards() {
-  // Update is-playing class on all synth cards
   document.querySelectorAll('.music-track-card[data-synth-idx]').forEach(card => {
     const idx = parseInt(card.dataset.synthIdx);
+    card.classList.toggle('is-playing', _mPlaying && _mTrackIdx === idx);
+    const nameEl = card.querySelector('.music-track-card-name');
+    if (nameEl) nameEl.style.color = (_mPlaying && _mTrackIdx === idx) ? 'var(--accent)' : '';
+  });
+  document.querySelectorAll('.music-track-card[data-real-idx]').forEach(card => {
+    const idx = parseInt(card.dataset.realIdx);
     card.classList.toggle('is-playing', _mPlaying && _mTrackIdx === idx);
     const nameEl = card.querySelector('.music-track-card-name');
     if (nameEl) nameEl.style.color = (_mPlaying && _mTrackIdx === idx) ? 'var(--accent)' : '';
@@ -13499,8 +13552,6 @@ async function _mpFetchRealTracks(query) {
     _mpRenderRealTracks(q);
   } catch(e) {
     _mpRealTracks = [];
-    const dbg = document.getElementById('music-page-real-empty');
-    if (dbg) dbg.textContent = 'Error: ' + (e.message || e) + ' — ' + MUSIC_TRACKS_JSON_URL;
     _mpRenderRealTracks(q);
   }
 }
