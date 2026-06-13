@@ -13343,16 +13343,7 @@ function togglePlay() {
 
 
 // ── Music Page ────────────────────────────────────────────────────────────────
-const MUSIC_TRACKS_JSON_URL = 'https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/tracks.json';
-
-// Inline track manifest — works without any network fetch (local file / offline)
-const REAL_TRACKS_INLINE = [
-  { id:'hydraulic_impact',  name:'HYDRAULIC IMPACT',   sub:'Cyberpunk wave phonk · heavy machinery · dark rhythm',      artist:'FleaLes', bpm:140, type:'phonk', source:'file', url:'https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_impact.ogg' },
-  { id:'concrete_velocity', name:'CONCRETE VELOCITY',  sub:'Cyberpunk wave phonk · underground speed · gritty drive',   artist:'FleaLes', bpm:140, type:'phonk', source:'file', url:'https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_velocity.ogg' },
-  { id:'hydraulic_crush',   name:'HYDRAULIC CRUSH',    sub:'Cyberpunk wave phonk · industrial bass · crushing drop',    artist:'FleaLes', bpm:140, type:'phonk', source:'file', url:'https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/hydraulic_crush.ogg' },
-  { id:'concrete_maw',      name:'CONCRETE MAW',       sub:'Cyberpunk wave phonk · dark distortion · relentless grid',  artist:'FleaLes', bpm:140, type:'phonk', source:'file', url:'https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/concrete_maw.ogg' },
-  { id:'piston_heart',      name:'PISTON HEART',       sub:'Cyberpunk wave phonk · mechanical pulse · raw energy',      artist:'FleaLes', bpm:140, type:'phonk', source:'file', url:'https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/piston_heart.ogg' },
-];
+const MUSIC_TRACKS_JSON_URL = 'https://davidecislaghi.github.io/hexagon-app/tracks.json';
 let _mpRealTracks = null;   // null = not yet fetched; [] = fetched, none found
 let _mpCardFrames = {};     // canvas rAF handles keyed by track id
 
@@ -13496,26 +13487,20 @@ async function _mpFetchRealTracks(query) {
     return;
   }
 
-  // Always seed from inline manifest immediately (works offline / local file)
-  const existingIds = new Set(ALL_TRACKS.map(t => t.id));
-  REAL_TRACKS_INLINE.forEach(t => { if (!existingIds.has(t.id)) ALL_TRACKS.push(t); });
-  _mpRealTracks = REAL_TRACKS_INLINE.slice();
-  _mpRenderRealTracks(q);
-
-  // Then attempt network refresh silently in background
   try {
-    const resp = await fetch(MUSIC_TRACKS_JSON_URL, { cache: 'default', mode: 'cors' });
+    const resp = await fetch(MUSIC_TRACKS_JSON_URL, { cache: 'default' });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     const tracks = Array.isArray(data) ? data : (data.tracks || []);
     const realTracks = tracks.filter(t => t.url).map(t => ({ ...t, source: 'file' }));
-    // Merge any new tracks not already in list
-    const knownIds = new Set(ALL_TRACKS.map(t => t.id));
-    let added = false;
-    realTracks.forEach(t => { if (!knownIds.has(t.id)) { ALL_TRACKS.push(t); added = true; } });
-    if (added) { _mpRealTracks = ALL_TRACKS.filter(t => t.source === 'file'); _mpRenderRealTracks(q); }
+    _mpRealTracks = realTracks;
+    const existingIds = new Set(ALL_TRACKS.map(t => t.id));
+    realTracks.forEach(t => { if (!existingIds.has(t.id)) ALL_TRACKS.push(t); });
+    _mpRenderRealTracks(q);
   } catch(e) {
-    // Inline data already shown — silent fail is fine
+    console.warn('[Hexagon] Music fetch failed:', e);
+    _mpRealTracks = [];
+    _mpRenderRealTracks(q);
   }
 }
 
