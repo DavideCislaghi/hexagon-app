@@ -12773,7 +12773,7 @@ function _mPlayFileTrack(t) {
     };
   };
   if (_mCrossfade && _mAudioEl.src && !_mAudioEl.paused) {
-    const FADE = 600;
+    const FADE = 1200;
     const steps = 20;
     const startVol = _mAudioEl.volume;
     let step = 0;
@@ -12804,7 +12804,7 @@ function _mRestartSynth() {
       const now = ctx.currentTime;
       masterGain.gain.cancelScheduledValues(now);
       masterGain.gain.setValueAtTime(vol, now);
-      masterGain.gain.linearRampToValueAtTime(0, now + 0.8);
+      masterGain.gain.linearRampToValueAtTime(0, now + 1.6);
       setTimeout(() => {
         killPool();
         startAll();
@@ -12812,8 +12812,8 @@ function _mRestartSynth() {
         const n = ctx.currentTime;
         masterGain.gain.cancelScheduledValues(n);
         masterGain.gain.setValueAtTime(0, n);
-        masterGain.gain.linearRampToValueAtTime(vol, n + 0.8);
-      }, 850);
+        masterGain.gain.linearRampToValueAtTime(vol, n + 1.6);
+      }, 1700);
     } else {
       killPool();
       startAll();
