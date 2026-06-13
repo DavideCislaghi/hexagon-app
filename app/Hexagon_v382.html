@@ -12617,6 +12617,7 @@ const _mAudioEl = (function() {
   document.body.appendChild(el);
   return el;
 })();
+let _mAudioSrc = null; // MediaElementSourceNode — created once, routes _mAudioEl through masterGain
 
 let _mPlaying    = false;
 let _mPlayerUsed = false; // true once user has tapped a track
@@ -12760,38 +12761,36 @@ function _mStopSynth() {
 
 // ── File track playback ───────────────────────────────────────────────────────
 function _mPlayFileTrack(t) {
+  // Route _mAudioEl through Web Audio graph on first call (once only)
+  initCtx();
+  if (!_mAudioSrc) {
+    _mAudioSrc = ctx.createMediaElementSource(_mAudioEl);
+    _mAudioSrc.connect(masterGain);
+  }
+  _mAudioEl.loop = _mLoop;
+  _mAudioEl.onended = function() {
+    if (_mLoop) return;
+    if (_mPlaying) musicNext();
+  };
+  const FADE_S = 1.2;
   const startNew = () => {
     _mAudioEl.src = t.url;
-    _mAudioEl.loop = _mLoop;
-    _mAudioEl.volume = vol;
     _mAudioEl.load();
     _mAudioEl.play().catch(() => {});
     _mResumeProgress();
-    _mAudioEl.onended = function() {
-      if (_mLoop) return;
-      if (_mPlaying) musicNext();
-    };
   };
-  if (_mCrossfade && _mAudioEl.src && !_mAudioEl.paused) {
-    const FADE = 1200;
-    const steps = 20;
-    const startVol = _mAudioEl.volume;
-    let step = 0;
-    const fadeOut = setInterval(() => {
-      step++;
-      _mAudioEl.volume = Math.max(0, startVol * (1 - step / steps));
-      if (step >= steps) {
-        clearInterval(fadeOut);
-        startNew();
-        _mAudioEl.volume = 0;
-        let si = 0;
-        const fadeIn = setInterval(() => {
-          si++;
-          _mAudioEl.volume = Math.min(vol, vol * (si / steps));
-          if (si >= steps) clearInterval(fadeIn);
-        }, FADE / steps);
-      }
-    }, FADE / steps);
+  if (_mCrossfade && !_mAudioEl.paused) {
+    const now = ctx.currentTime;
+    masterGain.gain.cancelScheduledValues(now);
+    masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+    masterGain.gain.linearRampToValueAtTime(0, now + FADE_S);
+    setTimeout(() => {
+      startNew();
+      const n = ctx.currentTime;
+      masterGain.gain.cancelScheduledValues(n);
+      masterGain.gain.setValueAtTime(0, n);
+      masterGain.gain.linearRampToValueAtTime(vol, n + FADE_S);
+    }, FADE_S * 1000 + 50);
   } else {
     startNew();
   }
@@ -12800,11 +12799,12 @@ function _mPlayFileTrack(t) {
 function _mRestartSynth() {
   initCtx();
   const doStart = () => {
+    const FADE_S = 1.2;
     if (_mCrossfade && masterGain) {
       const now = ctx.currentTime;
       masterGain.gain.cancelScheduledValues(now);
-      masterGain.gain.setValueAtTime(vol, now);
-      masterGain.gain.linearRampToValueAtTime(0, now + 1.6);
+      masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+      masterGain.gain.linearRampToValueAtTime(0, now + FADE_S);
       setTimeout(() => {
         killPool();
         startAll();
@@ -12812,8 +12812,8 @@ function _mRestartSynth() {
         const n = ctx.currentTime;
         masterGain.gain.cancelScheduledValues(n);
         masterGain.gain.setValueAtTime(0, n);
-        masterGain.gain.linearRampToValueAtTime(vol, n + 1.6);
-      }, 1700);
+        masterGain.gain.linearRampToValueAtTime(vol, n + FADE_S);
+      }, FADE_S * 1000 + 50);
     } else {
       killPool();
       startAll();
