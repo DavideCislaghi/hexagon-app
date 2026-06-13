@@ -89,6 +89,51 @@
       "bpm": 130,
       "type": "phonk",
       "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/midnight_siege.ogg"
+    },
+    {
+      "id": "after_hours_chase",
+      "name": "AFTER HOURS CHASE",
+      "sub": "Fast drift house \u00b7 nocturnal speed \u00b7 driving energy",
+      "artist": "FleaLes",
+      "bpm": 160,
+      "type": "house",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/after_hours_chase.ogg"
+    },
+    {
+      "id": "apex_grip",
+      "name": "APEX GRIP",
+      "sub": "Fast drift house \u00b7 high corner \u00b7 relentless momentum",
+      "artist": "FleaLes",
+      "bpm": 160,
+      "type": "house",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/apex_grip.ogg"
+    },
+    {
+      "id": "rough_terrain",
+      "name": "ROUGH TERRAIN",
+      "sub": "Fast drift house \u00b7 raw surface \u00b7 unstoppable drive",
+      "artist": "FleaLes",
+      "bpm": 160,
+      "type": "house",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/rough_terrain.ogg"
+    },
+    {
+      "id": "full_throttle_grip",
+      "name": "FULL THROTTLE GRIP",
+      "sub": "Fast drift house \u00b7 full power \u00b7 no brakes",
+      "artist": "FleaLes",
+      "bpm": 160,
+      "type": "house",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/full_throttle_grip.ogg"
+    },
+    {
+      "id": "grip_the_asphalt",
+      "name": "GRIP THE ASPHALT",
+      "sub": "Fast drift house \u00b7 street traction \u00b7 dark house groove",
+      "artist": "FleaLes",
+      "bpm": 160,
+      "type": "house",
+      "url": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/music/grip_the_asphalt.ogg"
     }
   ]
 }
