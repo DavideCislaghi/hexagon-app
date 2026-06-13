@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Expanded Player Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0d0d0d; --card:#161616; --accent:#c8ff00; --text:#f0f0f0; --muted:#666; --border:#252525; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:#111; color:var(--text); font-family:'DM Sans',sans-serif; padding:20px 12px 60px; }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:.12em; color:var(--accent); margin-bottom:2px; }
+  .subtitle{ font-size:.68rem; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:28px; }
+  .opt-label{ font-family:'Bebas Neue',sans-serif; font-size:.95rem; letter-spacing:.12em; color:var(--muted); margin-bottom:3px; }
+  .opt-desc{ font-size:.64rem; color:var(--muted); opacity:.7; margin-bottom:12px; }
+  .section{ margin-bottom:48px; }
+  .divider{ height:1px; background:var(--border); margin:36px 0; }
+
+  /* shared shell — mimics the white bottom sheet from screenshot */
+  .player{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+    max-width:420px;
+  }
+  .drag-handle{ display:flex; justify-content:center; padding:10px 0 6px; }
+  .drag-nub{ width:36px; height:4px; background:var(--border); border-radius:2px; }
+  .close-row{ display:flex; justify-content:space-between; align-items:center; padding:0 16px 10px; }
+  .close-row-center{ display:flex; justify-content:center; align-items:center; padding:0 16px 10px; }
+  .chevron-btn{ background:none; border:none; cursor:pointer; color:var(--accent); padding:4px; }
+  .close-btn{ background:none; border:none; cursor:pointer; color:var(--accent); font-size:18px; line-height:1; padding:4px; }
+
+  /* ── ANIMATED BARS (shared canvas stand-in) ── */
+  .vis-bars-wrap{
+    background:#0d0d0d;
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    height:80px;
+    display:flex;
+    align-items:flex-end;
+    padding:6px 6px 6px;
+    gap:2px;
+  }
+  .vis-bar{
+    flex:1;
+    background:var(--accent);
+    border-radius:2px 2px 0 0;
+    animation:barBounce var(--dur, .6s) ease-in-out infinite alternate;
+  }
+  @keyframes barBounce{
+    from{ height:var(--lo, 10%); }
+    to  { height:var(--hi, 80%); }
+  }
+  .vis-wave-wrap{
+    background:#0d0d0d;
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    height:80px;
+    display:flex;
+    align-items:center;
+  }
+  .vis-wave-wrap svg{ width:100%; height:60px; }
+
+  /* ── PROGRESS ── */
+  .prog-track{
+    height:3px; background:var(--border); border-radius:2px;
+    position:relative;
+  }
+  .prog-fill{
+    position:absolute; left:0; top:0; bottom:0;
+    background:var(--accent); border-radius:2px;
+    width:22%;
+  }
+  .prog-dot{
+    position:absolute; top:50%; left:22%;
+    transform:translate(-50%,-50%);
+    width:10px; height:10px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 6px var(--accent);
+  }
+  .time-row{ display:flex; justify-content:space-between; margin-top:4px; font-size:.62rem; color:var(--muted); }
+
+  /* ── TRANSPORT ── */
+  .transport{ display:flex; align-items:center; justify-content:center; gap:12px; }
+  .t-btn{
+    width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--border); background:transparent;
+    color:var(--text); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-size:13px;
+  }
+  .t-play{
+    width:52px; height:52px; border-radius:50%;
+    background:var(--accent); border:none;
+    color:#0d0d0d; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .t-play svg{ margin-left:2px; }
+
+  /* ── BPM CONTROL ── */
+  .bpm-ctrl{ display:flex; align-items:center; gap:8px; }
+  .bpm-adj{
+    width:34px; height:34px; border-radius:8px;
+    border:1px solid var(--border); background:var(--bg);
+    color:var(--text); font-size:20px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .bpm-num{
+    font-family:'Bebas Neue',sans-serif; font-size:24px;
+    color:var(--accent); line-height:1; text-align:center; min-width:42px;
+  }
+  .bpm-lbl{ font-size:9px; color:var(--muted); letter-spacing:1px; text-align:center; }
+
+  /* ── VIS PILLS ── */
+  .vis-pills{ display:flex; gap:6px; }
+  .vis-pill{
+    font-size:.62rem; padding:5px 12px; border-radius:20px;
+    border:1px solid var(--border); background:transparent;
+    color:var(--muted); cursor:pointer;
+  }
+  .vis-pill.active{
+    border-color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 12%,transparent);
+    color:var(--accent);
+  }
+
+  /* ── ICON BTNS ── */
+  .icon-btns{ display:flex; gap:18px; }
+  .icon-btn{ background:none; border:none; cursor:pointer; color:var(--muted); padding:2px; opacity:.5; }
+
+  /* ===== OPTION 1 — CURRENT REFINED ===== */
+  .o1{ padding:0 16px 16px; }
+  .o1-vis-section{ margin-bottom:14px; }
+  .o1-info{ margin-bottom:10px; }
+  .o1-title{ font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:.1em; color:var(--accent); line-height:1; }
+  .o1-sub{ font-size:.68rem; color:var(--muted); margin-top:2px; }
+  .o1-prog{ margin-bottom:14px; }
+  .o1-bottom-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .o1-divider{ height:1px; background:var(--border); margin:10px 0; }
+  .o1-row2{ display:flex; align-items:center; justify-content:space-between; }
+
+  /* ===== OPTION 2 — HERO VIS TOP ===== */
+  .o2-hero{
+    width:100%; height:120px;
+    background:#0d0d0d;
+    display:flex; align-items:flex-end;
+    padding:6px 8px;
+    gap:2px;
+    position:relative;
+  }
+  .o2-hero .vis-bar{ flex:1; border-radius:2px 2px 0 0; }
+  .o2-hero-overlay{
+    position:absolute; inset:0;
+    background:linear-gradient(to top, var(--card) 0%, transparent 60%);
+  }
+  .o2-body{ padding:0 16px 16px; }
+  .o2-title-row{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:4px; }
+  .o2-title{ font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:.1em; color:var(--accent); }
+  .o2-bpm-inline{
+    font-family:'Bebas Neue',sans-serif; font-size:1.1rem;
+    color:var(--muted); letter-spacing:.06em;
+  }
+  .o2-sub{ font-size:.66rem; color:var(--muted); margin-bottom:14px; }
+  .o2-transport{ margin-bottom:14px; }
+  .o2-prog{ margin-bottom:16px; }
+  .o2-footer{ display:flex; align-items:center; justify-content:space-between; }
+
+  /* ===== OPTION 3 — CENTERED ALBUM-ART STYLE ===== */
+  .o3-body{ padding:0 20px 20px; text-align:center; }
+  .o3-art{
+    width:140px; height:140px; border-radius:16px;
+    background:#0d0d0d;
+    border:1px solid var(--border);
+    margin:0 auto 16px;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:flex-end;
+    padding:8px; overflow:hidden;
+    position:relative;
+  }
+  .o3-art-bars{
+    display:flex; align-items:flex-end; gap:2px; width:100%; height:48px;
+  }
+  .o3-art-label{
+    position:absolute; top:12px; left:0; right:0;
+    text-align:center;
+    font-family:'Bebas Neue',sans-serif; font-size:.65rem;
+    letter-spacing:.15em; color:var(--muted); text-transform:uppercase;
+  }
+  .o3-title{ font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:.1em; color:var(--accent); line-height:1; }
+  .o3-sub{ font-size:.64rem; color:var(--muted); margin-top:4px; margin-bottom:16px; }
+  .o3-prog{ margin-bottom:18px; text-align:left; }
+  .o3-transport{ justify-content:center; margin-bottom:18px; }
+  .o3-footer{ display:flex; justify-content:space-between; align-items:center; }
+  .o3-bpm-row{ display:flex; align-items:center; gap:6px; }
+
+  /* ===== OPTION 4 — INFO-DENSE / DASHBOARD ===== */
+  .o4-body{ padding:0 14px 14px; }
+  .o4-vis{ margin-bottom:12px; }
+  .o4-info-grid{
+    display:grid; grid-template-columns:1fr auto;
+    gap:4px 12px; margin-bottom:12px;
+    align-items:center;
+  }
+  .o4-title{ font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:.08em; color:var(--accent); line-height:1; }
+  .o4-sub{ font-size:.62rem; color:var(--muted); grid-column:1/-1; }
+  .o4-stats{
+    display:flex; gap:8px; grid-column:1/-1;
+    margin-bottom:4px;
+  }
+  .o4-stat{
+    background:#111; border:1px solid var(--border);
+    border-radius:8px; padding:6px 10px;
+    text-align:center; flex:1;
+  }
+  .o4-stat-val{
+    font-family:'Bebas Neue',sans-serif; font-size:1.1rem;
+    color:var(--accent); line-height:1;
+  }
+  .o4-stat-lbl{ font-size:.5rem; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; margin-top:1px; }
+  .o4-prog{ margin-bottom:10px; }
+  .o4-bottom{ display:flex; align-items:center; justify-content:space-between; }
+  .o4-bpm-compact{ display:flex; align-items:center; gap:6px; }
+  .o4-bpm-compact .bpm-adj{ width:28px; height:28px; font-size:16px; }
+  .o4-bpm-compact .bpm-num{ font-size:18px; min-width:32px; }
+
+  /* ===== OPTION 5 — MINIMAL / GESTURE-FIRST ===== */
+  .o5-body{ padding:0 20px 20px; }
+  .o5-title-block{ margin-bottom:16px; }
+  .o5-vibe-pill{
+    display:inline-block; font-size:.52rem; letter-spacing:.09em; text-transform:uppercase;
+    background:color-mix(in srgb,var(--accent) 14%,transparent);
+    color:var(--accent);
+    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+    padding:3px 8px; border-radius:20px; margin-bottom:8px;
+  }
+  .o5-title{ font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:.1em; color:var(--text); line-height:1; }
+  .o5-title span{ color:var(--accent); }
+  .o5-sub{ font-size:.64rem; color:var(--muted); margin-top:4px; }
+  .o5-prog-tall{
+    margin:18px 0 6px;
+    height:5px; background:var(--border); border-radius:3px;
+    position:relative;
+  }
+  .o5-prog-fill{
+    position:absolute; left:0; top:0; bottom:0;
+    background:var(--accent); border-radius:3px; width:22%;
+  }
+  .o5-prog-dot{
+    position:absolute; top:50%; left:22%;
+    transform:translate(-50%,-50%);
+    width:14px; height:14px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 10px var(--accent);
+  }
+  .o5-time-row{ display:flex; justify-content:space-between; margin-top:6px; font-size:.64rem; color:var(--muted); margin-bottom:20px; }
+  .o5-big-play{
+    width:64px; height:64px; border-radius:50%;
+    background:var(--accent); border:none; color:#0d0d0d; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .o5-big-play svg{ margin-left:3px; }
+  .o5-transport-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:20px;
+  }
+  .o5-side-btns{ display:flex; gap:10px; }
+  .o5-bpm-badge{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:1.1rem; color:var(--muted); letter-spacing:.06em;
+    border:1px solid var(--border); border-radius:8px;
+    padding:4px 10px;
+  }
+  .o5-footer{ display:flex; justify-content:space-between; align-items:center; }
+</style>
+</head>
+<body>
+
+<h1>Expanded Player Options</h1>
+<p class="subtitle">5 layout directions — same Hexagon design system</p>
+
+<!-- ══ OPTION 1 ══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="opt-label">Option 1 — Current Refined</div>
+  <div class="opt-desc">Tidier version of what's live. Visualiser → track info → progress → transport + BPM in one row → divider → vis-picker + utility icons.</div>
+  <div class="player">
+    <div class="drag-handle"><div class="drag-nub"></div></div>
+    <div class="close-row">
+      <div style="width:26px"></div>
+      <div class="chevron-btn">
+        <svg width="16" height="8" viewBox="0 0 16 8"><polyline points="1,1 8,7 15,1" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <button class="close-btn">✕</button>
+    </div>
+    <div class="o1">
+      <div class="o1-vis-section">
+        <div class="vis-bars-wrap">
+          <div class="vis-bar" style="--lo:8%;--hi:55%;--dur:.5s"></div><div class="vis-bar" style="--lo:20%;--hi:90%;--dur:.38s"></div><div class="vis-bar" style="--lo:6%;--hi:70%;--dur:.61s"></div><div class="vis-bar" style="--lo:12%;--hi:80%;--dur:.44s"></div><div class="vis-bar" style="--lo:5%;--hi:65%;--dur:.52s"></div><div class="vis-bar" style="--lo:18%;--hi:95%;--dur:.35s"></div><div class="vis-bar" style="--lo:8%;--hi:50%;--dur:.67s"></div><div class="vis-bar" style="--lo:15%;--hi:75%;--dur:.42s"></div><div class="vis-bar" style="--lo:10%;--hi:85%;--dur:.55s"></div><div class="vis-bar" style="--lo:6%;--hi:60%;--dur:.48s"></div><div class="vis-bar" style="--lo:20%;--hi:88%;--dur:.39s"></div><div class="vis-bar" style="--lo:9%;--hi:72%;--dur:.58s"></div><div class="vis-bar" style="--lo:14%;--hi:92%;--dur:.43s"></div><div class="vis-bar" style="--lo:7%;--hi:58%;--dur:.64s"></div><div class="vis-bar" style="--lo:16%;--hi:78%;--dur:.47s"></div><div class="vis-bar" style="--lo:11%;--hi:82%;--dur:.53s"></div><div class="vis-bar" style="--lo:5%;--hi:66%;--dur:.36s"></div><div class="vis-bar" style="--lo:22%;--hi:94%;--dur:.61s"></div><div class="vis-bar" style="--lo:8%;--hi:54%;--dur:.49s"></div><div class="vis-bar" style="--lo:13%;--hi:76%;--dur:.57s"></div>
+        </div>
+      </div>
+      <div class="o1-info">
+        <div class="o1-title">Hydraulic Crush</div>
+        <div class="o1-sub">Cyberpunk wave phonk · industrial bass · crushing drop</div>
+      </div>
+      <div class="o1-prog">
+        <div class="prog-track"><div class="prog-fill"></div><div class="prog-dot"></div></div>
+        <div class="time-row"><span>0:03</span><span>0:30</span></div>
+      </div>
+      <div class="o1-bottom-row">
+        <div class="transport">
+          <button class="t-btn">⏮</button>
+          <button class="t-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+          <button class="t-btn">⏭</button>
+        </div>
+        <div class="bpm-ctrl">
+          <button class="bpm-adj">−</button>
+          <div><div class="bpm-num">140</div><div class="bpm-lbl">BPM</div></div>
+          <button class="bpm-adj">+</button>
+        </div>
+      </div>
+      <div class="o1-divider"></div>
+      <div class="o1-row2">
+        <div class="vis-pills">
+          <button class="vis-pill active">Bars</button>
+          <button class="vis-pill">Wave</button>
+          <button class="vis-pill">None</button>
+        </div>
+        <div class="icon-btns">
+          <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+          <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+          <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor"/><circle cx="3" cy="12" r="1" fill="currentColor"/><circle cx="3" cy="18" r="1" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ OPTION 2 ══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="opt-label">Option 2 — Hero Visualiser at Top</div>
+  <div class="opt-desc">Full-bleed taller vis bleeds into the title below via gradient. Track name + inline BPM badge. Transport centred. Vis/utility controls as footer row.</div>
+  <div class="player">
+    <div class="drag-handle"><div class="drag-nub"></div></div>
+    <div class="close-row-center" style="justify-content:flex-end; padding-right:16px; padding-bottom:6px;">
+      <button class="close-btn">✕</button>
+    </div>
+    <div class="o2-hero">
+      <div class="vis-bar" style="--lo:8%;--hi:55%;--dur:.5s"></div><div class="vis-bar" style="--lo:20%;--hi:90%;--dur:.38s"></div><div class="vis-bar" style="--lo:6%;--hi:70%;--dur:.61s"></div><div class="vis-bar" style="--lo:12%;--hi:80%;--dur:.44s"></div><div class="vis-bar" style="--lo:5%;--hi:65%;--dur:.52s"></div><div class="vis-bar" style="--lo:18%;--hi:95%;--dur:.35s"></div><div class="vis-bar" style="--lo:8%;--hi:50%;--dur:.67s"></div><div class="vis-bar" style="--lo:15%;--hi:75%;--dur:.42s"></div><div class="vis-bar" style="--lo:10%;--hi:85%;--dur:.55s"></div><div class="vis-bar" style="--lo:6%;--hi:60%;--dur:.48s"></div><div class="vis-bar" style="--lo:20%;--hi:88%;--dur:.39s"></div><div class="vis-bar" style="--lo:9%;--hi:72%;--dur:.58s"></div><div class="vis-bar" style="--lo:14%;--hi:92%;--dur:.43s"></div><div class="vis-bar" style="--lo:7%;--hi:58%;--dur:.64s"></div><div class="vis-bar" style="--lo:16%;--hi:78%;--dur:.47s"></div><div class="vis-bar" style="--lo:11%;--hi:82%;--dur:.53s"></div><div class="vis-bar" style="--lo:5%;--hi:66%;--dur:.36s"></div><div class="vis-bar" style="--lo:22%;--hi:94%;--dur:.61s"></div><div class="vis-bar" style="--lo:8%;--hi:54%;--dur:.49s"></div><div class="vis-bar" style="--lo:13%;--hi:76%;--dur:.57s"></div><div class="vis-bar" style="--lo:10%;--hi:84%;--dur:.45s"></div><div class="vis-bar" style="--lo:19%;--hi:91%;--dur:.4s"></div><div class="vis-bar" style="--lo:7%;--hi:62%;--dur:.62s"></div><div class="vis-bar" style="--lo:14%;--hi:79%;--dur:.5s"></div>
+      <div class="o2-hero-overlay"></div>
+    </div>
+    <div class="o2-body">
+      <div class="o2-title-row">
+        <div class="o2-title">Hydraulic Crush</div>
+        <div class="o2-bpm-inline">140 <span style="font-size:.6rem;letter-spacing:.1em;color:var(--muted)">BPM</span></div>
+      </div>
+      <div class="o2-sub">Cyberpunk wave phonk · industrial bass · crushing drop</div>
+      <div class="o2-prog">
+        <div class="prog-track"><div class="prog-fill"></div><div class="prog-dot"></div></div>
+        <div class="time-row"><span>0:03</span><span>0:30</span></div>
+      </div>
+      <div class="transport o2-transport">
+        <button class="t-btn">⏮</button>
+        <button class="t-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+        <button class="t-btn">⏭</button>
+      </div>
+      <div class="o2-footer">
+        <div class="vis-pills">
+          <button class="vis-pill active">Bars</button>
+          <button class="vis-pill">Wave</button>
+          <button class="vis-pill">None</button>
+        </div>
+        <div class="icon-btns">
+          <button class="icon-btn" style="opacity:.5"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+          <button class="icon-btn" style="opacity:.5"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ OPTION 3 ══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="opt-label">Option 3 — Centred Album Art Style</div>
+  <div class="opt-desc">Square vis "artwork" centred at top like a cover. Title + sub below. Centred transport. BPM control tucked into footer corners. Feels like a music app.</div>
+  <div class="player">
+    <div class="drag-handle"><div class="drag-nub"></div></div>
+    <div class="close-row">
+      <div style="width:26px"></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.7rem;letter-spacing:.14em;color:var(--muted)">Now Playing</div>
+      <button class="close-btn">✕</button>
+    </div>
+    <div class="o3-body">
+      <div class="o3-art">
+        <div class="o3-art-label">Phonk · 140 BPM</div>
+        <div class="o3-art-bars">
+          <div class="vis-bar" style="--lo:10%;--hi:60%;--dur:.52s"></div><div class="vis-bar" style="--lo:22%;--hi:90%;--dur:.38s"></div><div class="vis-bar" style="--lo:8%;--hi:75%;--dur:.64s"></div><div class="vis-bar" style="--lo:15%;--hi:85%;--dur:.44s"></div><div class="vis-bar" style="--lo:6%;--hi:68%;--dur:.55s"></div><div class="vis-bar" style="--lo:20%;--hi:95%;--dur:.36s"></div><div class="vis-bar" style="--lo:10%;--hi:55%;--dur:.7s"></div><div class="vis-bar" style="--lo:18%;--hi:80%;--dur:.45s"></div><div class="vis-bar" style="--lo:12%;--hi:88%;--dur:.57s"></div><div class="vis-bar" style="--lo:7%;--hi:65%;--dur:.48s"></div><div class="vis-bar" style="--lo:24%;--hi:92%;--dur:.41s"></div><div class="vis-bar" style="--lo:9%;--hi:74%;--dur:.6s"></div>
+        </div>
+      </div>
+      <div class="o3-title">Hydraulic Crush</div>
+      <div class="o3-sub">Cyberpunk wave phonk · industrial bass · crushing drop</div>
+      <div class="o3-prog">
+        <div class="prog-track"><div class="prog-fill"></div><div class="prog-dot"></div></div>
+        <div class="time-row"><span>0:03</span><span>0:30</span></div>
+      </div>
+      <div class="transport o3-transport">
+        <button class="t-btn">⏮</button>
+        <button class="t-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+        <button class="t-btn">⏭</button>
+      </div>
+      <div class="o3-footer">
+        <div class="bpm-ctrl o3-bpm-row">
+          <button class="bpm-adj">−</button>
+          <div><div class="bpm-num" style="font-size:18px;min-width:32px">140</div><div class="bpm-lbl">BPM</div></div>
+          <button class="bpm-adj">+</button>
+        </div>
+        <div class="vis-pills">
+          <button class="vis-pill active">Bars</button>
+          <button class="vis-pill">Wave</button>
+          <button class="vis-pill">None</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ OPTION 4 ══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="opt-label">Option 4 — Info-Dense / Dashboard</div>
+  <div class="opt-desc">Stat chips (BPM, Key, Vibe) displayed prominently below the vis. BPM −/+ shrunk and inline. More data at a glance, less decorative.</div>
+  <div class="player">
+    <div class="drag-handle"><div class="drag-nub"></div></div>
+    <div class="close-row">
+      <div style="width:26px"></div>
+      <div class="chevron-btn"><svg width="16" height="8" viewBox="0 0 16 8"><polyline points="1,1 8,7 15,1" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <button class="close-btn">✕</button>
+    </div>
+    <div class="o4-body">
+      <div class="o4-vis">
+        <div class="vis-bars-wrap" style="height:64px;">
+          <div class="vis-bar" style="--lo:8%;--hi:55%;--dur:.5s"></div><div class="vis-bar" style="--lo:20%;--hi:90%;--dur:.38s"></div><div class="vis-bar" style="--lo:6%;--hi:70%;--dur:.61s"></div><div class="vis-bar" style="--lo:12%;--hi:80%;--dur:.44s"></div><div class="vis-bar" style="--lo:5%;--hi:65%;--dur:.52s"></div><div class="vis-bar" style="--lo:18%;--hi:95%;--dur:.35s"></div><div class="vis-bar" style="--lo:8%;--hi:50%;--dur:.67s"></div><div class="vis-bar" style="--lo:15%;--hi:75%;--dur:.42s"></div><div class="vis-bar" style="--lo:10%;--hi:85%;--dur:.55s"></div><div class="vis-bar" style="--lo:6%;--hi:60%;--dur:.48s"></div><div class="vis-bar" style="--lo:20%;--hi:88%;--dur:.39s"></div><div class="vis-bar" style="--lo:9%;--hi:72%;--dur:.58s"></div><div class="vis-bar" style="--lo:14%;--hi:92%;--dur:.43s"></div><div class="vis-bar" style="--lo:7%;--hi:58%;--dur:.64s"></div><div class="vis-bar" style="--lo:16%;--hi:78%;--dur:.47s"></div><div class="vis-bar" style="--lo:11%;--hi:82%;--dur:.53s"></div><div class="vis-bar" style="--lo:5%;--hi:66%;--dur:.36s"></div><div class="vis-bar" style="--lo:22%;--hi:94%;--dur:.61s"></div><div class="vis-bar" style="--lo:8%;--hi:54%;--dur:.49s"></div><div class="vis-bar" style="--lo:13%;--hi:76%;--dur:.57s"></div>
+        </div>
+      </div>
+      <div class="o4-info-grid">
+        <div class="o4-title">Hydraulic Crush</div>
+        <div></div>
+        <div class="o4-sub">Cyberpunk wave phonk · industrial bass · crushing drop</div>
+        <div class="o4-stats">
+          <div class="o4-stat"><div class="o4-stat-val">140</div><div class="o4-stat-lbl">BPM</div></div>
+          <div class="o4-stat"><div class="o4-stat-val">Phonk</div><div class="o4-stat-lbl">Vibe</div></div>
+          <div class="o4-stat"><div class="o4-stat-val">Phryg.</div><div class="o4-stat-lbl">Scale</div></div>
+          <div class="o4-stat"><div class="o4-stat-val">0:30</div><div class="o4-stat-lbl">Length</div></div>
+        </div>
+      </div>
+      <div class="o4-prog">
+        <div class="prog-track"><div class="prog-fill"></div><div class="prog-dot"></div></div>
+        <div class="time-row"><span>0:03</span><span>0:30</span></div>
+      </div>
+      <div class="o4-bottom">
+        <div class="o4-bpm-compact bpm-ctrl">
+          <button class="bpm-adj" style="width:28px;height:28px;font-size:16px">−</button>
+          <div><div class="bpm-num" style="font-size:18px;min-width:32px">140</div><div class="bpm-lbl">BPM</div></div>
+          <button class="bpm-adj" style="width:28px;height:28px;font-size:16px">+</button>
+        </div>
+        <div class="transport">
+          <button class="t-btn">⏮</button>
+          <button class="t-play"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+          <button class="t-btn">⏭</button>
+        </div>
+        <div class="vis-pills" style="flex-direction:column;gap:4px;">
+          <button class="vis-pill active" style="font-size:.52rem;padding:3px 8px;">Bars</button>
+          <button class="vis-pill" style="font-size:.52rem;padding:3px 8px;">Wave</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ OPTION 5 ══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="opt-label">Option 5 — Minimal / Type-First</div>
+  <div class="opt-desc">No separate vis block at all. Big typography, tall scrub bar, oversized play button. BPM is a badge not a control. Ultra-clean, nothing wasted.</div>
+  <div class="player">
+    <div class="drag-handle"><div class="drag-nub"></div></div>
+    <div class="close-row">
+      <div style="width:26px"></div>
+      <div class="chevron-btn"><svg width="16" height="8" viewBox="0 0 16 8"><polyline points="1,1 8,7 15,1" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <button class="close-btn">✕</button>
+    </div>
+    <div class="o5-body">
+      <div class="o5-title-block">
+        <div class="o5-vibe-pill">Phonk</div>
+        <div class="o5-title"><span>Hydraulic</span> Crush</div>
+        <div class="o5-sub">Cyberpunk wave phonk · industrial bass · crushing drop</div>
+      </div>
+      <div class="o5-prog-tall">
+        <div class="o5-prog-fill"></div>
+        <div class="o5-prog-dot"></div>
+      </div>
+      <div class="o5-time-row"><span>0:03</span><span>0:30</span></div>
+      <div class="o5-transport-row">
+        <div class="o5-side-btns">
+          <button class="t-btn">⏮</button>
+          <button class="t-btn">⏭</button>
+        </div>
+        <button class="o5-big-play">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        </button>
+        <div class="o5-side-btns">
+          <button class="t-btn" style="font-size:10px;color:var(--muted)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </button>
+          <button class="t-btn" style="font-size:10px;color:var(--muted)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="o5-footer">
+        <div class="vis-pills">
+          <button class="vis-pill active">Bars</button>
+          <button class="vis-pill">Wave</button>
+          <button class="vis-pill">None</button>
+        </div>
+        <div class="o5-bpm-badge">140 <span style="font-size:.5rem;letter-spacing:.1em;color:var(--muted)">BPM</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
