@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Music Page Header Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0d0d; --card: #161616; --accent: #c8ff00;
+    --text: #f0f0f0; --muted: #666; --border: #252525;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; padding: 28px 16px 60px; max-width: 420px; margin: 0 auto; }
+
+  /* ── shared label ── */
+  .concept-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: 0.1em;
+    color: var(--muted); margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .concept-tag {
+    font-family: 'DM Sans', sans-serif; font-size: 0.58rem;
+    font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 3px;
+    background: #1e1e1e; color: #555;
+  }
+  .concept-desc {
+    font-size: 0.69rem; color: var(--muted); margin-bottom: 12px; line-height: 1.5; max-width: 380px;
+  }
+  .concept-block { margin-bottom: 44px; }
+
+  /* ── fake track stub ── */
+  .track-stub {
+    background: #111; border: 1px solid var(--border); border-radius: 7px;
+    padding: 10px 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .track-stub-icon { width: 32px; height: 32px; border-radius: 5px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .track-stub-body { flex: 1; }
+  .track-stub-name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; }
+  .track-stub-sub { font-size: 0.6rem; color: var(--muted); margin-top: 2px; }
+  .track-stub-bpm { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; color: var(--accent); }
+  .track-stubs { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+
+  /* ── page heading ── */
+  .ph { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.05em; line-height: 1; }
+  .ph span { color: var(--accent); }
+  .ph-sub { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+  /* ── sort pills ── */
+  .sort-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .sp { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.03em; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border); background: #111; color: var(--muted); cursor: pointer; white-space: nowrap; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .sp.active { background: var(--accent); color: #0d0d0d; border-color: var(--accent); font-weight: 700; }
+
+  /* ── search input ── */
+  .search-input {
+    background: #111; border: 1px solid var(--border); border-radius: 20px;
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
+    padding: 7px 14px; outline: none; width: 100%;
+  }
+  .search-input::placeholder { color: var(--muted); }
+
+  /* ── separators ── */
+  .sep { height: 1px; background: var(--border); margin: 10px 0; }
+  .sep-gap { height: 1px; background: transparent; margin: 6px 0; }
+
+  /* ── accordion stub ── */
+  .acc-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 6px;
+  }
+  .acc-title { font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.08em; }
+  .acc-count { font-size: 0.62rem; color: var(--muted); margin-left: 8px; }
+  .acc-badge { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--accent); color: var(--accent); }
+
+  /* divider between concepts */
+  .divider { height: 1px; background: #1e1e1e; margin: 0 0 44px; }
+
+  /* collapse btn stub */
+  .collapse-btn { background: none; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); cursor: pointer; padding: 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     CONCEPT 1 — Your idea: Title / sep / search+sort / sep / list
+     Slight variation: search left, collapse right; pills below
+══════════════════════════════════════ -->
+<div class="concept-block">
+  <div class="concept-label">Option 1 — Stacked zone <span class="concept-tag">Your idea</span></div>
+  <p class="concept-desc">Title stands alone. Below: one unified control zone with search on top and sort pills below it, framed by two separators. Clean hierarchy, no floating elements.</p>
+
+  <!-- title -->
+  <div class="ph"><span>MUS</span>IC</div>
+  <div class="ph-sub" style="margin-bottom:12px">Workout Soundtrack</div>
+  <div class="sep"></div>
+
+  <!-- control zone -->
+  <div style="padding: 10px 0 10px;">
+    <input class="search-input" placeholder="Search tracks…" style="margin-bottom:10px">
+    <div class="sort-pills">
+      <button class="sp active">Name A–Z</button>
+      <button class="sp">BPM: Low–High</button>
+      <button class="sp">Duration: Short–Long</button>
+      <button class="sp">Vibe A–Z</button>
+    </div>
+  </div>
+
+  <div class="sep" style="margin-bottom:12px"></div>
+
+  <!-- list stub -->
+  <div class="acc-header">
+    <div><span class="acc-title">UPLOADS</span><span class="acc-count">17 tracks</span></div>
+    <span class="acc-badge">Online</span>
+  </div>
+  <div class="track-stubs">
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">AFTER HOURS CHASE</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">APEX GRIP</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+
+<!-- ══════════════════════════════════════
+     CONCEPT 2 — Inline row: search + collapse | pills below
+     No separators, uses spacing alone
+══════════════════════════════════════ -->
+<div class="concept-block">
+  <div class="concept-label">Option 2 — Compact inline row <span class="concept-tag">Minimal</span></div>
+  <p class="concept-desc">Title row has subtitle + collapse btn inline. Search and sort sit in a tight row — search expands, sort pills wrap below. No separators, breathing room does the work.</p>
+
+  <!-- title row -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px">
+    <div>
+      <div class="ph"><span>MUS</span>IC</div>
+      <div class="ph-sub">Workout Soundtrack</div>
+    </div>
+    <button class="collapse-btn" style="padding-bottom:2px">Collapse all</button>
+  </div>
+
+  <!-- search + sort fused block -->
+  <div style="background:#111;border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:16px">
+    <input class="search-input" placeholder="Search tracks…" style="background:transparent;border-color:#252525;margin-bottom:10px">
+    <div class="sort-pills">
+      <button class="sp active">Name A–Z</button>
+      <button class="sp">BPM: Low–High</button>
+      <button class="sp">Duration: Short–Long</button>
+      <button class="sp">Vibe A–Z</button>
+    </div>
+  </div>
+
+  <!-- list stub -->
+  <div class="acc-header">
+    <div><span class="acc-title">UPLOADS</span><span class="acc-count">17 tracks</span></div>
+    <span class="acc-badge">Online</span>
+  </div>
+  <div class="track-stubs">
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">AFTER HOURS CHASE</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">APEX GRIP</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+
+<!-- ══════════════════════════════════════
+     CONCEPT 3 — Search in header row, pills below title line
+     Closest to current layout but tightened
+══════════════════════════════════════ -->
+<div class="concept-block">
+  <div class="concept-label">Option 3 — Header search, pills below <span class="concept-tag">Closest to current</span></div>
+  <p class="concept-desc">Search stays in the title row (top-right). Subtitle row becomes a control bar: subtitle left, collapse right. Pills directly below with no gap. The separator sits before the list only.</p>
+
+  <!-- title row with search -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+    <div class="ph"><span>MUS</span>IC</div>
+    <input class="search-input" placeholder="Search…" style="width:140px;flex-shrink:0">
+  </div>
+  <!-- subtitle + collapse inline -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div class="ph-sub">Workout Soundtrack</div>
+    <button class="collapse-btn">Collapse all</button>
+  </div>
+  <!-- sort pills flush under title -->
+  <div class="sort-pills" style="margin-bottom:14px">
+    <button class="sp active">Name A–Z</button>
+    <button class="sp">BPM: Low–High</button>
+    <button class="sp">Duration: Short–Long</button>
+    <button class="sp">Vibe A–Z</button>
+  </div>
+  <div class="sep" style="margin-bottom:12px"></div>
+
+  <!-- list stub -->
+  <div class="acc-header">
+    <div><span class="acc-title">UPLOADS</span><span class="acc-count">17 tracks</span></div>
+    <span class="acc-badge">Online</span>
+  </div>
+  <div class="track-stubs">
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">AFTER HOURS CHASE</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">APEX GRIP</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+
+<!-- ══════════════════════════════════════
+     CONCEPT 4 — Search pill inline with sort pills (one unified row)
+══════════════════════════════════════ -->
+<div class="concept-block">
+  <div class="concept-label">Option 4 — One row: 🔍 search + sort pills <span class="concept-tag">Most compact</span></div>
+  <p class="concept-desc">Search becomes a collapsible icon-pill in the same row as sort. Tapping the 🔍 expands it. Everything lives in one tight horizontal strip. Works well when screen space is precious.</p>
+
+  <!-- title row -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px">
+    <div>
+      <div class="ph"><span>MUS</span>IC</div>
+      <div class="ph-sub">Workout Soundtrack</div>
+    </div>
+    <button class="collapse-btn" style="padding-bottom:2px">Collapse all</button>
+  </div>
+  <div class="sep"></div>
+
+  <!-- single row: search icon pill + sort pills -->
+  <div style="display:flex;gap:6px;flex-wrap:wrap;padding:10px 0;">
+    <!-- search icon pill -->
+    <button class="sp" id="search-pill-btn" onclick="toggleSearch()" style="display:flex;align-items:center;gap:5px;padding:5px 10px;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <span id="search-pill-label">Search</span>
+    </button>
+    <button class="sp active">Name A–Z</button>
+    <button class="sp">BPM: Low–High</button>
+    <button class="sp">Duration: Short–Long</button>
+    <button class="sp">Vibe A–Z</button>
+  </div>
+  <!-- expandable search input -->
+  <div id="search-expand" style="overflow:hidden;max-height:0;transition:max-height 0.2s ease;">
+    <input class="search-input" placeholder="Search tracks…" style="margin-bottom:10px">
+  </div>
+
+  <div class="sep" style="margin-bottom:12px"></div>
+
+  <!-- list stub -->
+  <div class="acc-header">
+    <div><span class="acc-title">UPLOADS</span><span class="acc-count">17 tracks</span></div>
+    <span class="acc-badge">Online</span>
+  </div>
+  <div class="track-stubs">
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">AFTER HOURS CHASE</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+    <div class="track-stub">
+      <div class="track-stub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="track-stub-body"><div class="track-stub-name">APEX GRIP</div><div class="track-stub-sub">Fast drift house · 0:30</div></div>
+      <div class="track-stub-bpm">160<span style="font-family:'DM Sans';font-size:0.5rem;color:var(--muted)"> BPM</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let searchOpen = false;
+function toggleSearch() {
+  searchOpen = !searchOpen;
+  const el = document.getElementById('search-expand');
+  const btn = document.getElementById('search-pill-btn');
+  const lbl = document.getElementById('search-pill-label');
+  el.style.maxHeight = searchOpen ? '48px' : '0';
+  btn.classList.toggle('active', searchOpen);
+  lbl.textContent = searchOpen ? 'Close' : 'Search';
+  if (searchOpen) el.querySelector('input').focus();
+}
+</script>
+</body>
+</html>
