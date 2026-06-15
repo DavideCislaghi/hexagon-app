@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --accent: #ff9500; --text: #111; --muted: #888; --border: #e0e0e0; --card: #fff; --bg: #f0f0f0; }
+body { background: var(--bg); font-family: 'DM Sans', sans-serif; padding: 16px; }
+.grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+
+/* THE CARD */
+.chip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  padding: 8px;
+  /* Try approach A: plain block layout, no flexbox */
+  display: block;
+}
+.chip-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.05em;
+  color: var(--text); line-height: 1.15;
+  text-align: left;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: block;
+  margin-bottom: 5px;
+}
+.chip-mid {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 5px;
+}
+.chip-dur { font-size: 0.5rem; color: var(--muted); }
+.chip-bpm-row { display: flex; align-items: baseline; gap: 2px; }
+.chip-bpm { font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem; color: var(--accent); }
+.chip-bpml { font-size: 0.4rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.chip-tag {
+  display: inline-block;
+  font-size: 0.4rem; letter-spacing: 0.05em; text-transform: uppercase;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  padding: 1px 4px; border-radius: 20px;
+}
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="chip">
+    <div class="chip-name">AFTER HOURS CHASE</div>
+    <div class="chip-mid">
+      <span class="chip-dur">0:30</span>
+      <span class="chip-bpm-row"><span class="chip-bpm">160</span><span class="chip-bpml"> BPM</span></span>
+    </div>
+    <div class="chip-tag">HOUSE</div>
+  </div>
+  <div class="chip">
+    <div class="chip-name">APEX GRIP</div>
+    <div class="chip-mid">
+      <span class="chip-dur">0:30</span>
+      <span class="chip-bpm-row"><span class="chip-bpm">160</span><span class="chip-bpml"> BPM</span></span>
+    </div>
+    <div class="chip-tag">HOUSE</div>
+  </div>
+  <div class="chip">
+    <div class="chip-name">CONCRETE MAW</div>
+    <div class="chip-mid">
+      <span class="chip-dur">0:30</span>
+      <span class="chip-bpm-row"><span class="chip-bpm">140</span><span class="chip-bpml"> BPM</span></span>
+    </div>
+    <div class="chip-tag">PHONK</div>
+  </div>
+  <div class="chip">
+    <div class="chip-name">IRON TEETH</div>
+    <div class="chip-mid">
+      <span class="chip-dur">0:30</span>
+      <span class="chip-bpm-row"><span class="chip-bpm">130</span><span class="chip-bpml"> BPM</span></span>
+    </div>
+    <div class="chip-tag">PHONK</div>
+  </div>
+  <div class="chip">
+    <div class="chip-name">ECLIPSE FORCE</div>
+    <div class="chip-mid">
+      <span class="chip-dur">2:58</span>
+      <span class="chip-bpm-row"><span class="chip-bpm">90</span><span class="chip-bpml"> BPM</span></span>
+    </div>
+    <div class="chip-tag">DUBSTEP</div>
+  </div>
+  <div class="chip">
+    <div class="chip-name">DARKWAVE PROTOCOL</div>
+    <div class="chip-mid">
+      <span class="chip-dur">4:12</span>
+      <span class="chip-bpm-row"><span class="chip-bpm">132</span><span class="chip-bpml"> BPM</span></span>
+    </div>
+    <div class="chip-tag">SYNTH</div>
+  </div>
+</div>
+</body>
+</html>
