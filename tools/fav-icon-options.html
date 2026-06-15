@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Favourite Icon Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d0d0d;
+    color: #f0f0f0;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 32px 20px;
+  }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: #c8ff00;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 0.72rem;
+    color: #666;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  /* ── Section ── */
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: #f0f0f0;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #252525;
+  }
+  .section { margin-bottom: 40px; }
+
+  /* ── Option row ── */
+  .option-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .option-card {
+    background: #161616;
+    border: 1px solid #252525;
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 120px;
+    flex: 1;
+  }
+  .option-card .label {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .option-card .state-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: #888;
+  }
+  .icon-row {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .icon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ── Simulated track card ── */
+  .track-card {
+    background: #161616;
+    border: 1px solid #252525;
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 360px;
+    position: relative;
+  }
+  .track-card.playing { border-color: #c8ff00; background: color-mix(in srgb, #c8ff00 5%, #161616); }
+  .track-vis {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: #0d0d0d; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .track-body { flex: 1; min-width: 0; }
+  .track-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: 0.07em;
+    color: #f0f0f0; line-height: 1.1; margin-bottom: 3px;
+  }
+  .track-card.playing .track-name { color: #c8ff00; }
+  .track-sub { font-size: 0.65rem; color: #555; }
+  .track-meta {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0;
+  }
+  .track-bpm {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.04em; color: #c8ff00; line-height: 1;
+  }
+  .track-bpmlabel { font-size: 0.55rem; letter-spacing: 0.08em; color: #555; text-transform: uppercase; }
+  .track-vibe {
+    font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #888; border: 1px solid #252525; border-radius: 4px; padding: 1px 6px;
+  }
+  .fav-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 4px; display: flex; align-items: center; justify-content: center;
+    border-radius: 6px; transition: opacity 0.15s;
+    position: absolute; top: 10px; right: 12px;
+  }
+  .fav-btn:active { opacity: 0.6; }
+
+  /* ── Cards grid ── */
+  .cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 360px;
+  }
+
+  .variant-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+
+  .divider { height: 1px; background: #1e1e1e; margin: 8px 0 16px; }
+</style>
+</head>
+<body>
+
+<h1>Hexagon — Favourite Icons</h1>
+<p class="subtitle">Bookmark vs Headphones · Selected &amp; Unselected states</p>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- OPTION A: BOOKMARK                      -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">A — Bookmark (Ribbon)</div>
+
+  <!-- Standalone icon sizes -->
+  <div class="option-row">
+
+    <div class="option-card">
+      <div class="label">A1 · Classic outline/fill</div>
+      <div class="icon-row">
+        <div class="icon-wrap">
+          <!-- Unselected -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span class="state-label">off</span>
+        </div>
+        <div class="icon-wrap">
+          <!-- Selected -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span class="state-label" style="color:#c8ff00;">on</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-card">
+      <div class="label">A2 · Accent stroke unsel.</div>
+      <div class="icon-row">
+        <div class="icon-wrap">
+          <!-- Unselected: dim accent stroke -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8ff0044" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span class="state-label">off</span>
+        </div>
+        <div class="icon-wrap">
+          <!-- Selected -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span class="state-label" style="color:#c8ff00;">on</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-card">
+      <div class="label">A3 · Glow on selected</div>
+      <div class="icon-row">
+        <div class="icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span class="state-label">off</span>
+        </div>
+        <div class="icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 6px #c8ff0099)">
+            <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+          </svg>
+          <span class="state-label" style="color:#c8ff00;">on</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- In context: track cards -->
+  <div class="variant-label">In context — track cards</div>
+  <div class="cards-grid">
+
+    <!-- Unselected -->
+    <div class="track-card">
+      <div class="track-vis">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="track-body">
+        <div class="track-name">DARK RITUAL</div>
+        <div class="track-sub">FleaLes · 3:47</div>
+      </div>
+      <div class="track-meta">
+        <span class="track-bpm">140<span class="track-bpmlabel"> bpm</span></span>
+        <span class="track-vibe">Phonk</span>
+      </div>
+      <button class="fav-btn" title="Favourite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Selected / favourited -->
+    <div class="track-card">
+      <div class="track-vis">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="track-body">
+        <div class="track-name">BLOOD CIRCUIT</div>
+        <div class="track-sub">FleaLes · 4:12</div>
+      </div>
+      <div class="track-meta">
+        <span class="track-bpm">155<span class="track-bpmlabel"> bpm</span></span>
+        <span class="track-vibe">Dubstep</span>
+      </div>
+      <button class="fav-btn" title="Unfavourite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px #c8ff0077)">
+          <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Playing + favourited -->
+    <div class="track-card playing">
+      <div class="track-vis">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="track-body">
+        <div class="track-name">NEON ABYSS</div>
+        <div class="track-sub">FleaLes · 5:02 · ▶ playing</div>
+      </div>
+      <div class="track-meta">
+        <span class="track-bpm">128<span class="track-bpmlabel"> bpm</span></span>
+        <span class="track-vibe">Synthwave</span>
+      </div>
+      <button class="fav-btn" title="Unfavourite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px #c8ff0077)">
+          <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- OPTION D: HEADPHONES                    -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">D — Headphones</div>
+
+  <div class="option-row">
+
+    <div class="option-card">
+      <div class="label">D1 · Classic outline/fill</div>
+      <div class="icon-row">
+        <div class="icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+          </svg>
+          <span class="state-label">off</span>
+        </div>
+        <div class="icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/>
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/>
+          </svg>
+          <span class="state-label" style="color:#c8ff00;">on</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-card">
+      <div class="label">D2 · Accent arc unsel.</div>
+      <div class="icon-row">
+        <div class="icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8ff0033" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+          </svg>
+          <span class="state-label">off</span>
+        </div>
+        <div class="icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px #c8ff0066)">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/>
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/>
+          </svg>
+          <span class="state-label" style="color:#c8ff00;">on</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-card">
+      <div class="label">D3 · Ear pads filled only</div>
+      <div class="icon-row">
+        <div class="icon-wrap">
+          <!-- Unselected: grey arc + grey ear pads -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#383838" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/>
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/>
+          </svg>
+          <span class="state-label">off</span>
+        </div>
+        <div class="icon-wrap">
+          <!-- Selected: accent arc + accent ear pads -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/>
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/>
+          </svg>
+          <span class="state-label" style="color:#c8ff00;">on</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- In context -->
+  <div class="variant-label">In context — track cards</div>
+  <div class="cards-grid">
+
+    <div class="track-card">
+      <div class="track-vis">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="track-body">
+        <div class="track-name">DARK RITUAL</div>
+        <div class="track-sub">FleaLes · 3:47</div>
+      </div>
+      <div class="track-meta">
+        <span class="track-bpm">140<span class="track-bpmlabel"> bpm</span></span>
+        <span class="track-vibe">Phonk</span>
+      </div>
+      <button class="fav-btn" title="Favourite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e2e2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#1e1e1e"/>
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#1e1e1e"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="track-card">
+      <div class="track-vis">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="track-body">
+        <div class="track-name">BLOOD CIRCUIT</div>
+        <div class="track-sub">FleaLes · 4:12</div>
+      </div>
+      <div class="track-meta">
+        <span class="track-bpm">155<span class="track-bpmlabel"> bpm</span></span>
+        <span class="track-vibe">Dubstep</span>
+      </div>
+      <button class="fav-btn" title="Unfavourite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px #c8ff0066)">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/>
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="track-card playing">
+      <div class="track-vis">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="track-body">
+        <div class="track-name">NEON ABYSS</div>
+        <div class="track-sub">FleaLes · 5:02 · ▶ playing</div>
+      </div>
+      <div class="track-meta">
+        <span class="track-bpm">128<span class="track-bpmlabel"> bpm</span></span>
+        <span class="track-vibe">Synthwave</span>
+      </div>
+      <button class="fav-btn" title="Unfavourite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px #c8ff0077)">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/>
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SIDE BY SIDE SUMMARY                    -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Quick Reference — All 6 variants</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;">
+
+    <!-- A1 -->
+    <div style="background:#161616;border:1px solid #252525;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;">
+      <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#555;">A1</span>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/></svg>
+      </div>
+      <span style="font-size:0.62rem;color:#555;">Bookmark</span>
+    </div>
+
+    <!-- A2 -->
+    <div style="background:#161616;border:1px solid #252525;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;">
+      <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#555;">A2</span>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8ff0044" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/></svg>
+      </div>
+      <span style="font-size:0.62rem;color:#555;">Bookmark dim</span>
+    </div>
+
+    <!-- A3 -->
+    <div style="background:#161616;border:1px solid #252525;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;">
+      <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#555;">A3</span>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#c8ff00" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px #c8ff0099)"><path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/></svg>
+      </div>
+      <span style="font-size:0.62rem;color:#555;">Bookmark glow</span>
+    </div>
+
+    <!-- D1 -->
+    <div style="background:#161616;border:1px solid #252525;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;">
+      <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#555;">D1</span>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/></svg>
+      </div>
+      <span style="font-size:0.62rem;color:#555;">Headphones</span>
+    </div>
+
+    <!-- D2 -->
+    <div style="background:#161616;border:1px solid #252525;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;">
+      <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#555;">D2</span>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8ff0033" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px #c8ff0066)"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/></svg>
+      </div>
+      <span style="font-size:0.62rem;color:#555;">Headphones dim</span>
+    </div>
+
+    <!-- D3 -->
+    <div style="background:#161616;border:1px solid #252525;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;">
+      <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#555;">D3</span>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#383838" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#c8ff00"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#c8ff00"/></svg>
+      </div>
+      <span style="font-size:0.62rem;color:#555;">Headphones ear</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
