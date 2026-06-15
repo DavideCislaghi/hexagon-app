@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon — Compact View Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Light mode design system ── */
+  :root {
+    --bg:      #f0f0f0;
+    --card:    #ffffff;
+    --accent:  #ff9500;
+    --text:    #111111;
+    --muted:   #888888;
+    --border:  #e0e0e0;
+    --border2: #d0d0d0;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── Page header ── */
+  .page-header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 20px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--text); }
+  .page-title span { color: var(--accent); }
+  .page-sub { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
+
+  /* ── Option sections ── */
+  .option-section {
+    padding: 28px 16px 8px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .option-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem; letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 3px;
+  }
+  .option-desc {
+    font-size: 0.7rem; color: var(--muted);
+    letter-spacing: 0.03em;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Count bar (shared) ── */
+  .count-bar {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 10px;
+  }
+  .count-bar-text {
+    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); white-space: nowrap;
+  }
+  .count-bar-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     REFERENCE — Current full card (shown once for comparison)
+  ════════════════════════════════════════════════════════════════ */
+  .ref-card {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 12px 14px; margin-bottom: 8px;
+  }
+  .ref-card.playing { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, white); }
+  .ref-vis {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: #1a1a1a; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ref-body { flex: 1; min-width: 0; }
+  .ref-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.07em; color: var(--text); line-height: 1.1; }
+  .ref-name.playing { color: var(--accent); }
+  .ref-sub { font-size: 0.62rem; color: var(--muted); }
+  .ref-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+  .ref-bpm { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); line-height: 1; }
+  .ref-bpml { font-size: 0.5rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .ref-tag {
+    font-size: 0.52rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding: 2px 6px; border-radius: 20px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     OPTION 1 — Compact Row
+     Same horizontal layout, just tighter: no vis thumbnail,
+     number index, name + tag inline, BPM right-aligned.
+  ════════════════════════════════════════════════════════════════ */
+  .opt1-row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 9px 12px; margin-bottom: 6px;
+    cursor: pointer;
+  }
+  .opt1-row.playing { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, white); }
+  .opt1-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.75rem;
+    color: var(--muted); width: 18px; flex-shrink: 0; text-align: right;
+    letter-spacing: 0.04em;
+  }
+  .opt1-num.playing { color: var(--accent); }
+  .opt1-body { flex: 1; min-width: 0; display: flex; align-items: center; gap: 7px; }
+  .opt1-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem;
+    letter-spacing: 0.07em; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .opt1-name.playing { color: var(--accent); }
+  .opt1-tag {
+    font-size: 0.48rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding: 1px 5px; border-radius: 20px; flex-shrink: 0;
+  }
+  .opt1-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .opt1-dur { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.02em; }
+  .opt1-bpm { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; color: var(--accent); }
+  .opt1-bpml { font-size: 0.45rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     OPTION 2 — Pill List
+     Each track is a single-line horizontal pill. Name left,
+     vibe tag + BPM right. Very high density.
+  ════════════════════════════════════════════════════════════════ */
+  .opt2-pill {
+    display: flex; align-items: center; gap: 8px;
+    height: 36px; padding: 0 12px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .opt2-pill:first-child { border-top: 1px solid var(--border); }
+  .opt2-pill.playing { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+  .opt2-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border2); flex-shrink: 0;
+  }
+  .opt2-dot.playing { background: var(--accent); }
+  .opt2-name {
+    flex: 1; font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem; letter-spacing: 0.07em; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .opt2-name.playing { color: var(--accent); }
+  .opt2-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .opt2-dur { font-size: 0.58rem; color: var(--muted); }
+  .opt2-bpm { font-size: 0.58rem; color: var(--muted); }
+  .opt2-tag {
+    font-size: 0.46rem; letter-spacing: 0.05em; text-transform: uppercase;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    padding: 1px 5px; border-radius: 20px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     OPTION 3 — Square Tiles (2-column grid)
+     Each tile: dark square with a ♪ icon, track name at bottom,
+     BPM badge top-right. Feels like an album grid.
+  ════════════════════════════════════════════════════════════════ */
+  .opt3-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .opt3-tile {
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card);
+    cursor: pointer; position: relative;
+    aspect-ratio: 1;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .opt3-tile.playing { border-color: var(--accent); }
+  .opt3-tile-bg {
+    position: absolute; inset: 0;
+    background: #1a1a1a;
+  }
+  .opt3-tile-bg.playing {
+    background: linear-gradient(135deg, #1a1a1a 0%, color-mix(in srgb, var(--accent) 18%, #1a1a1a) 100%);
+  }
+  .opt3-tile-bpm {
+    position: absolute; top: 8px; right: 8px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem;
+    color: var(--accent); letter-spacing: 0.04em;
+    background: rgba(0,0,0,0.5); padding: 1px 6px; border-radius: 6px;
+  }
+  .opt3-tile-icon {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    opacity: 0.18;
+  }
+  .opt3-tile-footer {
+    position: relative; z-index: 1;
+    padding: 6px 8px 8px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  }
+  .opt3-tile-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem;
+    letter-spacing: 0.07em; color: #ffffff; line-height: 1.1;
+  }
+  .opt3-tile-name.playing { color: var(--accent); }
+  .opt3-tile-sub { font-size: 0.52rem; color: rgba(255,255,255,0.5); margin-top: 1px; }
+  .opt3-tag {
+    position: absolute; top: 8px; left: 8px;
+    font-size: 0.44rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    padding: 1px 5px; border-radius: 20px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     OPTION 4 — Chip Grid (3-column)
+     Very compact square chips: just name + BPM in a tight box.
+     Highest density of all — good for 50+ tracks.
+  ════════════════════════════════════════════════════════════════ */
+  .opt4-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .opt4-chip {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 8px 8px;
+    cursor: pointer; display: flex; flex-direction: column; gap: 4px;
+    min-height: 72px; justify-content: space-between;
+  }
+  .opt4-chip.playing {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 6%, white);
+  }
+  .opt4-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem;
+    letter-spacing: 0.06em; color: var(--text); line-height: 1.15;
+    /* 2-line clamp */
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .opt4-name.playing { color: var(--accent); }
+  .opt4-bottom { display: flex; align-items: center; justify-content: space-between; }
+  .opt4-bpm {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem;
+    color: var(--accent); line-height: 1;
+  }
+  .opt4-bpml { font-size: 0.42rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .opt4-tag {
+    font-size: 0.42rem; letter-spacing: 0.05em; text-transform: uppercase;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    padding: 1px 4px; border-radius: 20px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     OPTION 5 — Zebra Table
+     Minimal table-like rows. Alternating bg stripe.
+     Index / Name / BPM / Duration / Vibe — very scannable.
+  ════════════════════════════════════════════════════════════════ */
+  .opt5-table {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .opt5-thead {
+    display: grid;
+    grid-template-columns: 22px 1fr 48px 40px 46px;
+    gap: 0; align-items: center;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .opt5-th {
+    font-size: 0.47rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600;
+  }
+  .opt5-th:not(:first-child) { text-align: right; }
+  .opt5-th:nth-child(2) { text-align: left; }
+  .opt5-row {
+    display: grid;
+    grid-template-columns: 22px 1fr 48px 40px 46px;
+    gap: 0; align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .opt5-row:nth-child(even) { background: rgba(0,0,0,0.025); }
+  .opt5-row.playing { background: color-mix(in srgb, var(--accent) 7%, transparent) !important; }
+  .opt5-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+  .opt5-idx { font-size: 0.58rem; color: var(--muted); }
+  .opt5-idx.playing { color: var(--accent); }
+  .opt5-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem;
+    letter-spacing: 0.06em; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .opt5-name.playing { color: var(--accent); }
+  .opt5-bpm {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem;
+    color: var(--accent); text-align: right; letter-spacing: 0.04em;
+  }
+  .opt5-dur { font-size: 0.58rem; color: var(--muted); text-align: right; }
+  .opt5-tag-wrap { display: flex; justify-content: flex-end; }
+  .opt5-tag {
+    font-size: 0.43rem; letter-spacing: 0.05em; text-transform: uppercase;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    padding: 1px 4px; border-radius: 20px;
+  }
+
+  /* ── Toggle bar (for reference, shown on each option) ── */
+  .toggle-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .toggle-btn {
+    display: flex; gap: 3px;
+    background: var(--border); border-radius: 8px; padding: 3px;
+  }
+  .toggle-btn button {
+    border: none; cursor: pointer; border-radius: 6px;
+    padding: 4px 7px; font-size: 0.58rem;
+    font-family: 'DM Sans', sans-serif; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    background: transparent; color: var(--muted);
+  }
+  .toggle-btn button.active {
+    background: var(--card); color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  /* ── Divider between options ── */
+  .divider {
+    max-width: 420px; margin: 0 auto;
+    height: 1px; background: var(--border2);
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <div class="page-title"><span>MUS</span>IC</div>
+    <div class="page-sub">Compact view concepts</div>
+  </div>
+</div>
+
+<!-- ── Reference: current card ───────────────────────────────────────────── -->
+<div class="option-section">
+  <div class="option-label">Current — Full Card</div>
+  <div class="option-desc">The existing layout, shown for comparison. ~72px tall per track.</div>
+
+  <div class="count-bar">
+    <span class="count-bar-text">6 tracks</span>
+    <span class="count-bar-line"></span>
+  </div>
+
+  <div class="ref-card playing">
+    <div class="ref-vis">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="ref-body">
+      <div class="ref-name playing">Midnight Drip</div>
+      <div class="ref-sub">FleaLes · Phonk</div>
+    </div>
+    <div class="ref-meta">
+      <div class="ref-bpm">140<span class="ref-bpml"> BPM</span></div>
+      <div class="ref-tag">Phonk</div>
+    </div>
+  </div>
+  <div class="ref-card">
+    <div class="ref-vis">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="ref-body">
+      <div class="ref-name">Gravity Surge</div>
+      <div class="ref-sub">FleaLes · Dubstep</div>
+    </div>
+    <div class="ref-meta">
+      <div class="ref-bpm">150<span class="ref-bpml"> BPM</span></div>
+      <div class="ref-tag">Dubstep</div>
+    </div>
+  </div>
+  <div class="ref-card">
+    <div class="ref-vis">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="ref-body">
+      <div class="ref-name">Neon Abyss</div>
+      <div class="ref-sub">FleaLes · Synthwave</div>
+    </div>
+    <div class="ref-meta">
+      <div class="ref-bpm">128<span class="ref-bpml"> BPM</span></div>
+      <div class="ref-tag">Synthwave</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── Option 1: Compact Row ─────────────────────────────────────────────── -->
+<div class="option-section">
+  <div class="option-label">Option 1 — Compact Row</div>
+  <div class="option-desc">Same horizontal layout stripped down: no thumbnail, track number replaces it, BPM + vibe tag on the right. ~38px tall per track — nearly half the current height.</div>
+
+  <div class="toggle-bar">
+    <div class="count-bar" style="flex:1;margin-bottom:0;">
+      <span class="count-bar-text">6 tracks</span>
+      <span class="count-bar-line"></span>
+    </div>
+    <div class="toggle-btn" style="margin-left:10px;">
+      <button>Full</button>
+      <button class="active">Compact</button>
+    </div>
+  </div>
+
+  <div class="opt1-row playing">
+    <div class="opt1-num playing">1</div>
+    <div class="opt1-body">
+      <div class="opt1-name playing">Midnight Drip</div>
+      <div class="opt1-tag">Phonk</div>
+    </div>
+    <div class="opt1-right">
+      <div class="opt1-dur">3:47</div>
+      <div><div class="opt1-bpm">140</div><div class="opt1-bpml">BPM</div></div>
+    </div>
+  </div>
+  <div class="opt1-row">
+    <div class="opt1-num">2</div>
+    <div class="opt1-body">
+      <div class="opt1-name">Gravity Surge</div>
+      <div class="opt1-tag">Dubstep</div>
+    </div>
+    <div class="opt1-right">
+      <div class="opt1-dur">4:12</div>
+      <div><div class="opt1-bpm">150</div><div class="opt1-bpml">BPM</div></div>
+    </div>
+  </div>
+  <div class="opt1-row">
+    <div class="opt1-num">3</div>
+    <div class="opt1-body">
+      <div class="opt1-name">Neon Abyss</div>
+      <div class="opt1-tag">Synthwave</div>
+    </div>
+    <div class="opt1-right">
+      <div class="opt1-dur">5:02</div>
+      <div><div class="opt1-bpm">128</div><div class="opt1-bpml">BPM</div></div>
+    </div>
+  </div>
+  <div class="opt1-row">
+    <div class="opt1-num">4</div>
+    <div class="opt1-body">
+      <div class="opt1-name">Iron Frequency</div>
+      <div class="opt1-tag">Phonk</div>
+    </div>
+    <div class="opt1-right">
+      <div class="opt1-dur">3:29</div>
+      <div><div class="opt1-bpm">145</div><div class="opt1-bpml">BPM</div></div>
+    </div>
+  </div>
+  <div class="opt1-row">
+    <div class="opt1-num">5</div>
+    <div class="opt1-body">
+      <div class="opt1-name">Voltage Heist</div>
+      <div class="opt1-tag">Dubstep</div>
+    </div>
+    <div class="opt1-right">
+      <div class="opt1-dur">4:55</div>
+      <div><div class="opt1-bpm">155</div><div class="opt1-bpml">BPM</div></div>
+    </div>
+  </div>
+  <div class="opt1-row">
+    <div class="opt1-num">6</div>
+    <div class="opt1-body">
+      <div class="opt1-name">Darkwave Protocol</div>
+      <div class="opt1-tag">Synthwave</div>
+    </div>
+    <div class="opt1-right">
+      <div class="opt1-dur">6:10</div>
+      <div><div class="opt1-bpm">132</div><div class="opt1-bpml">BPM</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── Option 2: Pill List ───────────────────────────────────────────────── -->
+<div class="option-section">
+  <div class="option-label">Option 2 — Pill List</div>
+  <div class="option-desc">Flat single-line rows with a thin divider, no card border. A coloured dot shows playing state. ~36px per track — maximum density for a long playlist.</div>
+
+  <div class="toggle-bar">
+    <div class="count-bar" style="flex:1;margin-bottom:0;">
+      <span class="count-bar-text">6 tracks</span>
+      <span class="count-bar-line"></span>
+    </div>
+    <div class="toggle-btn" style="margin-left:10px;">
+      <button>Full</button>
+      <button class="active">Compact</button>
+    </div>
+  </div>
+
+  <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--card);">
+    <div class="opt2-pill playing">
+      <div class="opt2-dot playing"></div>
+      <div class="opt2-name playing">Midnight Drip</div>
+      <div class="opt2-right">
+        <div class="opt2-dur">3:47</div>
+        <div class="opt2-bpm">140 BPM</div>
+        <div class="opt2-tag">Phonk</div>
+      </div>
+    </div>
+    <div class="opt2-pill">
+      <div class="opt2-dot"></div>
+      <div class="opt2-name">Gravity Surge</div>
+      <div class="opt2-right">
+        <div class="opt2-dur">4:12</div>
+        <div class="opt2-bpm">150 BPM</div>
+        <div class="opt2-tag">Dubstep</div>
+      </div>
+    </div>
+    <div class="opt2-pill">
+      <div class="opt2-dot"></div>
+      <div class="opt2-name">Neon Abyss</div>
+      <div class="opt2-right">
+        <div class="opt2-dur">5:02</div>
+        <div class="opt2-bpm">128 BPM</div>
+        <div class="opt2-tag">Synth</div>
+      </div>
+    </div>
+    <div class="opt2-pill">
+      <div class="opt2-dot"></div>
+      <div class="opt2-name">Iron Frequency</div>
+      <div class="opt2-right">
+        <div class="opt2-dur">3:29</div>
+        <div class="opt2-bpm">145 BPM</div>
+        <div class="opt2-tag">Phonk</div>
+      </div>
+    </div>
+    <div class="opt2-pill">
+      <div class="opt2-dot"></div>
+      <div class="opt2-name">Voltage Heist</div>
+      <div class="opt2-right">
+        <div class="opt2-dur">4:55</div>
+        <div class="opt2-bpm">155 BPM</div>
+        <div class="opt2-tag">Dubstep</div>
+      </div>
+    </div>
+    <div class="opt2-pill">
+      <div class="opt2-dot"></div>
+      <div class="opt2-name">Darkwave Protocol</div>
+      <div class="opt2-right">
+        <div class="opt2-dur">6:10</div>
+        <div class="opt2-bpm">132 BPM</div>
+        <div class="opt2-tag">Synth</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── Option 3: Square Tiles ────────────────────────────────────────────── -->
+<div class="option-section">
+  <div class="option-label">Option 3 — Square Tiles</div>
+  <div class="option-desc">2-column album-art style grid. Dark tile with track name overlaid at bottom, BPM badge top-right, vibe tag top-left. Visually rich — works great with cover art if you add it later.</div>
+
+  <div class="toggle-bar">
+    <div class="count-bar" style="flex:1;margin-bottom:0;">
+      <span class="count-bar-text">6 tracks</span>
+      <span class="count-bar-line"></span>
+    </div>
+    <div class="toggle-btn" style="margin-left:10px;">
+      <button>Full</button>
+      <button class="active">Compact</button>
+    </div>
+  </div>
+
+  <div class="opt3-grid">
+
+    <div class="opt3-tile playing">
+      <div class="opt3-tile-bg playing"></div>
+      <div class="opt3-tag">Phonk</div>
+      <div class="opt3-tile-bpm">140 BPM</div>
+      <div class="opt3-tile-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="opt3-tile-footer">
+        <div class="opt3-tile-name playing">Midnight Drip</div>
+        <div class="opt3-tile-sub">FleaLes · 3:47</div>
+      </div>
+    </div>
+
+    <div class="opt3-tile">
+      <div class="opt3-tile-bg"></div>
+      <div class="opt3-tag">Dubstep</div>
+      <div class="opt3-tile-bpm">150 BPM</div>
+      <div class="opt3-tile-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="opt3-tile-footer">
+        <div class="opt3-tile-name">Gravity Surge</div>
+        <div class="opt3-tile-sub">FleaLes · 4:12</div>
+      </div>
+    </div>
+
+    <div class="opt3-tile">
+      <div class="opt3-tile-bg"></div>
+      <div class="opt3-tag">Synth</div>
+      <div class="opt3-tile-bpm">128 BPM</div>
+      <div class="opt3-tile-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="opt3-tile-footer">
+        <div class="opt3-tile-name">Neon Abyss</div>
+        <div class="opt3-tile-sub">FleaLes · 5:02</div>
+      </div>
+    </div>
+
+    <div class="opt3-tile">
+      <div class="opt3-tile-bg"></div>
+      <div class="opt3-tag">Phonk</div>
+      <div class="opt3-tile-bpm">145 BPM</div>
+      <div class="opt3-tile-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="opt3-tile-footer">
+        <div class="opt3-tile-name">Iron Frequency</div>
+        <div class="opt3-tile-sub">FleaLes · 3:29</div>
+      </div>
+    </div>
+
+    <div class="opt3-tile">
+      <div class="opt3-tile-bg"></div>
+      <div class="opt3-tag">Dubstep</div>
+      <div class="opt3-tile-bpm">155 BPM</div>
+      <div class="opt3-tile-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="opt3-tile-footer">
+        <div class="opt3-tile-name">Voltage Heist</div>
+        <div class="opt3-tile-sub">FleaLes · 4:55</div>
+      </div>
+    </div>
+
+    <div class="opt3-tile">
+      <div class="opt3-tile-bg"></div>
+      <div class="opt3-tag">Synth</div>
+      <div class="opt3-tile-bpm">132 BPM</div>
+      <div class="opt3-tile-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="opt3-tile-footer">
+        <div class="opt3-tile-name">Darkwave Protocol</div>
+        <div class="opt3-tile-sub">FleaLes · 6:10</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── Option 4: Chip Grid ───────────────────────────────────────────────── -->
+<div class="option-section">
+  <div class="option-label">Option 4 — Chip Grid</div>
+  <div class="option-desc">3-column grid of mini cards. Name (up to 2 lines) + BPM + vibe tag per chip. Best for 30–80+ tracks — fits ~15 tracks in a single screen scroll.</div>
+
+  <div class="toggle-bar">
+    <div class="count-bar" style="flex:1;margin-bottom:0;">
+      <span class="count-bar-text">6 tracks</span>
+      <span class="count-bar-line"></span>
+    </div>
+    <div class="toggle-btn" style="margin-left:10px;">
+      <button>Full</button>
+      <button class="active">Compact</button>
+    </div>
+  </div>
+
+  <div class="opt4-grid">
+    <div class="opt4-chip playing">
+      <div class="opt4-name playing">Midnight Drip</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">140</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Phonk</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Gravity Surge</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">150</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Dub</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Neon Abyss</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">128</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Synth</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Iron Frequency</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">145</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Phonk</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Voltage Heist</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">155</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Dub</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Darkwave Protocol</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">132</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Synth</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Pulse Override</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">142</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Phonk</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Bass Collapse</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">148</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Dub</div>
+      </div>
+    </div>
+    <div class="opt4-chip">
+      <div class="opt4-name">Void Circuit</div>
+      <div class="opt4-bottom">
+        <div><div class="opt4-bpm">135</div><div class="opt4-bpml">BPM</div></div>
+        <div class="opt4-tag">Synth</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── Option 5: Zebra Table ─────────────────────────────────────────────── -->
+<div class="option-section">
+  <div class="option-label">Option 5 — Zebra Table</div>
+  <div class="option-desc">Spreadsheet-style rows with column headers: #, Name, BPM, Duration, Vibe. Alternating row tint for readability. Super scannable when sorting by BPM or vibe to plan a session.</div>
+
+  <div class="toggle-bar">
+    <div class="count-bar" style="flex:1;margin-bottom:0;">
+      <span class="count-bar-text">6 tracks</span>
+      <span class="count-bar-line"></span>
+    </div>
+    <div class="toggle-btn" style="margin-left:10px;">
+      <button>Full</button>
+      <button class="active">Compact</button>
+    </div>
+  </div>
+
+  <div class="opt5-table">
+    <div class="opt5-thead">
+      <div class="opt5-th">#</div>
+      <div class="opt5-th" style="text-align:left;">Name</div>
+      <div class="opt5-th">BPM</div>
+      <div class="opt5-th">Time</div>
+      <div class="opt5-th">Vibe</div>
+    </div>
+    <div class="opt5-row playing">
+      <div class="opt5-idx playing">1</div>
+      <div class="opt5-name playing">Midnight Drip</div>
+      <div class="opt5-bpm">140</div>
+      <div class="opt5-dur">3:47</div>
+      <div class="opt5-tag-wrap"><div class="opt5-tag">Phonk</div></div>
+    </div>
+    <div class="opt5-row">
+      <div class="opt5-idx">2</div>
+      <div class="opt5-name">Gravity Surge</div>
+      <div class="opt5-bpm">150</div>
+      <div class="opt5-dur">4:12</div>
+      <div class="opt5-tag-wrap"><div class="opt5-tag">Dubstep</div></div>
+    </div>
+    <div class="opt5-row">
+      <div class="opt5-idx">3</div>
+      <div class="opt5-name">Neon Abyss</div>
+      <div class="opt5-bpm">128</div>
+      <div class="opt5-dur">5:02</div>
+      <div class="opt5-tag-wrap"><div class="opt5-tag">Synth</div></div>
+    </div>
+    <div class="opt5-row">
+      <div class="opt5-idx">4</div>
+      <div class="opt5-name">Iron Frequency</div>
+      <div class="opt5-bpm">145</div>
+      <div class="opt5-dur">3:29</div>
+      <div class="opt5-tag-wrap"><div class="opt5-tag">Phonk</div></div>
+    </div>
+    <div class="opt5-row">
+      <div class="opt5-idx">5</div>
+      <div class="opt5-name">Voltage Heist</div>
+      <div class="opt5-bpm">155</div>
+      <div class="opt5-dur">4:55</div>
+      <div class="opt5-tag-wrap"><div class="opt5-tag">Dubstep</div></div>
+    </div>
+    <div class="opt5-row">
+      <div class="opt5-idx">6</div>
+      <div class="opt5-name">Darkwave Protocol</div>
+      <div class="opt5-bpm">132</div>
+      <div class="opt5-dur">6:10</div>
+      <div class="opt5-tag-wrap"><div class="opt5-tag">Synth</div></div>
+    </div>
+  </div>
+</div>
+
+<div style="height:40px;"></div>
+
+</body>
+</html>
