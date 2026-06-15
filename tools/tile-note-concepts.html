@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tile Note Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0f0f0; font-family: 'DM Sans', sans-serif; padding: 24px 16px; }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: #1a1a1a; margin-bottom: 4px; }
+  .subtitle { font-size: 0.68rem; color: #888; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px; }
+
+  .section { margin-bottom: 32px; }
+  .section-label { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #999; margin-bottom: 10px; }
+
+  /* 2-col grid of tiles */
+  .tiles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Base tile — matches Hexagon Full view */
+  .tile {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    position: relative;
+    cursor: pointer;
+  }
+  .tile-tag {
+    position: absolute; top: 8px; left: 8px; z-index: 2;
+    font-size: 0.4rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: rgba(255,149,0,0.12); color: #ff9500;
+    border: 1px solid rgba(255,149,0,0.28);
+    padding: 1px 5px; border-radius: 20px;
+  }
+  .tile-bpm {
+    position: absolute; top: 8px; right: 8px; z-index: 2;
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.78rem;
+    color: #ff9500; letter-spacing: 0.04em;
+    background: rgba(255,255,255,0.85); padding: 1px 6px; border-radius: 6px;
+  }
+  .tile-vis { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -65%); z-index: 1; pointer-events: none; }
+  .tile-footer {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+    padding: 8px 10px 10px;
+    background: #fff; border-top: 1px solid #e8e8e8;
+    display: flex; align-items: flex-end; gap: 6px;
+  }
+  .tile-footer-text { flex: 1; min-width: 0; }
+  .tile-name { font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem; letter-spacing: 0.07em; color: #ff9500; line-height: 1.15; }
+  .tile-dur { font-size: 0.52rem; color: #999; margin-top: 2px; }
+  .tile-fav { flex-shrink: 0; opacity: 0.4; }
+
+  /* ── CURRENT (reference) ── */
+  .note-current { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; }
+
+  /* ── OPT 1: Soft accent circle ── */
+  .note-circle-wrap {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: rgba(255,149,0,0.08);
+    border: 1.5px solid rgba(255,149,0,0.18);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── OPT 2: Flat bars placeholder ── */
+  .bars-wrap {
+    width: 90px; height: 44px;
+    display: flex; align-items: flex-end; gap: 3px;
+  }
+  .bar {
+    flex: 1; background: rgba(150,150,150,0.25); border-radius: 2px 2px 0 0;
+  }
+
+  /* ── OPT 3: Ghost name behind note ── */
+  .ghost-name {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -65%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; letter-spacing: 0.08em;
+    color: rgba(0,0,0,0.06); text-align: center;
+    white-space: nowrap; pointer-events: none; z-index: 0;
+    line-height: 1; width: 100%; padding: 0 8px;
+    overflow: hidden;
+  }
+
+  /* ── OPT 4: Concentric circles (vinyl) ── */
+  .vinyl-wrap {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(150,150,150,0.22);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vinyl-inner {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(150,150,150,0.18);
+    background: rgba(150,150,150,0.05);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── OPT 5: Note only in footer (no centre icon) ── */
+  .tile-footer-note { flex-shrink: 0; opacity: 0.3; }
+
+</style>
+</head>
+<body>
+
+<h1>Tile Note — Concept Options</h1>
+<p class="subtitle">Full view · idle state · light mode</p>
+
+<div class="tiles-grid">
+
+  <!-- CURRENT -->
+  <div class="section">
+    <div class="section-label">Current (reference)</div>
+    <div class="tile">
+      <div class="tile-tag">HOUSE</div>
+      <div class="tile-bpm">160 BPM</div>
+      <div class="tile-vis">
+        <div class="note-current">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" opacity="0.5">
+            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#bbb"/><circle cx="18" cy="16" r="3" fill="#bbb"/>
+          </svg>
+        </div>
+      </div>
+      <div class="tile-footer">
+        <div class="tile-footer-text">
+          <div class="tile-name">AFTER HOURS</div>
+          <div class="tile-dur">0:30</div>
+        </div>
+        <div class="tile-fav">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPT 1: Soft circle -->
+  <div class="section">
+    <div class="section-label">1 · Soft accent circle</div>
+    <div class="tile">
+      <div class="tile-tag">HOUSE</div>
+      <div class="tile-bpm">160 BPM</div>
+      <div class="tile-vis">
+        <div class="note-circle-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,149,0,0.5)" stroke-width="1.5">
+            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="rgba(255,149,0,0.35)"/><circle cx="18" cy="16" r="3" fill="rgba(255,149,0,0.35)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="tile-footer">
+        <div class="tile-footer-text">
+          <div class="tile-name">AFTER HOURS</div>
+          <div class="tile-dur">0:30</div>
+        </div>
+        <div class="tile-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPT 2: Flat bars -->
+  <div class="section">
+    <div class="section-label">2 · Flat bars (paused vis)</div>
+    <div class="tile">
+      <div class="tile-tag">HOUSE</div>
+      <div class="tile-bpm">160 BPM</div>
+      <div class="tile-vis">
+        <div class="bars-wrap">
+          <div class="bar" style="height:60%"></div>
+          <div class="bar" style="height:80%"></div>
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:90%"></div>
+          <div class="bar" style="height:55%"></div>
+          <div class="bar" style="height:70%"></div>
+          <div class="bar" style="height:40%"></div>
+          <div class="bar" style="height:75%"></div>
+          <div class="bar" style="height:50%"></div>
+          <div class="bar" style="height:65%"></div>
+        </div>
+      </div>
+      <div class="tile-footer">
+        <div class="tile-footer-text">
+          <div class="tile-name">AFTER HOURS</div>
+          <div class="tile-dur">0:30</div>
+        </div>
+        <div class="tile-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPT 3: Ghost name -->
+  <div class="section">
+    <div class="section-label">3 · Ghost name behind note</div>
+    <div class="tile">
+      <div class="tile-tag">HOUSE</div>
+      <div class="tile-bpm">160 BPM</div>
+      <!-- Ghost text behind note -->
+      <div class="ghost-name">AFTER HOURS CHASE</div>
+      <div class="tile-vis" style="z-index:2;">
+        <div class="note-current">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" opacity="0.5">
+            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#bbb"/><circle cx="18" cy="16" r="3" fill="#bbb"/>
+          </svg>
+        </div>
+      </div>
+      <div class="tile-footer">
+        <div class="tile-footer-text">
+          <div class="tile-name">AFTER HOURS</div>
+          <div class="tile-dur">0:30</div>
+        </div>
+        <div class="tile-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPT 4: Vinyl / concentric circles -->
+  <div class="section">
+    <div class="section-label">4 · Vinyl rings</div>
+    <div class="tile">
+      <div class="tile-tag">HOUSE</div>
+      <div class="tile-bpm">160 BPM</div>
+      <div class="tile-vis">
+        <div class="vinyl-wrap">
+          <div class="vinyl-inner">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5">
+              <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#ccc"/><circle cx="18" cy="16" r="3" fill="#ccc"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="tile-footer">
+        <div class="tile-footer-text">
+          <div class="tile-name">AFTER HOURS</div>
+          <div class="tile-dur">0:30</div>
+        </div>
+        <div class="tile-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPT 5: Note in footer only -->
+  <div class="section">
+    <div class="section-label">5 · Note moved to footer</div>
+    <div class="tile">
+      <div class="tile-tag">HOUSE</div>
+      <div class="tile-bpm">160 BPM</div>
+      <!-- No centre icon — intentional empty stage -->
+      <div class="tile-footer">
+        <div class="tile-footer-text">
+          <div class="tile-name">AFTER HOURS</div>
+          <div class="tile-dur">0:30</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:flex-end;">
+          <div class="tile-footer-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5">
+              <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#999"/><circle cx="18" cy="16" r="3" fill="#999"/>
+            </svg>
+          </div>
+          <div class="tile-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" fill="#252525"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="#252525"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
