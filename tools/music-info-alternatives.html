@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Info — Layout Alternatives</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0d0d; font-family: 'DM Sans', sans-serif; padding: 24px 16px; }
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap');
+
+  .label { font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: #666; font-family: 'DM Sans', sans-serif; margin-bottom: 10px; }
+  .card { background: #161616; border: 1px solid #252525; border-radius: 12px; padding: 14px 16px; margin-bottom: 28px; }
+  .card-title { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: #444; margin-bottom: 12px; }
+
+  /* shared tokens */
+  --accent: #c8ff00;
+  .accent { color: #c8ff00; }
+  .muted  { color: #666; }
+  .text   { color: #f0f0f0; }
+
+  /* ── Option 1: single row, pipe-separated ── */
+  .opt1-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 6px 0;
+    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .opt1-row .sep { color: #333; }
+  .opt1-row .tracks-val { color: #888; }
+  .opt1-row .queue-label { color: #555; }
+  .opt1-row .queue-val { color: #c8ff00; font-weight: 700; }
+
+  /* ── Option 2: two pills side by side ── */
+  .opt2-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 6px 0;
+  }
+  .pill {
+    display: flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 20px;
+    font-size: 0.58rem; letter-spacing: 0.08em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .pill-tracks { background: #1e1e1e; border: 1px solid #2a2a2a; color: #888; }
+  .pill-queue  { background: color-mix(in srgb, #c8ff00 10%, transparent); border: 1px solid color-mix(in srgb, #c8ff00 25%, transparent); color: #c8ff00; font-weight: 700; }
+  .pill-queue .pill-icon { opacity: 0.7; }
+
+  /* ── Option 3: two-column stat block ── */
+  .opt3-row {
+    display: flex; align-items: stretch;
+    border: 1px solid #252525; border-radius: 8px; overflow: hidden;
+  }
+  .stat-cell {
+    flex: 1; padding: 8px 12px;
+    display: flex; flex-direction: column; align-items: center;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .stat-cell + .stat-cell { border-left: 1px solid #252525; }
+  .stat-cell-label { font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: #555; margin-bottom: 2px; }
+  .stat-cell-val   { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; }
+  .stat-cell.tracks .stat-cell-val { color: #888; }
+  .stat-cell.queue  .stat-cell-val { color: #c8ff00; }
+  .stat-cell-sub { font-size: 0.55rem; color: #444; margin-top: 1px; }
+
+  /* ── Option 4: inline with queue badge ── */
+  .opt4-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; padding: 6px 0;
+    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif; color: #666;
+  }
+  .queue-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #c8ff00; color: #0d0d0d;
+    font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 2px 7px; border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ── Option 5: stacked, left-aligned with dot accent ── */
+  .opt5-wrap { padding: 4px 0 8px; }
+  .opt5-tracks-row {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif; color: #666;
+    margin-bottom: 5px;
+  }
+  .opt5-queue-row {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.58rem; letter-spacing: 0.08em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .opt5-dot { width: 5px; height: 5px; border-radius: 50%; background: #c8ff00; flex-shrink: 0; }
+  .opt5-queue-label { color: #555; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.55rem; }
+  .opt5-queue-val { color: #c8ff00; font-weight: 700; }
+  .opt5-queue-sep { color: #333; }
+</style>
+</head>
+<body>
+
+<div style="color:#666;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:24px;text-align:center">Music Library — Info Row Alternatives</div>
+<div style="color:#444;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;text-align:center">Tracks: 21 · 19m &nbsp;|&nbsp; Queue: 5 tracks · 4m</div>
+
+<!-- Option 1 -->
+<div class="label">Option 1 — Single row, pipe-separated</div>
+<div class="card">
+  <div class="opt1-row">
+    <span class="tracks-val">21 tracks · 19m</span>
+    <span class="sep">|</span>
+    <span class="queue-label">Queue</span>
+    <span class="queue-val">5 tracks · 4m</span>
+  </div>
+</div>
+
+<!-- Option 2 -->
+<div class="label">Option 2 — Two pills</div>
+<div class="card">
+  <div class="opt2-row">
+    <div class="pill pill-tracks">21 tracks · 19m</div>
+    <div class="pill pill-queue">
+      <span class="pill-icon">≡</span>
+      Queue &nbsp;5 · 4m
+    </div>
+  </div>
+</div>
+
+<!-- Option 3 -->
+<div class="label">Option 3 — Two-column stat block</div>
+<div class="card">
+  <div class="opt3-row">
+    <div class="stat-cell tracks">
+      <div class="stat-cell-label">Library</div>
+      <div class="stat-cell-val">21 tracks</div>
+      <div class="stat-cell-sub">19m total</div>
+    </div>
+    <div class="stat-cell queue">
+      <div class="stat-cell-label">Queue</div>
+      <div class="stat-cell-val">5 tracks</div>
+      <div class="stat-cell-sub">4m total</div>
+    </div>
+  </div>
+</div>
+
+<!-- Option 4 -->
+<div class="label">Option 4 — Inline with accent badge</div>
+<div class="card">
+  <div class="opt4-row">
+    <span>21 tracks · 19m</span>
+    <span style="color:#333">·</span>
+    <span class="queue-badge">Queue &nbsp;5 · 4m</span>
+  </div>
+</div>
+
+<!-- Option 5 -->
+<div class="label">Option 5 — Stacked, left-aligned</div>
+<div class="card">
+  <div class="opt5-wrap">
+    <div class="opt5-tracks-row">
+      21 tracks · 19m
+    </div>
+    <div class="opt5-queue-row">
+      <div class="opt5-dot"></div>
+      <span class="opt5-queue-label">Queue</span>
+      <span class="opt5-queue-val">5 tracks</span>
+      <span class="opt5-queue-sep">·</span>
+      <span class="opt5-queue-val">4m</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
