@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d0d0d; font-family: 'DM Sans', sans-serif; padding: 40px 20px; }
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap');
+
+.counter-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+}
+.counter-text {
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: #666;
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+  padding: 5px 10px;
+  position: relative;
+  z-index: 1;
+  background: #0d0d0d;
+}
+.counter-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #252525;
+  z-index: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="counter-block">
+  <span class="counter-text">Library: 21 tracks for 19m</span>
+  <div class="counter-line"></div>
+  <span class="counter-text">Queue: 5 tracks for 4m</span>
+</div>
+
+</body>
+</html>
