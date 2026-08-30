@@ -203,7 +203,7 @@
         "Hamstrings",
         "Stretch / Warm-up"
       ],
-      "description": "Lie on your back, with one leg extended straight out. With the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.",
+      "description": "• Lie on your back, one leg extended straight out\n• Bend the other hip and knee to 90°, bracing with your hands if needed\n• Hold the position, feeling the stretch through the extended leg's hamstring\n• Switch legs and repeat",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/90-90-hamstring/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/90-90-hamstring/end.jpg"
@@ -222,7 +222,7 @@
         "Core Stability",
         "Obliques"
       ],
-      "description": "Kneel holding an ab wheel. Roll forward until your torso is extended, bracing your core to prevent your back from sagging. Pull back to the start using your abs. One of the hardest ab exercises.",
+      "description": "• Kneel on the floor holding an ab wheel in front of you\n• Brace your core\n• Roll the wheel forward, extending your torso as far as you can control\n• Pull back to the start using your abs, avoiding letting your back sag",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/ab-wheel-rollout/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/ab-wheel-rollout/end.jpg"
@@ -241,7 +241,7 @@
         "Hip Flexors",
         "Stretch / Warm-up"
       ],
-      "description": "Start off on your hands and knees, then lift your leg off the floor and hold the foot with your hand. Use your hand to hold the foot or ankle, keeping the knee fully flexed, stretching the quadriceps and hip flexors.",
+      "description": "• Start on your hands and knees\n• Lift one leg off the floor and reach back to hold that foot or ankle with your hand\n• Keep the knee fully flexed, feeling a stretch through the quad and hip flexor\n• Hold, then switch legs",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/all-fours-quad-stretch/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/all-fours-quad-stretch/end.jpg"
@@ -260,7 +260,7 @@
         "Lateral Delts",
         "Rotator Cuff"
       ],
-      "description": "Start with dumbbells at shoulder height, palms facing you. As you press up, rotate your palms forward so they face away at the top. Reverse on the way down. Hits all three deltoid heads.",
+      "description": "• Sit or stand holding a dumbbell in each hand at shoulder height, palms facing you\n• Press the dumbbells up while rotating your palms forward\n• At the top, arms are extended and palms face away from you\n• Reverse the rotation as you lower back to the start",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/arnold-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/arnold-press/end.jpg"
@@ -278,7 +278,7 @@
         "Spinal Erectors",
         "Lower Back"
       ],
-      "description": "Lie face down on a hyperextension bench. Lower your upper body toward the floor, then raise it back to parallel or slightly above. Targets the spinal erectors and can also work the glutes.",
+      "description": "• Lie face down on a hyperextension bench, hips at the pad, ankles secured\n• Cross your arms over your chest or behind your head\n• Lower your upper body toward the floor\n• Raise back up to parallel (or slightly above), squeezing your glutes and lower back",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/back-extension/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/back-extension/end.jpg"
@@ -299,7 +299,7 @@
         "Quadriceps",
         "Glutes"
       ],
-      "description": "Bar sits on your upper traps. Brace core, push knees out and squat until thighs are at least parallel to the floor. Drive through the whole foot to stand. The king of lower-body exercises.",
+      "description": "• Rack a barbell across your upper traps\n• Feet shoulder-width apart, brace your core\n• Squat down, pushing your knees out, until thighs are at least parallel to the floor\n• Drive through your whole foot to stand back up",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-back-squat/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-back-squat/end.jpg"
@@ -317,7 +317,7 @@
         "Gluteus Medius",
         "Hip Abductors"
       ],
-      "description": "Lie on your side with knees bent and a band above the knees. Keeping feet together, rotate the top knee upward like a clamshell opening. Targets the gluteus medius and external hip rotators.",
+      "description": "• Lie on your side, knees bent, a resistance band looped above your knees\n• Keep your feet together\n• Rotate your top knee upward, opening like a clamshell\n• Lower with control, then repeat, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/banded-clamshell/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/banded-clamshell/end.jpg"
@@ -336,7 +336,7 @@
         "Hip Extension",
         "Hamstrings"
       ],
-      "description": "Sit with your upper back against a bench, bar over your hips. Drive through your heels to thrust your hips upward until your thighs are parallel to the floor. Squeeze glutes hard at the top, then lower.",
+      "description": "• Sit on the floor with your upper back against a bench, barbell over your hips\n• Feet flat, knees bent\n• Drive through your heels to thrust your hips upward until thighs are parallel to the floor\n• Squeeze your glutes hard at the top, then lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-hip-thrust/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-hip-thrust/end.jpg"
@@ -373,7 +373,7 @@
         "Triceps",
         "Front Delts"
       ],
-      "description": "Lie on a flat bench, gripping a barbell just outside shoulder width or holding a dumbbell in each hand at chest level. Lower the weight to your mid-chest with elbows at roughly 45°, then press back up to lockout. The foundational horizontal push.",
+      "description": "• Lie on a flat bench\n• Grip a barbell just outside shoulder width, or hold a dumbbell in each hand at chest level\n• Lower the weight to your mid-chest, elbows at roughly 45°\n• Press back up to lockout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/flat-dumbbell-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/flat-dumbbell-bench-press/end.jpg"
@@ -411,7 +411,7 @@
         "Latissimus Dorsi",
         "Teres Major"
       ],
-      "description": "Lie perpendicular across a flat bench with only your shoulders supported, holding a dumbbell or barbell straight over your chest with a slight bend in your arms. Lower the weight behind your head in an arc, feeling a stretch through the lats and chest, then pull back over your chest.",
+      "description": "• Lie perpendicular across a flat bench, only your shoulders supported\n• Hold a dumbbell or barbell straight over your chest, slight bend in your arms\n• Lower the weight behind your head in an arc, feeling a stretch through your lats and chest\n• Pull back over your chest to the start",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/bent-arm-dumbbell-pullover/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/bent-arm-dumbbell-pullover/end.jpg"
@@ -429,7 +429,7 @@
         "Hip Flexors",
         "Obliques"
       ],
-      "description": "Lay flat on the floor with your arms next to your sides. Now bend your knees at around a 75 degree angle and lift your feet off the floor by around 2 inches.",
+      "description": "• Lie flat on the floor, arms at your sides\n• Bend your knees to about 75°\n• Lift your feet a couple of inches off the floor using your lower abs\n• Lower with control and repeat",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/bent-knee-hip-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/bent-knee-hip-raise/end.jpg"
@@ -450,7 +450,7 @@
         "Biceps",
         "Latissimus Dorsi"
       ],
-      "description": "Hinge at the hips with a flat back, holding a barbell, a dumbbell in each hand, or a pair of kettlebells. Row the weight to your lower chest or navel, driving your elbows back and retracting your shoulder blades. Lower under control.",
+      "description": "• Hinge at the hips with a flat back, holding a barbell, a dumbbell in each hand, or a pair of kettlebells\n• Let the weight hang at arm's length\n• Row the weight to your lower chest or navel, driving elbows back and retracting shoulder blades\n• Lower under control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/bent-over-two-dumbbell-row/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/bent-over-two-dumbbell-row/end.jpg"
@@ -468,7 +468,7 @@
         "Obliques",
         "Rectus Abdominis"
       ],
-      "description": "Lie on your back, legs raised, hands behind head. Bring opposite elbow to knee while extending the other leg. Alternate sides in a pedalling motion to target both the rectus abdominis and obliques.",
+      "description": "• Lie on your back, hands behind your head, legs raised with knees bent\n• Bring one elbow toward the opposite knee while extending the other leg\n• Alternate sides in a pedalling motion\n• Keep your lower back pressed into the floor throughout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/bicycle-crunch/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/bicycle-crunch/end.jpg"
@@ -526,7 +526,7 @@
         "Quadriceps",
         "Glutes"
       ],
-      "description": "Elevate your rear foot on a bench, front foot forward, holding a dumbbell in each hand at your sides. Lower your back knee toward the floor, keeping your front shin as vertical as possible. Drive through the front heel to stand.",
+      "description": "• Stand a couple of feet in front of a bench, rear foot elevated on it\n• Hold a dumbbell in each hand at your sides, or use bodyweight only\n• Lower your back knee toward the floor, front shin staying vertical\n• Drive through your front heel to stand back up",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/split-squat-with-dumbbells/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/split-squat-with-dumbbells/end.jpg"
@@ -544,7 +544,7 @@
         "Pectoralis Major",
         "Pec Minor"
       ],
-      "description": "Sit on the machine with your back flat on the pad. Take hold of the handles. Tip: Your upper arms should be positioned parallel to the floor; adjust the machine accordingly. This will be your starting position.",
+      "description": "• Sit in the machine with your back flat against the pad\n• Grip the handles, upper arms parallel to the floor\n• Bring your arms together in front of your chest\n• Squeeze your pecs, then return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/butterfly/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/butterfly/end.jpg"
@@ -581,7 +581,7 @@
         "Lower Chest",
         "Pec Minor"
       ],
-      "description": "Set cables at shoulder height on both sides. Step forward and bring the handles together in front of your chest in a hugging motion, crossing slightly at the bottom to maximise pec contraction.",
+      "description": "• Set both cables at shoulder height\n• Step forward between the towers, one handle in each hand\n• Bring the handles together in front of your chest in a hugging motion, crossing slightly at the bottom\n• Squeeze your chest, then return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/cable-crossover/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/cable-crossover/end.jpg"
@@ -598,7 +598,7 @@
       "tags": [
         "Rectus Abdominis"
       ],
-      "description": "Kneel facing a high cable pulley, rope attached. Hold the rope behind your head and crunch your elbows toward your knees, rounding the spine. The cable provides constant tension through the full range.",
+      "description": "• Kneel facing a high cable pulley with a rope attachment\n• Hold the rope behind your head\n• Crunch your elbows down toward your knees, rounding your spine\n• Return with control, keeping tension on your abs throughout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/cable-crunch/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/cable-crunch/end.jpg"
@@ -615,7 +615,7 @@
       "tags": [
         "Biceps"
       ],
-      "description": "Stand facing a low cable pulley, grip the handle underhand. Curl from full extension to full contraction, keeping tension on the bicep throughout the movement via the cable.",
+      "description": "• Stand facing a low cable pulley\n• Grip the handle with an underhand grip, arms extended\n• Curl from full extension to full contraction\n• Lower with control, keeping tension on the biceps throughout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/cable-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/cable-curl/end.jpg"
@@ -634,7 +634,7 @@
         "Rotator Cuff",
         "Upper Traps"
       ],
-      "description": "Set a cable at face height with a rope attachment. Pull the rope toward your face splitting the hands at the end, with elbows high and wide. Excellent for rear delt health and external rotation strength.",
+      "description": "• Set a cable at face height with a rope attachment\n• Grip the rope with both hands, arms extended\n• Pull the rope toward your face, splitting your hands apart as elbows rise high and wide\n• Return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-face-pull/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-face-pull/end.jpg"
@@ -651,7 +651,7 @@
       "tags": [
         "Adductors"
       ],
-      "description": "Stand in front of a low pulley facing forward with one leg next to the pulley and the other one away. Attach the ankle cuff to the cable and also to the ankle of the leg that is next to the pulley.",
+      "description": "• Stand side-on to a low pulley, ankle cuff attached to the leg nearest the pulley\n• Cross that leg in front of the other, away from the pulley\n• Pull the leg across your body against the resistance\n• Return with control, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/cable-hip-adduction/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/cable-hip-adduction/end.jpg"
@@ -669,7 +669,7 @@
         "Gluteus Maximus",
         "Hip Extension"
       ],
-      "description": "Attach an ankle strap to a low cable. Brace on the machine and kick the attached leg straight back and up in a hip extension movement, squeezing the glute at the top. Avoid rotating your hips.",
+      "description": "• Attach an ankle strap to a low cable, strap on one ankle\n• Brace yourself on the machine\n• Kick the strapped leg straight back and up, squeezing the glute at the top\n• Return with control, avoiding hip rotation, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/cable-kickback/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/cable-kickback/end.jpg"
@@ -686,7 +686,7 @@
       "tags": [
         "Lateral Delts"
       ],
-      "description": "Set a low cable to one side. Raise the handle out away from the cable until your arm is at shoulder height. The cable maintains constant tension throughout — particularly effective at the bottom range.",
+      "description": "• Set a low cable to one side, stand side-on to it\n• Grip the handle with the far hand, arm hanging across your body\n• Raise your arm out to the side until it reaches shoulder height\n• Lower with control, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-lateral-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-lateral-raise/end.jpg"
@@ -703,7 +703,7 @@
       "tags": [
         "Rear Delts"
       ],
-      "description": "Adjust the pulleys to the appropriate height and adjust the weight. The pulleys should be above your head. Grab the left pulley with your right hand and the right pulley with your left hand, crossing them in front of you. This will be your starting position.",
+      "description": "• Set both pulleys above head height\n• Cross your arms, gripping the left pulley with your right hand and the right pulley with your left hand\n• Pull your arms out and back in a reverse-fly motion, squeezing your rear delts\n• Return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-rear-delt-fly/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-rear-delt-fly/end.jpg"
@@ -739,7 +739,7 @@
         "Front Delts",
         "Lateral Delts"
       ],
-      "description": "Move the cables to the bottom of the towers and select an appropriate weight. Stand directly in between the uprights. Grasp the cables and hold them at shoulder height, palms facing forward. This will be your starting position.",
+      "description": "• Set both cables at the bottom of the towers, stand between them\n• Grip the cables at shoulder height, palms facing forward\n• Press both hands straight overhead until arms are extended\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-shoulder-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/cable-shoulder-press/end.jpg"
@@ -757,7 +757,7 @@
         "Upper Traps",
         "Traps"
       ],
-      "description": "Grasp a cable bar attachment that is attached to a low pulley with a shoulder width or slightly wider overhand (palms facing down) grip. Stand erect close to the pulley with your arms extended in front of you holding the bar. This will be your starting position.",
+      "description": "• Attach a bar to a low pulley, grip it with hands slightly wider than shoulder width, palms down\n• Stand tall, close to the pulley, arms extended holding the bar\n• Elevate your shoulders straight up as high as possible\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/cable-shrugs/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/cable-shrugs/end.jpg"
@@ -777,7 +777,7 @@
         "Triceps",
         "Front Delts"
       ],
-      "description": "Support on parallel bars but lean your torso forward. Lower until upper arms are parallel to the floor, then press back up. The forward lean shifts the load to the lower chest rather than the triceps.",
+      "description": "• Support yourself on parallel bars, arms locked\n• Lean your torso forward\n• Lower your body until your upper arms are parallel to the floor\n• Press back up; the forward lean shifts load to the lower chest",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/chest-dip/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/chest-dip/end.jpg"
@@ -795,7 +795,7 @@
         "Latissimus Dorsi",
         "Rhomboids"
       ],
-      "description": "Using a neutral grip, lean into an incline bench. Take a dumbbell in each hand with a neutral grip, beginning with the arms straight. This will be your starting position.",
+      "description": "• Lie face down on an incline bench, chest supported\n• Hold a dumbbell in each hand with a neutral grip, arms hanging straight down\n• Row both dumbbells up toward your hips, driving elbows back\n• Lower with control back to full arm extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/dumbbell-incline-row/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/dumbbell-incline-row/end.jpg"
@@ -814,7 +814,7 @@
         "Biceps",
         "Latissimus Dorsi"
       ],
-      "description": "Hang from a bar with an underhand grip, hands shoulder-width. Pull until your chin clears the bar. The underhand grip recruits the biceps more heavily than a standard pull-up.",
+      "description": "• Hang from a pull-up bar with an underhand grip, hands shoulder-width apart\n• Pull yourself up until your chin clears the bar\n• Squeeze your lats and biceps at the top\n• Lower with control back to a full hang",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/chin-up/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/chin-up/end.jpg"
@@ -834,7 +834,7 @@
         "Lateral Head",
         "Medial Head"
       ],
-      "description": "Set up like a bench press but with hands shoulder-width or narrower. Lower the bar to your lower chest with elbows tucked close to your sides. Press back up, focusing on the triceps.",
+      "description": "• Lie on a flat bench, grip the bar shoulder-width or narrower\n• Unrack and lower the bar to your lower chest, elbows tucked close to your sides\n• Press back up to full extension, focusing on your triceps\n• Repeat with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/close-grip-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/close-grip-bench-press/end.jpg"
@@ -871,7 +871,7 @@
         "Lateral Delts",
         "Upper Traps"
       ],
-      "description": "Hold a barbell or cable with a narrow overhand grip. Pull the weight straight up to chin height, leading with your elbows. The narrow grip shifts emphasis to the side delts vs a wide grip.",
+      "description": "• Hold a barbell or cable attachment with a narrow, overhand grip\n• Stand tall\n• Pull the weight straight up to chin height, leading with your elbows\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/narrow-upright-row/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/narrow-upright-row/end.jpg"
@@ -907,7 +907,7 @@
         "Biceps",
         "Brachialis"
       ],
-      "description": "Sit on a bench, brace your elbow on the inside of your thigh. Curl the dumbbell up toward your shoulder, fully contracting the bicep. Excellent isolation — no body swing allowed.",
+      "description": "• Sit on a bench, legs apart\n• Brace the back of your upper arm against the inside of your thigh, dumbbell hanging down\n• Curl the dumbbell up toward your shoulder, fully contracting the bicep\n• Lower with control; no swinging",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/concentration-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/concentration-curl/end.jpg"
@@ -925,7 +925,7 @@
       "tags": [
         "Rectus Abdominis"
       ],
-      "description": "Lie on your back with knees bent. Place hands behind your head and curl your upper spine off the floor, contracting the rectus abdominis. Lower with control. Avoid pulling on your neck.",
+      "description": "• Lie on your back, knees bent, feet flat\n• Place your hands behind your head, or hold a weight on your chest\n• Curl your upper spine off the floor, contracting your abs\n• Lower with control, avoiding pulling on your neck",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/crunch/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/crunch/end.jpg"
@@ -961,7 +961,7 @@
         "Biceps",
         "Brachialis"
       ],
-      "description": "Stand holding a barbell or a pair of dumbbells at hip height with an underhand grip. Curl the weight up toward your chest, keeping elbows pinned at your sides. Squeeze the biceps at the top, then lower with control.",
+      "description": "• Stand holding a barbell or a pair of dumbbells at hip height, underhand grip\n• Keep your elbows pinned at your sides\n• Curl the weight up toward your chest\n• Squeeze your biceps at the top, then lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/dumbbell-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/dumbbell-curl/end.jpg"
@@ -979,7 +979,7 @@
         "Transverse Abdominis",
         "Hip Flexors"
       ],
-      "description": "Lie on your back with arms raised toward the ceiling and knees at 90°. Extend one arm and the opposite leg toward the floor while maintaining a flat lower back. Return and switch sides.",
+      "description": "• Lie on your back, arms raised toward the ceiling, knees bent at 90°\n• Brace your core, keeping your lower back flat on the floor\n• Extend one arm and the opposite leg toward the floor\n• Return and switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dead-bug/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dead-bug/end.jpg"
@@ -999,7 +999,7 @@
         "Latissimus Dorsi",
         "Core Stability"
       ],
-      "description": "Stand with the bar over your mid-foot, grip just outside your legs. Hinge down, brace your core, then drive the floor away to stand. The ultimate full-body pull — lats and traps keep the bar close.",
+      "description": "• Stand with the bar over your mid-foot, grip just outside your legs\n• Hinge down, chest up, back flat, brace your core\n• Drive the floor away to stand, keeping the bar close to your legs\n• Lower with control back to the floor",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/deadlift/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/deadlift/end.jpg"
@@ -1017,7 +1017,7 @@
         "Lower Chest",
         "Triceps"
       ],
-      "description": "Set the bench to a 15–30° decline. Lower a barbell or a dumbbell in each hand to your lower chest, then press back up. The decline angle preferentially loads the sternal head of the pec.",
+      "description": "• Set the bench to a 15–30° decline, secure your legs\n• Grip a barbell just outside shoulder width, or hold a dumbbell in each hand\n• Lower the weight to your lower chest\n• Press back up to full extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/decline-dumbbell-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/decline-dumbbell-bench-press/end.jpg"
@@ -1035,7 +1035,7 @@
         "Triceps",
         "Medial Head"
       ],
-      "description": "Place your hands together under your chest forming a diamond shape with your thumbs and index fingers. Lower your chest toward your hands, then push back up. Heavily taxes the medial head.",
+      "description": "• Get into a push-up position, hands together under your chest forming a diamond shape with thumbs and index fingers\n• Lower your chest toward your hands, elbows tracking back\n• Press back up to full extension\n• Keep your body in a straight line throughout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/diamond-push-up/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/diamond-push-up/end.jpg"
@@ -1053,7 +1053,7 @@
         "Triceps",
         "Lateral Head"
       ],
-      "description": "Sit securely in a dip machine, select the weight and firmly grasp the handles. Now keep your elbows in at your sides in order to place emphasis on the triceps. The elbows should be bent at a 90 degree angle.",
+      "description": "• Sit securely in the dip machine, select your weight\n• Grip the handles, elbows in at your sides, bent at 90°\n• Press down until arms are extended\n• Return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/dip-machine/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/dip-machine/end.jpg"
@@ -1072,7 +1072,7 @@
         "Hamstrings",
         "Stretch / Warm-up"
       ],
-      "description": "Begin standing with your knees slightly bent. Quickly squat a short distance, flexing the hips and knees, and immediately extend to jump for maximum vertical height.",
+      "description": "• Stand with knees slightly bent\n• Quickly squat a short distance\n• Explosively extend your hips and knees to jump for maximum height\n• Land softly and repeat",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/double-leg-butt-kick/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/double-leg-butt-kick/end.jpg"
@@ -1108,7 +1108,7 @@
         "Rectus Abdominis",
         "Spinal Erectors"
       ],
-      "description": "Lie on a bench and grip it above your head. Lift your entire body off the bench, supported only at your shoulders. Lower your body in a straight rigid line, then raise back up. Extremely demanding.",
+      "description": "• Lie on a bench, gripping it above your head for support\n• Lift your entire body off the bench, supported only at your shoulders\n• Lower your body in a straight, rigid line\n• Raise back up, keeping your body straight throughout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dragon-flag/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dragon-flag/end.jpg"
@@ -1143,7 +1143,7 @@
         "Rear Delts",
         "Upper Traps"
       ],
-      "description": "Hinge forward at the hips until your torso is nearly parallel to the floor. Raise both arms out to the sides in a flye motion, leading with your elbows. Squeeze the rear delts at the top.",
+      "description": "• Hinge forward at the hips until your torso is nearly parallel to the floor, dumbbell in each hand\n• Keep a slight bend in your elbows\n• Raise both arms out to the sides, leading with your elbows\n• Squeeze your rear delts at the top, then lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/dumbbell-rear-delt-flye/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/dumbbell-rear-delt-flye/end.jpg"
@@ -1179,7 +1179,7 @@
         "Soleus",
         "Calves"
       ],
-      "description": "Place a block on the floor about 12 inches from a flat bench. Sit on a flat bench and place a dumbbell on your upper left thigh about 3 inches above your knee.",
+      "description": "• Place a block on the floor near a flat bench, sit on the bench\n• Place one foot on the block, ball of the foot on the edge, heel hanging off\n• Rest a dumbbell on top of that thigh near the knee\n• Raise and lower your heel through a full range of motion, then switch legs",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-seated-one-leg-calf-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-seated-one-leg-calf-raise/end.jpg"
@@ -1250,7 +1250,7 @@
         "Rhomboids",
         "Traps"
       ],
-      "description": "Get a platform of some sort (it can be an aerobics or calf raise platform) that is around 4-6 inches in height. Place it on the seat of the cable row machine.",
+      "description": "• Place a low platform (4–6 inches) on the seat of a cable row machine\n• Sit or kneel on the platform, grip the handle\n• Row the handle to your torso, driving elbows back and squeezing your back\n• Extend back out with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/elevated-cable-rows/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/elevated-cable-rows/end.jpg"
@@ -1268,7 +1268,7 @@
         "Quadriceps",
         "Glutes"
       ],
-      "description": "Position a bar onto a rack at shoulder height loaded to an appropriate weight. Place a short, raised platform behind you. Rack the bar onto your upper back, keeping your back arched and tight. Step onto your raised platform with both feet. This will be your starting position.",
+      "description": "• Rack a barbell across your upper back\n• Stand on a raised platform a few inches off the ground\n• Step backward off the platform into a reverse lunge, lowering your rear knee toward the floor\n• Push through your front foot to return to the platform",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/elevated-back-lunge/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/elevated-back-lunge/end.jpg"
@@ -1285,7 +1285,7 @@
       "tags": [
         "Rotator Cuff"
       ],
-      "description": "Lie on your side holding a light dumbbell, or use a cable at waist height. With the elbow fixed at 90°, rotate the forearm up and outward. Targets the infraspinatus and teres minor — key rotator cuff health work.",
+      "description": "• Lie on your side holding a light dumbbell, or stand using a cable at waist height\n• Keep your elbow fixed at 90°, pinned to your side\n• Rotate your forearm upward and outward\n• Return with control, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/external-rotation/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/external-rotation/end.jpg"
@@ -1320,7 +1320,7 @@
       "tags": [
         "Forearms"
       ],
-      "description": "Hold a barbell with both hands and your palms facing up; hands spaced about shoulder width. Place your feet flat on the floor, at a distance that is slightly wider than shoulder width apart. This will be your starting position.",
+      "description": "• Sit or stand holding a barbell with both hands, palms facing up, shoulder-width grip\n• Let the bar roll down to your fingertips\n• Curl your fingers to roll the bar back up into your palms\n• Repeat, keeping wrists and forearms otherwise still",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/finger-curls/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/finger-curls/end.jpg"
@@ -1337,7 +1337,7 @@
       "tags": [
         "Hip Flexors"
       ],
-      "description": "Lie with your back flat on a bench and your legs extended in front of you off the end. Place your hands either under your glutes with your palms down or by the sides holding on to the bench. This will be your starting position.",
+      "description": "• Lie face up on a bench, hips at the edge, legs extended off the end\n• Hold the bench at your sides or tuck your hands under your glutes\n• Raise your straight legs up until vertical\n• Lower with control without letting your feet touch the floor",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/flat-bench-lying-leg-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/flat-bench-lying-leg-raise/end.jpg"
@@ -1355,7 +1355,7 @@
         "Pectoralis Major",
         "Pec Minor"
       ],
-      "description": "Lie flat on a bench holding dumbbells above your chest, palms facing in. Lower your arms out in a wide arc until you feel a deep pec stretch, then squeeze back to the top.",
+      "description": "• Lie flat on a bench holding a dumbbell in each hand above your chest, palms facing in\n• Keep a slight bend in your elbows\n• Lower your arms out in a wide arc until you feel a deep chest stretch\n• Squeeze back up to the top",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/flat-dumbbell-flye/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/flat-dumbbell-flye/end.jpg"
@@ -1463,7 +1463,7 @@
         "Hip Flexors",
         "Stretch / Warm-up"
       ],
-      "description": "Stand next to a chair or other support, holding on with one hand. Swing your leg forward, keeping the leg straight. Continue with a downward swing, bringing the leg as far back as your flexibility allows. Repeat 5-10 times, and then switch legs.",
+      "description": "• Stand next to a chair or support, holding on with one hand\n• Keep the working leg straight\n• Swing it forward to hip height, then swing back as far as your flexibility allows\n• Repeat, then switch legs",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/front-leg-raises/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/front-leg-raises/end.jpg"
@@ -1480,7 +1480,7 @@
       "tags": [
         "Front Delts"
       ],
-      "description": "Hold a dumbbell in each hand at your sides and raise both arms straight in front of you to shoulder height. Lower with control. Isolates the anterior deltoid. Can also be done with a plate or cable.",
+      "description": "• Stand holding a dumbbell in each hand at your sides\n• Keep your torso still, no swinging\n• Raise both arms straight in front of you to shoulder height\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/front-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/front-raise/end.jpg"
@@ -1501,7 +1501,7 @@
         "Quadriceps",
         "Core Stability"
       ],
-      "description": "Bar rests on your front delts with elbows high. Squat down keeping your torso upright — this makes it harder than a back squat but places more emphasis on the quads and demands more core stability.",
+      "description": "• Rack a barbell across your front delts, elbows high\n• Feet shoulder-width apart\n• Squat down keeping your torso upright\n• Drive through your feet to stand back up",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-front-squat/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/barbell-front-squat/end.jpg"
@@ -1520,7 +1520,7 @@
         "Gluteus Maximus",
         "Hip Extension"
       ],
-      "description": "Lie on your back with knees bent and feet flat. Drive your hips up by squeezing your glutes until your body forms a straight line from shoulders to knees. Pause at the top, then lower slowly.",
+      "description": "• Lie on your back, knees bent, feet flat on the floor\n• Rest a barbell across your hips if adding load, or keep arms at your sides\n• Drive your hips up by squeezing your glutes until your body forms a straight line from shoulders to knees\n• Pause at the top, then lower slowly",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/glute-bridge/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/glute-bridge/end.jpg"
@@ -1574,7 +1574,7 @@
         "Adductors",
         "Hip Flexors"
       ],
-      "description": "Hold a dumbbell or kettlebell at chest height with both hands. Squat deep, pushing knees out over your toes. The front-loaded weight helps keep your torso upright — excellent for learning squat mechanics.",
+      "description": "• Hold a dumbbell or kettlebell vertically at chest height with both hands\n• Feet shoulder-width apart, toes slightly out\n• Squat deep, pushing your knees out over your toes, keeping torso upright\n• Drive through your feet to stand back up",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/goblet-squat/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/goblet-squat/end.jpg"
@@ -1612,7 +1612,7 @@
         "Hip Flexors",
         "Stretch / Warm-up"
       ],
-      "description": "Begin in a pushup position on the floor. This will be your starting position. Using both legs, jump forward landing with your feet next to your hands. Keep your head up as you do so.",
+      "description": "• Start in a push-up position\n• Jump both feet forward to land just outside your hands\n• Immediately jump back to the push-up position\n• Repeat, keeping your head up",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/groiners/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/groiners/end.jpg"
@@ -1630,7 +1630,7 @@
         "Quads",
         "VMO"
       ],
-      "description": "Position yourself on the machine with feet on the platform and back against the pad. Lower until thighs are parallel, then press back up. The fixed path with feet forward increases quad isolation.",
+      "description": "• Position yourself in the machine, feet on the platform, back against the pad\n• Release the safety and lower until thighs are parallel\n• Press back up through your feet\n• Keep your feet forward for quad emphasis throughout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/hack-squat/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/hack-squat/end.jpg"
@@ -1649,7 +1649,7 @@
         "Brachioradialis",
         "Biceps"
       ],
-      "description": "Hold dumbbells with a neutral grip (palms facing each other). Curl the weight up while keeping the hammer grip throughout. Targets the brachialis and brachioradialis more than a standard curl.",
+      "description": "• Stand holding a dumbbell in each hand with a neutral grip, palms facing each other\n• Keep elbows pinned at your sides\n• Curl the weight up, maintaining the neutral grip throughout\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/hammer-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/hammer-curl/end.jpg"
@@ -1668,7 +1668,7 @@
         "Rectus Abdominis",
         "Hip Flexors"
       ],
-      "description": "Hang from a pull-up bar with straight arms. Raise your legs (bent or straight) until they are parallel to the floor or higher. Lower with control, avoiding swinging.",
+      "description": "• Hang from a pull-up bar with straight arms\n• Keep your core braced\n• Raise your legs (bent or straight) until parallel to the floor or higher\n• Lower with control, avoiding swinging",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/hanging-leg-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/hanging-leg-raise/end.jpg"
@@ -1705,7 +1705,7 @@
         "Hip Abductors",
         "Abductors"
       ],
-      "description": "Sit in the machine with the pads on the outside of your knees, upper body stationary. Push your legs outward against the resistance, squeezing at the end range. Targets the gluteus medius and hip abductors in isolation.",
+      "description": "• Sit in the machine with the pads against the outside of your knees\n• Keep your upper body stationary\n• Push your legs outward against the resistance\n• Squeeze at the end range, then return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/abductor-machine/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/abductor-machine/end.jpg"
@@ -1724,7 +1724,7 @@
         "Adductors",
         "Stretch / Warm-up"
       ],
-      "description": "Position yourself on your hands and knees on the ground. Maintaining good posture, raise one bent knee off of the ground. This will be your starting position. Keeping the knee in a bent position, rotate the femur in an arc, attempting to make a big circle with your knee.",
+      "description": "• Get on your hands and knees\n• Raise one bent knee off the ground\n• Rotate the femur in an arc, tracing a big circle with your knee\n• Complete reps, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/hip-circles-prone/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/hip-circles-prone/end.jpg"
@@ -1781,7 +1781,7 @@
         "Triceps",
         "Front Delts"
       ],
-      "description": "Set the bench to 30–45°. Lower a barbell to your upper chest, or press dumbbells up from shoulder level allowing a slight inward arc at the top. The incline shifts emphasis onto the upper pecs and anterior delts.",
+      "description": "• Set the bench to 30–45°\n• Lower a barbell to your upper chest, or press dumbbells up from shoulder level\n• Allow a slight inward arc at the top\n• Press to full extension, then lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-dumbbell-bench-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-dumbbell-bench-press/end.jpg"
@@ -1817,7 +1817,7 @@
         "Upper Chest",
         "Pec Minor"
       ],
-      "description": "Perform the flye on an incline bench to shift the stretch and contraction toward the upper chest. Keep a slight bend in the elbows and avoid letting the arms drop too low.",
+      "description": "• Lie on an incline bench holding a dumbbell in each hand above your chest, palms facing in\n• Keep a slight bend in your elbows\n• Lower your arms out in a wide arc until you feel a stretch in your upper chest\n• Squeeze back up to the top",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-dumbbell-flye/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-dumbbell-flye/end.jpg"
@@ -1835,7 +1835,7 @@
         "Biceps",
         "Long Head"
       ],
-      "description": "Hold a dumbbell in each hand and lie back on an incline bench. The dumbbells should be at arm\\'s length hanging at your sides and your palms should be facing out. This will be your starting position.",
+      "description": "• Lie back on an incline bench, a dumbbell in each hand hanging at arm's length, palms facing out\n• Keep your upper arms still\n• Curl both dumbbells up toward your shoulders\n• Lower with control back to full extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/incline-inner-biceps-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/incline-inner-biceps-curl/end.jpg"
@@ -1853,7 +1853,7 @@
         "Lower Chest",
         "Triceps"
       ],
-      "description": "Stand facing a Smith machine bar or sturdy elevated platform at an appropriate height. Place your hands on the bar, with your hands about shoulder width apart.",
+      "description": "• Stand facing a bar or sturdy elevated platform at an appropriate height\n• Place your hands on it, shoulder-width apart, and walk your feet back into a plank\n• Lower your chest toward the bar, elbows at about 45°\n• Press back up to full extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-push-up-medium/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/incline-push-up-medium/end.jpg"
@@ -1889,7 +1889,7 @@
         "Quadriceps",
         "Adductors"
       ],
-      "description": "Place a barbell on the floor. Stand in the middle of the bar length wise.",
+      "description": "• Place a loaded barbell on the floor, straddling it with feet apart\n• Grip the bar with one hand in front of your body and one hand behind\n• Squat down and stand up, keeping the bar close and your torso upright\n• Alternate hand position each set to balance both sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/jefferson-squats/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/jefferson-squats/end.jpg"
@@ -1926,7 +1926,7 @@
         "Quadriceps",
         "Stretch / Warm-up"
       ],
-      "description": "Stand with your legs together and hands by your waist. Now move your knees in a circular motion as you breathe normally.",
+      "description": "• Stand with feet together, hands on your waist\n• Bend your knees slightly\n• Move your knees in a circular motion\n• Breathe normally throughout, then reverse direction",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/knee-circles/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/knee-circles/end.jpg"
@@ -1943,7 +1943,7 @@
       "tags": [
         "Triceps"
       ],
-      "description": "Place a bench sideways in front of a high pulley machine. Hold a straight bar attachment above your head with your hands about 6 inches apart with your palms facing down.",
+      "description": "• Kneel in front of a high pulley, a straight bar attachment overhead\n• Grip the bar with hands about 6 inches apart, palms down\n• Extend your arms down until straight, elbows staying high and fixed\n• Bend elbows to return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/kneeling-cable-triceps-extension/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/kneeling-cable-triceps-extension/end.jpg"
@@ -1979,7 +1979,7 @@
         "Lateral Delts",
         "Front Delts"
       ],
-      "description": "Stand sideways to a loaded landmine, grip the collar end. Raise the bar out to the side in an arcing motion to shoulder height. The angled resistance makes this a joint-friendly lateral raise variation.",
+      "description": "• Load one end of a barbell into a landmine attachment or a corner\n• Stand sideways to it, gripping the free end with the near hand\n• Raise the bar out to the side in an arc up to shoulder height\n• Lower with control, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/landmine-lateral-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/landmine-lateral-raise/end.jpg"
@@ -1999,7 +1999,7 @@
         "Front Delts",
         "Triceps"
       ],
-      "description": "Press a barbell (loaded on one end in a landmine or corner) from shoulder height up and forward in an arcing path. The angle mimics an incline press while being easier on the shoulder joint.",
+      "description": "• Load one end of a barbell into a landmine attachment or a corner\n• Hold the free end at shoulder height with both hands\n• Press it up and forward in an arcing path\n• Lower with control back to the start",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/landmine-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/landmine-press/end.jpg"
@@ -2016,7 +2016,7 @@
       "tags": [
         "Hamstrings"
       ],
-      "description": "Lie face-down in the machine or sit in a seated version. Curl your legs against the pad toward your glutes, squeezing the hamstrings at full contraction. Lower slowly back to start.",
+      "description": "• Lie face down in the machine, or sit in a seated version, pad against your lower legs\n• Curl your legs toward your glutes against the resistance\n• Squeeze your hamstrings at full contraction\n• Lower slowly back to the start",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-curl/end.jpg"
@@ -2034,7 +2034,7 @@
         "Quads",
         "VMO"
       ],
-      "description": "Sit in the machine with the pad on your lower shins. Extend your legs fully against the resistance, squeezing the quads at the top. Lower with control. A direct quad isolation exercise.",
+      "description": "• Sit in the machine, pad against your lower shins\n• Extend your legs fully against the resistance\n• Squeeze your quads at the top\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-extension/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-extension/end.jpg"
@@ -2070,7 +2070,7 @@
         "Quads",
         "Hamstrings"
       ],
-      "description": "Sit in the machine with feet at shoulder width on the platform. Lower the sled until your knees are at 90°, then press back to near-lockout. Foot placement can shift emphasis to quads vs hamstrings.",
+      "description": "• Sit in the machine, feet at shoulder width on the platform\n• Release the safety and lower the sled until your knees are at 90°\n• Press back up to near-lockout, without locking your knees fully\n• Adjust foot placement to shift emphasis between quads and hamstrings",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/leg-press/end.jpg"
@@ -2088,7 +2088,7 @@
         "Pectoralis Major",
         "Triceps"
       ],
-      "description": "Load an appropriate weight onto the pins and adjust the seat for your height. The handles should be near the bottom or middle of the pectorals at the beginning of the motion. Your chest and head should be up and your shoulder blades retracted. This will be your starting position.",
+      "description": "• Sit in the machine, seat adjusted so handles start near the bottom or middle of your chest\n• Keep your chest and head up, shoulder blades retracted\n• Press the handles forward until arms are extended\n• Return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/leverage-chest-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/leverage-chest-press/end.jpg"
@@ -2197,7 +2197,7 @@
         "Quadriceps",
         "Glutes"
       ],
-      "description": "Holding a barbell on your back or a dumbbell in each hand, step forward into a lunge, lowering the back knee toward the floor. Keep your torso upright, then push back to the starting position.",
+      "description": "• Rack a barbell on your back, or hold a dumbbell in each hand\n• Step forward into a lunge, lowering your back knee toward the floor\n• Keep your torso upright\n• Push back to the starting position, then repeat, alternating legs",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-lunges/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-lunges/end.jpg"
@@ -2271,7 +2271,7 @@
         "Rear Delts",
         "Rhomboids"
       ],
-      "description": "Lie face-down on a flat or slightly inclined bench, holding a dumbbell in each hand with a neutral grip and arms extended, elbows slightly bent. Raise your arms out to the sides until in line with your shoulders, squeezing the rear delts, then lower with control.",
+      "description": "• Lie face-down on a flat or slightly inclined bench, dumbbell in each hand, neutral grip, arms extended, elbows slightly bent\n• Keep your chest pressed into the bench\n• Raise your arms out to the sides until in line with your shoulders\n• Squeeze your rear delts, then lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/dumbbell-lying-rear-lateral-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/dumbbell-lying-rear-lateral-raise/end.jpg"
@@ -2288,7 +2288,7 @@
       "tags": [
         "Biceps"
       ],
-      "description": "Adjust the seat to the appropriate height and make your weight selection. Place your upper arms against the pads and grasp the handles. This will be your starting position. Perform the movement by flexing the elbow, pulling your lower arm towards your upper arm.",
+      "description": "• Adjust the seat height, select your weight\n• Rest your upper arms against the pads, grip the handles\n• Flex your elbows, pulling your lower arms toward your upper arms\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/machine-bicep-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/machine-bicep-curl/end.jpg"
@@ -2306,7 +2306,7 @@
         "Front Delts",
         "Triceps"
       ],
-      "description": "Sit down on the Shoulder Press Machine and select the weight. Grab the handles to your sides as you keep the elbows bent and in line with your torso. This will be your starting position.",
+      "description": "• Sit in the machine, select your weight\n• Grip the handles at your sides, elbows bent and in line with your torso\n• Press the handles overhead until arms are extended\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/machine-shoulder-military-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/machine-shoulder-military-press/end.jpg"
@@ -2323,7 +2323,7 @@
       "tags": [
         "Triceps"
       ],
-      "description": "Adjust the seat to the appropriate height and make your weight selection. Place your upper arms against the pads and grasp the handles. This will be your starting position. Perform the movement by extending the elbow, pulling your lower arm away from your upper arm.",
+      "description": "• Adjust the seat height, select your weight\n• Rest your upper arms against the pads, grip the handles\n• Extend your elbows, pulling your lower arms away from your upper arms\n• Return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/machine-triceps-extension/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/machine-triceps-extension/end.jpg"
@@ -2340,7 +2340,7 @@
       "tags": [
         "Hamstrings"
       ],
-      "description": "Anchor your feet and start kneeling upright. Lower your torso slowly toward the floor, resisting with your hamstrings — ideally going all the way down. Use hands to push up if needed. Extremely effective for hamstring strength and injury prevention.",
+      "description": "• Kneel upright with your feet anchored\n• Keeping your hips extended, lower your torso slowly toward the floor, resisting with your hamstrings\n• Go as far down as you can control, using your hands to push up if needed\n• Return to upright, or push up from the floor and reset",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/nordic-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/nordic-curl/end.jpg"
@@ -2377,7 +2377,7 @@
         "Triceps",
         "Long Head"
       ],
-      "description": "Stand holding a dumbbell with both hands overhead, arms fully extended. Lower the weight behind your head by bending at the elbows, then extend back up. Maximally stretches the long head of the tricep. Can also be done with a cable.",
+      "description": "• Stand holding a dumbbell with both hands overhead, arms fully extended\n• Keep your elbows close to your head\n• Lower the weight behind your head by bending your elbows\n• Extend back up to full extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/standing-dumbbell-triceps-extension/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/standing-dumbbell-triceps-extension/end.jpg"
@@ -2395,7 +2395,7 @@
         "Obliques",
         "Transverse Abdominis"
       ],
-      "description": "Stand sideways to a cable machine, holding the handle at chest height. Press the handle straight out, resisting the rotational pull of the cable. A true anti-rotation core exercise.",
+      "description": "• Stand sideways to a cable machine, handle held at chest height with both hands\n• Step away from the machine to create tension\n• Press the handle straight out in front of you, resisting the cable's rotational pull\n• Return with control, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/pallof-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/pallof-press/end.jpg"
@@ -2413,7 +2413,7 @@
         "Pectoralis Major",
         "Pec Minor"
       ],
-      "description": "Sit at the machine with arms on the pads at chest height. Bring the pads together in front of your chest, squeezing the pecs hard at the peak. Lower slowly to maintain tension.",
+      "description": "• Sit in the machine, back flat against the pad\n• Rest your forearms on the pads at chest height\n• Bring the pads together in front of your chest\n• Squeeze your pecs at the peak, then return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/pec-deck/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/pec-deck/end.jpg"
@@ -2431,7 +2431,7 @@
         "Transverse Abdominis",
         "Spinal Erectors"
       ],
-      "description": "Hold a straight-body position on forearms and toes, forming a rigid plank from head to heel. Brace your core and glutes. Hold for time, focusing on not letting your hips sag or pike.",
+      "description": "• Get into a forearm plank position, elbows under shoulders\n• Extend your legs behind you, weight on your toes\n• Brace your core and glutes, keeping a straight line from head to heel\n• Hold for time, avoiding letting your hips sag or pike",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/plank/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/plank/end.jpg"
@@ -2450,7 +2450,7 @@
         "Biceps",
         "Brachialis"
       ],
-      "description": "Rest your upper arms on the preacher pad with an underhand grip. Curl the bar or dumbbells up from full extension, focusing on the peak contraction. Lower slowly to avoid hyperextension.",
+      "description": "• Rest your upper arms on a preacher pad, underhand grip on a barbell or dumbbells\n• Start from full arm extension\n• Curl the weight up, focusing on the peak contraction\n• Lower slowly, stopping just short of full hyperextension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/preacher-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/preacher-curl/end.jpg"
@@ -2468,7 +2468,7 @@
         "Biceps",
         "Brachialis"
       ],
-      "description": "Place the upper part of both arms on top of the preacher bench as you hold a dumbbell in each hand with the palms facing each other (neutral grip). As you breathe in, slowly lower the dumbbells until your upper arm is extended and the biceps is fully stretched.",
+      "description": "• Rest your upper arms on a preacher bench, a dumbbell in each hand, neutral grip\n• Start with arms extended, biceps fully stretched\n• Curl both dumbbells up while maintaining the neutral grip\n• Lower slowly with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/preacher-hammer-dumbbell-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/preacher-hammer-dumbbell-curl/end.jpg"
@@ -2505,7 +2505,7 @@
         "Latissimus Dorsi",
         "Core Stability"
       ],
-      "description": "Hang from a bar with an overhand grip wider than shoulder width. Pull until your chin clears the bar, squeezing your lats. Lower back to a full hang. One of the best compound back builders.",
+      "description": "• Hang from a bar with an overhand grip, wider than shoulder width\n• Pull yourself up until your chin clears the bar\n• Squeeze your lats at the top\n• Lower back to a full hang with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/pull-up/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/pull-up/end.jpg"
@@ -2526,7 +2526,7 @@
         "Triceps",
         "Serratus Anterior"
       ],
-      "description": "Start in a high plank with hands just outside shoulder width. Lower your chest to the floor with elbows at 45°, then press back up to full arm extension. A foundational bodyweight chest exercise.",
+      "description": "• Start in a high plank, hands just outside shoulder width\n• Lower your chest to the floor, elbows at about 45°\n• Press back up to full arm extension\n• Keep your body in a straight line throughout",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/push-up/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/chest/push-up/end.jpg"
@@ -2563,7 +2563,7 @@
         "Upper Traps",
         "Rhomboids"
       ],
-      "description": "Set bar pins at knee height. Pull the bar from this elevated position to full lockout, focusing on the upper back and traps. Allows heavier loading than a full deadlift.",
+      "description": "• Set the safety pins in a rack at knee height, barbell resting on them\n• Grip the bar as in a deadlift\n• Pull the bar up to full lockout, focusing on your upper back and traps\n• Lower with control back to the pins",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/rack-pull/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/rack-pull/end.jpg"
@@ -2581,7 +2581,7 @@
         "Brachioradialis",
         "Forearms"
       ],
-      "description": "Hold a barbell with an overhand grip. Curl the bar up keeping the overhand position throughout. Heavily targets the brachioradialis and forearm extensors.",
+      "description": "• Hold a barbell with an overhand grip, hands shoulder-width apart\n• Keep your elbows pinned at your sides\n• Curl the bar up, keeping the overhand position throughout\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/reverse-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/reverse-curl/end.jpg"
@@ -2636,7 +2636,7 @@
         "Hamstrings",
         "Hip Extension"
       ],
-      "description": "Lie face-down on a bench with hips at the edge and legs hanging. Raise your legs behind you using your glutes and hamstrings until they are parallel to the floor. Lower with control.",
+      "description": "• Lie face down on a bench, hips at the edge, legs hanging off\n• Grip the bench or handles for support\n• Raise your legs behind you using your glutes and hamstrings until parallel to the floor\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/reverse-hyperextension/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/reverse-hyperextension/end.jpg"
@@ -2658,7 +2658,7 @@
         "Quadriceps",
         "Glutes"
       ],
-      "description": "Holding a dumbbell in each hand, step backward into a lunge, lowering the rear knee to the floor. Push through the front foot to return to standing. The reverse direction is more knee-friendly than a forward lunge.",
+      "description": "• Stand tall, holding a dumbbell in each hand if adding load\n• Step backward into a lunge, lowering your rear knee toward the floor\n• Push through your front foot to return to standing\n• Repeat, alternating legs",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-rear-lunge/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-rear-lunge/end.jpg"
@@ -2694,7 +2694,7 @@
         "Rear Delts",
         "Rhomboids"
       ],
-      "description": "Sit facing into the machine with arms extended forward. Drive both arms back and apart in a reverse hugging motion, squeezing the rear delts and rhomboids at the end range. Lower with control.",
+      "description": "• Sit facing into the machine, arms extended forward, holding the handles\n• Keep your chest against the pad\n• Drive both arms back and apart in a reverse hugging motion\n• Squeeze your rear delts and rhomboids, then return with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/reverse-pec-deck/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/reverse-pec-deck/end.jpg"
@@ -2714,7 +2714,7 @@
         "Hamstrings",
         "Hip Extension"
       ],
-      "description": "Hold a barbell at hip height, soft bend in knees. Hinge at the hips, pushing them back and lowering the bar along your legs until you feel a deep hamstring stretch. Drive hips forward to stand.",
+      "description": "• Hold a barbell at hip height, standing tall, soft bend in your knees\n• Hinge at the hips, pushing them back\n• Lower the bar along your legs until you feel a deep hamstring stretch\n• Drive your hips forward to return to standing",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/romanian-deadlift/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/romanian-deadlift/end.jpg"
@@ -2733,7 +2733,7 @@
         "Obliques",
         "Rectus Abdominis"
       ],
-      "description": "Sit on the floor with knees bent, torso leaned back slightly. Rotate the weight (or your hands) from side to side, twisting through the waist. Add a pause at each side for greater oblique engagement.",
+      "description": "• Sit on the floor, knees bent, torso leaned back slightly, feet lifted or planted\n• Hold a weight, or clasp your hands, in front of your chest\n• Rotate your torso to touch down on one side\n• Rotate through center to the other side, pausing briefly each time",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/russian-twist/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/russian-twist/end.jpg"
@@ -2786,7 +2786,7 @@
         "Rear Delts",
         "Rhomboids"
       ],
-      "description": "Place a couple of dumbbells looking forward in front of a flat bench. Sit on the end of the bench with your legs together and the dumbbells behind your calves.",
+      "description": "• Sit at the end of a bench, feet together, a dumbbell in each hand resting behind your calves\n• Bend forward at the hips, torso near your thighs\n• Raise both arms out to the sides, squeezing your rear delts\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/seated-bent-over-rear-delt-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/seated-bent-over-rear-delt-raise/end.jpg"
@@ -2839,7 +2839,7 @@
       "tags": [
         "Calves"
       ],
-      "description": "Sit in the machine with the pad on your lower thighs. Raise your heels as high as possible by pushing through the balls of your feet. The seated position isolates the soleus more than the standing version.",
+      "description": "• Sit in the machine, balls of your feet on the platform, pad on your lower thighs\n• Release the safety\n• Raise your heels as high as possible\n• Lower with control until you feel a deep stretch",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/seated-calf-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/seated-calf-raise/end.jpg"
@@ -2876,7 +2876,7 @@
         "Lateral Delts",
         "Triceps"
       ],
-      "description": "Sit on a bench with back support, holding a barbell or a dumbbell in each hand at shoulder height. Press the weight overhead until your arms are fully extended, then lower with control.",
+      "description": "• Sit on a bench with back support, holding a barbell or a dumbbell in each hand at shoulder height\n• Brace your core\n• Press the weight overhead until arms are fully extended\n• Lower with control back to shoulder height",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/seated-dumbbell-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/seated-dumbbell-press/end.jpg"
@@ -2913,7 +2913,7 @@
         "Levator Scapulae",
         "Traps"
       ],
-      "description": "Stand tall holding a barbell in front of your thighs or a dumbbell in each hand at your sides. Elevate your shoulders as high as possible, hold the contraction for a second, then lower with control. Keep your arms fully extended throughout.",
+      "description": "• Stand tall holding a barbell in front of your thighs, or a dumbbell in each hand at your sides\n• Keep your arms fully extended\n• Elevate your shoulders as high as possible\n• Hold the contraction briefly, then lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/dumbbell-shrug/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/dumbbell-shrug/end.jpg"
@@ -2930,7 +2930,7 @@
       "tags": [
         "Obliques"
       ],
-      "description": "Stand up straight holding a dumbbell in one hand, or a barbell across the back of your shoulders. Keeping your back straight and head up, bend at the waist to one side as far as comfortable, then return to standing. Complete all reps on one side before switching.",
+      "description": "• Stand up straight holding a dumbbell in one hand, or a barbell across your upper back\n• Keep your back straight and head up\n• Bend at the waist to one side as far as comfortable\n• Return to standing; complete all reps on one side before switching",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dumbbell-side-bend/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/dumbbell-side-bend/end.jpg"
@@ -2947,7 +2947,7 @@
       "tags": [
         "Obliques"
       ],
-      "description": "Perform Side Jackknife with controlled form.",
+      "description": "• Lie on your side, legs stacked and extended, supporting your upper body on one forearm\n• Extend your top arm straight overhead in line with your body\n• Simultaneously lift your legs and bring your top elbow down to meet them, folding at the waist\n• Lower with control, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/side-jackknife/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/side-jackknife/end.jpg"
@@ -2966,7 +2966,7 @@
         "Transverse Abdominis",
         "Core Stability"
       ],
-      "description": "Lie on your side and lift your hips off the ground, supporting yourself on one forearm and the edge of one foot. Maintain a straight line from head to feet. Targets the obliques and quadratus lumborum.",
+      "description": "• Lie on your side, propped up on one forearm, feet stacked\n• Lift your hips off the ground\n• Maintain a straight line from head to feet\n• Hold for time, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/side-plank/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/core/side-plank/end.jpg"
@@ -3003,7 +3003,7 @@
         "Latissimus Dorsi",
         "Rhomboids"
       ],
-      "description": "Plant one knee and hand on a bench for support. Row the dumbbell toward your hip keeping your torso parallel to the floor. Focus on driving the elbow back rather than just lifting the weight.",
+      "description": "• Plant one knee and hand on a bench for support, dumbbell in the other hand\n• Keep your torso parallel to the floor, back flat\n• Row the dumbbell toward your hip, driving your elbow back\n• Lower with control, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/single-arm-dumbbell-row/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/single-arm-dumbbell-row/end.jpg"
@@ -3022,7 +3022,7 @@
         "Glutes",
         "Core Stability"
       ],
-      "description": "Hold a kettlebell by the handle in one hand. Stand on one leg, on the same side that you hold the kettlebell. Keeping that knee slightly bent, perform a stiff legged deadlift by bending at the hip, extending your free leg behind you for balance.",
+      "description": "• Hold a kettlebell by the handle in one hand\n• Stand on the same-side leg, knee slightly bent\n• Hinge at the hip, extending your free leg behind you for balance, lowering the kettlebell toward the floor\n• Drive your hip forward to return to standing, then switch sides",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/kettlebell-one-legged-deadlift/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/kettlebell-one-legged-deadlift/end.jpg"
@@ -3041,7 +3041,7 @@
         "Long Head",
         "Lateral Head"
       ],
-      "description": "Lie on a bench holding a barbell, EZ-bar, or a dumbbell in each hand above your chest with elbows tucked in. Bend only at the elbows to lower the weight toward your forehead, then press back to extension. Keep upper arms vertical throughout.",
+      "description": "• Lie on a bench holding a barbell, EZ-bar, or a dumbbell in each hand above your chest, elbows tucked in\n• Keep your upper arms vertical and stationary\n• Bend only at the elbows to lower the weight toward your forehead\n• Press back to full extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/lying-dumbbell-tricep-extension/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/lying-dumbbell-tricep-extension/end.jpg"
@@ -3076,7 +3076,7 @@
       "tags": [
         "Calves"
       ],
-      "description": "Place a block or weight plate below the bar on the Smith machine. Set the bar to a position that best matches your height. Once the correct height is chosen and the bar is loaded, step onto the plates with the balls of your feet and place the bar on the back of your shoulders.",
+      "description": "• Set a block or plate under the balls of your feet on the Smith machine platform\n• Rack the bar across your upper back\n• Lower your heels as far as possible below the block\n• Rise up onto your toes as high as you can, then lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/smith-machine-calf-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/smith-machine-calf-raise/end.jpg"
@@ -3165,7 +3165,7 @@
       "tags": [
         "Calves"
       ],
-      "description": "Stand with the balls of your feet on an elevated surface, holding a dumbbell in each hand for added resistance. Lower your heels as far as possible, then rise up onto your toes as high as you can go. Pause at the top and squeeze. Lower slowly.",
+      "description": "• Stand with the balls of your feet on an elevated surface, a dumbbell in each hand if adding resistance\n• Lower your heels as far as possible\n• Rise up onto your toes as high as you can\n• Pause and squeeze at the top, then lower slowly",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/standing-dumbbell-calf-raise/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/standing-dumbbell-calf-raise/end.jpg"
@@ -3184,7 +3184,7 @@
         "Adductors",
         "Stretch / Warm-up"
       ],
-      "description": "Begin standing on one leg, holding to a vertical support. Raise the unsupported knee to 90 degrees. This will be your starting position.",
+      "description": "• Stand on one leg, holding a vertical support for balance\n• Raise the other knee to 90°\n• Rotate that hip in a circular motion\n• Complete reps, then switch legs and/or direction",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/standing-hip-circles/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/standing-hip-circles/end.jpg"
@@ -3204,7 +3204,7 @@
         "Triceps",
         "Core Stability"
       ],
-      "description": "Standing with a barbell racked at shoulder height or a dumbbell in each hand, press the weight overhead until your arms are extended, allowing a slight inward arc at the top. Brace your core to avoid leaning back.",
+      "description": "• Stand holding a barbell racked at shoulder height, or a dumbbell in each hand\n• Brace your core to avoid leaning back\n• Press the weight overhead until arms are extended\n• Lower with control back to shoulder height",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/dumbbell-overhead-press/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/shoulders/dumbbell-overhead-press/end.jpg"
@@ -3226,7 +3226,7 @@
         "Quadriceps",
         "Glutes"
       ],
-      "description": "Stand in front of a box or bench holding a dumbbell in each hand. Step up with one foot, drive through that heel to bring your full body onto the box. Step back down and repeat. Keep your torso upright throughout.",
+      "description": "• Stand in front of a box or bench, a dumbbell in each hand if adding load\n• Place one foot fully on the box\n• Drive through that heel to bring your whole body up onto the box\n• Step back down with control, then repeat",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-step-ups/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/dumbbell-step-ups/end.jpg"
@@ -3263,7 +3263,7 @@
         "Hamstrings",
         "Glutes"
       ],
-      "description": "Holding a barbell or a dumbbell in each hand with a straight torso and a shoulder-width or narrower stance, knees slightly bent, hinge at the hips and lower the weight along your legs until you feel a deep hamstring stretch. Drive your hips forward to return to standing.",
+      "description": "• Hold a barbell or a dumbbell in each hand, torso straight, feet shoulder-width or narrower, knees slightly bent\n• Hinge at the hips, keeping the weight close to your legs\n• Lower until you feel a deep hamstring stretch\n• Drive your hips forward to return to standing",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/stiff-legged-dumbbell-deadlift/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/stiff-legged-dumbbell-deadlift/end.jpg"
@@ -3318,7 +3318,7 @@
         "Latissimus Dorsi",
         "Teres Major"
       ],
-      "description": "Stand facing a high cable pulley, arms extended overhead. Keeping your arms straight, pull the bar down to your thighs using only shoulder extension. Isolates the lats without bicep involvement.",
+      "description": "• Stand facing a high cable pulley, arms extended overhead, gripping a straight bar\n• Keep your arms straight throughout\n• Pull the bar down to your thighs using only shoulder extension\n• Return with control, keeping bicep involvement minimal",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/straight-arm-pulldown/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/straight-arm-pulldown/end.jpg"
@@ -3337,7 +3337,7 @@
         "Hip Abductors",
         "Hamstrings"
       ],
-      "description": "Take a wide stance with toes pointed out and grip the bar inside your legs. Hinge down keeping your back flat and chest up, then drive the floor away to stand. The wide stance loads the glutes and adductors heavily.",
+      "description": "• Take a wide stance, toes pointed out, gripping the bar inside your legs\n• Hinge down, keeping your back flat and chest up\n• Drive the floor away to stand\n• Lower with control back to the floor",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/sumo-deadlift/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/sumo-deadlift/end.jpg"
@@ -3359,7 +3359,7 @@
         "Adductors",
         "Glutes"
       ],
-      "description": "Take a wide stance with toes turned out. Hold a barbell on your back or a single dumbbell/kettlebell at the base with both hands in front of you. Squat down keeping your knees tracking over your toes and chest tall. The wide stance increases glute and inner-thigh activation versus a standard squat.",
+      "description": "• Take a wide stance, toes turned out\n• Hold a barbell across your back, or a single dumbbell/kettlebell at the base with both hands in front of you\n• Squat down, tracking your knees over your toes, chest tall\n• Drive through your feet to stand back up",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/plie-dumbbell-squat/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/plie-dumbbell-squat/end.jpg"
@@ -3397,7 +3397,7 @@
         "Rhomboids",
         "Teres Major"
       ],
-      "description": "Straddle the bar with a neutral grip on the handle. Keep your back flat and hinge forward, then row the weight to your lower chest. A thicker bar path hits the lats and teres major hard.",
+      "description": "• Straddle the bar, gripping the handle with a neutral grip\n• Hinge forward, keeping your back flat\n• Row the weight up to your lower chest\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/t-bar-row/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/t-bar-row/end.jpg"
@@ -3469,7 +3469,7 @@
         "Lateral Head",
         "Medial Head"
       ],
-      "description": "Stand at a cable station with a bar or rope attachment at head height. Press the weight straight down until your arms are fully extended. Keep elbows pinned at your sides throughout.",
+      "description": "• Stand at a cable station, bar or rope attachment at head height\n• Keep your elbows pinned at your sides\n• Press the weight straight down until arms are fully extended\n• Let it rise back up with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/tricep-pushdown/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/tricep-pushdown/end.jpg"
@@ -3488,7 +3488,7 @@
         "Triceps",
         "Lateral Head"
       ],
-      "description": "Support yourself on parallel bars with arms locked. Lower your body by bending the elbows until upper arms are parallel to the floor, keeping your torso upright and elbows close to your body, then press back up. Emphasises the triceps over the chest.",
+      "description": "• Support yourself on parallel bars, arms locked, torso upright\n• Keep your elbows close to your body\n• Lower your body by bending your elbows until your upper arms are parallel to the floor\n• Press back up to full extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/tricep-dip/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/tricep-dip/end.jpg"
@@ -3560,7 +3560,7 @@
         "Latissimus Dorsi",
         "Teres Major"
       ],
-      "description": "Sit down on a pull-down machine with a V-Bar attached to the top pulley. Adjust the knee pad of the machine to fit your height. These pads will prevent your body from being raised by the resistance attached to the bar.",
+      "description": "• Sit at a lat pulldown station, thighs secured under the pads\n• Grip a V-bar attachment with a neutral grip\n• Pull the bar down to your upper chest, driving elbows down and back\n• Let it rise with control back to full arm extension",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/v-bar-pulldown/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/v-bar-pulldown/end.jpg"
@@ -3598,7 +3598,7 @@
         "Hamstrings",
         "Hip Flexors"
       ],
-      "description": "Step forward into a lunge, lowering the back knee toward the floor. Drive off the front foot and step forward with the rear foot into the next lunge. Keep torso upright throughout.",
+      "description": "• Step forward into a lunge, lowering your back knee toward the floor, with or without holding dumbbells or a barbell\n• Drive off your front foot and step forward with your rear foot into the next lunge\n• Keep your torso upright throughout\n• Continue alternating legs as you travel forward",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/walking-lunge/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/legs/walking-lunge/end.jpg"
@@ -3690,7 +3690,7 @@
         "Upper Traps",
         "Biceps"
       ],
-      "description": "Hold a barbell with a wide overhand grip. Pull straight up to chin height leading with elbows flaring out to the sides to emphasise rear delts and traps. Lower with control.",
+      "description": "• Hold a barbell with a wide, overhand grip\n• Stand tall\n• Pull the bar straight up to chin height, leading with your elbows flaring out to the sides\n• Lower with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/wide-grip-upright-row/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/back/wide-grip-upright-row/end.jpg"
@@ -3707,7 +3707,7 @@
       "tags": [
         "Forearms"
       ],
-      "description": "Sit with forearms resting on your thighs or a bench, palms up, holding a barbell or dumbbells. Curl the wrists upward as far as possible, then lower slowly. Isolates the forearm flexors.",
+      "description": "• Sit with your forearms resting on your thighs or a bench, palms up, holding a barbell or dumbbells\n• Let the weight roll down toward your fingers\n• Curl your wrists upward as far as possible\n• Lower slowly with control",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/wrist-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/wrist-curl/end.jpg"
@@ -3743,7 +3743,7 @@
         "Brachioradialis",
         "Forearms"
       ],
-      "description": "Stand up with your torso upright and a dumbbell in each hand being held at arms length. The elbows should be close to the torso. Make sure the palms of the hands are facing each other. This will be your starting position.",
+      "description": "• Stand holding a dumbbell in each hand at arm's length, palms facing each other, elbows close to your torso\n• Curl the dumbbells up with palms facing up, as in a normal curl\n• At the top, rotate your wrists so palms face down\n• Lower with the reverse (pronated) grip, then rotate back to start",
       "images": {
         "start": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/zottman-curl/start.jpg",
         "end": "https://raw.githubusercontent.com/DavideCislaghi/hexagon-app/main/exercises/arms/zottman-curl/end.jpg"
